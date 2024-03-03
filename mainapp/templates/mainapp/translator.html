@@ -16,11 +16,13 @@
     <main class="center">
         <form method="post">
             {% csrf_token %}
-            <input type="hidden" name="form_type" value="subcomment_form">
-            <textarea name="input_text" class="translator-box input"
-                placeholder="Write the text that you want to translate."></textarea>
-            <textarea name="output_text" class="translator-box output"
-                placeholder="Translated text will appear here. Flashcard will be created automatically."></textarea>
+            {{ translator_form.is_flashcard }}
+            <input type="hidden" name="form_type" value="translator_form">
+            <textarea name="input_text" class="input-box"
+                placeholder="Write the text that you want to translate.">{{ input_text }}</textarea>
+            <textarea class="output-box"
+                placeholder="Translated text will appear here. Flashcard will be created automatically."
+                readonly>{{ translated_text }}</textarea>
             <button type="submit">Translate</button>
         </form>
     </main>

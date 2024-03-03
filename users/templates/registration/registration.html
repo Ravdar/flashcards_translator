@@ -1,0 +1,15 @@
+{% extends "registration/login.html" %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+
+{% block content %}
+<h3>Please sign in</h3>
+&nbsp;
+<form method="post">
+    {% csrf_token %}
+    {{form.username|add_class:"form-control"|attr:"placeholder:Username"}}
+    {{form.password1|add_class:"form-control"|attr:"placeholder:Password"}}
+    {{form.password2|add_class:"form-control"|attr:"placeholder:Confirm password"}}
+    <button class="nav-button" type="submit">Register</button>
+</form>
+{% endblock content %}

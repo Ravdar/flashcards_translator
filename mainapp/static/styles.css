@@ -33,11 +33,19 @@ main {
     text-align: center;
 }
 
-.translator-box {
+textarea {
     width: 400px;
     height: 300px;
     font-size: 1.5em;
     border-radius: 10px;
     font-family: var(--TRANSLATOR-FONT);
     padding: 10px;
+}
+
+.output-box {
+    cursor: default;
+}
+
+.output-box:focus-visible {
+    outline: 0px;
 }

@@ -1,0 +1,24 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
+<div class="login-page-1">
+    <div class="login-page-2">
+        <a class="logo" href="{% url 'mainapp:main_view' %}">bloggin.</a>
+        <br><br>
+        {% block content %}
+        <h3>Please log in</h3>
+        &nbsp;
+        <form method="post">
+            {% csrf_token %}
+            {{form.username|add_class:"form-control"|attr:"placeholder:Username"}}
+            {{form.password|add_class:"form-control"|attr:"placeholder:Password"}}
+            <button class="nav-button" type="submit">Login</button>
+            <input type="hidden" name="next" value="{% url 'mainapp:main_view'%}" />
+        </form>
+        {% endblock content %}
+    </div>
+</div>

@@ -1,0 +1,32 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="ravdar">
+    <meta name="description" content="Log in and registration template form for 'bloggin' website.">
+    <title>bloggin</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles_refactored.css' %}">
+</head>
+
+<body class="center">
+    <a class="logotype-login" href="{% url 'mainapp:main_view' %}">bloggin.</a>
+    <br><br>
+    {% block content %}
+    <h3>Please log in</h3>
+    &nbsp;
+    <form method="post">
+        {% csrf_token %}
+        {{form.username|add_class:"form-control"|attr:"placeholder:Username"}}
+        {{form.password|add_class:"form-control"|attr:"placeholder:Password"}}
+        <button type="submit">Login</button>
+        <input type="hidden" name="next" value="{% url 'mainapp:main_view'%}" />
+    </form>
+    {% endblock content %}
+</body>
+
+</html>
