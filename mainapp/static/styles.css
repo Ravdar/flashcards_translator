@@ -1,0 +1,43 @@
+/* VARIABLES */
+:root {
+    /* colors */
+    /* fonts */
+    --TRANSLATOR-FONT: "sans-serif"
+}
+
+/* STANDARD RESETS */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* GENERAL STYLING */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    flex-direction: column;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.translator-box {
+    width: 400px;
+    height: 300px;
+    font-size: 1.5em;
+    border-radius: 10px;
+    font-family: var(--TRANSLATOR-FONT);
+    padding: 10px;
+}
