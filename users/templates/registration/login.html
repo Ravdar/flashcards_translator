@@ -8,13 +8,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="ravdar">
-    <meta name="description" content="Log in and registration template form for 'bloggin' website.">
-    <title>bloggin</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'styles_refactored.css' %}">
+    <meta name="description" content="Log in and registration template form for 'AnkiTranslator' website.">
+    <title>AnkiTranslator</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
 </head>
 
 <body class="center">
-    <a class="logotype-login" href="{% url 'mainapp:main_view' %}">bloggin.</a>
+    <a class="logotype-login" href="{% url 'mainapp:translator' %}">AnkiTranslator</a>
     <br><br>
     {% block content %}
     <h3>Please log in</h3>
@@ -24,7 +24,7 @@
         {{form.username|add_class:"form-control"|attr:"placeholder:Username"}}
         {{form.password|add_class:"form-control"|attr:"placeholder:Password"}}
         <button type="submit">Login</button>
-        <input type="hidden" name="next" value="{% url 'mainapp:main_view'%}" />
+        <input type="hidden" name="next" value="{% url 'mainapp:translator'%}" />
     </form>
     {% endblock content %}
 </body>
