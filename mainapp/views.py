@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 from .forms import TranslatorForm
-from .models import Translation
+from .models import Translation, Flashcard
 
 import translators as ts
 
@@ -16,9 +16,12 @@ def translator(request):
         if translator_form.is_valid():
             input_text = translator_form.cleaned_data["input_text"]
             translated_text = ts.translate_text(input_text, to_language="en")
-            translation = Translation(input_text=input_text, output_text=translated_text)
+            is_flashcard = translator_form.cleaned_data["is_flashcard"]
+            translation = Translation(input_text=input_text, output_text=translated_text,is_flashcard=is_flashcard, user=request.user)
             translation.save()
-            
+            if is_flashcard:
+                 flashcard = Flashcard(front=input_text, back=translated_text, user=request.user)
+                 flashcard.save()
     else:
             translator_form = TranslatorForm()
             input_text = ""
