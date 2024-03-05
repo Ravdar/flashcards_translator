@@ -1,11 +1,31 @@
-/* VARIABLES */
-:root {
-    /* colors */
-    /* fonts */
-    --TRANSLATOR-FONT: "sans-serif"
+/* IMPORTS */
+@import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap');
+
+/* ANIMATIONS */
+@keyframes showMenu {
+    0% {
+        transform: scaleY(0) translate(-24px, 100px);
+    }
+
+    80% {
+        transform: scaleY(1.2) translate(-24px, 100px);
+    }
+
+    100% {
+        transform: scaleY(1) translate(-24px, 100px)
+    }
 }
 
-/* STANDARD RESETS */
+/* VARIABLES */
+
+:root {
+    /* Fonts */
+    --MAIN-FONT: Gabarito;
+    /* Other */
+    --PAGE-WIDTH: 1400px;
+}
+
+/* STANDARD RESET */
 
 * {
     margin: 0;
@@ -15,11 +35,20 @@
 
 /* GENERAL STYLING */
 
+html {
+    scroll-behavior: smooth;
+}
+
+/* GENERAL STYLING */
+
 body {
+    background-color: whitesmoke;
+    justify-content: space-between;
+    flex-direction: column;
     min-height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
+    font-family: var(--MAIN-FONT);
 }
 
 main {
@@ -32,6 +61,182 @@ main {
     align-items: center;
     text-align: center;
 }
+
+/* LANDING PAGE */
+
+a {
+    text-decoration: none;
+    color: black;
+    transition: all 0.1s ease;
+}
+
+a:hover {
+    color: purple;
+    cursor: pointer;
+}
+
+button {
+    background-color: transparent;
+    border: none
+}
+
+h1 {
+    font-family: var(--MAIN-FONT);
+    font-size: 3rem;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Header styling */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    max-width: var(--PAGE-WIDTH);
+    width: 100%;
+    padding: 5px;
+    position: fixed;
+    top: 0;
+    transition: top 0.5s;
+    background-color: whitesmoke;
+}
+
+nav,
+.signs {
+    display: none;
+    gap: 15px
+}
+
+
+.hamburger-button {
+    width: 40px;
+    height: 40px;
+    position: relative;
+}
+
+.hamburger-icon,
+.hamburger-icon::before,
+.hamburger-icon::after {
+    background-color: black;
+    width: 32px;
+    height: 3px;
+    border-radius: 3px;
+    position: absolute;
+    transition: all 0.5s;
+}
+
+.hamburger-icon::before,
+.hamburger-icon::after {
+    content: "";
+}
+
+.hamburger-icon::before {
+    transform: translate(-16px, -9px);
+}
+
+.hamburger-icon::after {
+    transform: translate(-16px, 9px);
+}
+
+.hamburger-menu {
+    position: absolute;
+    border: 1px solid grey;
+    border-radius: 5px;
+    transform: translate(-24px, 100px);
+    font-size: 1rem;
+    padding: 10px;
+    display: none;
+    z-index: 1;
+    background-color: whitesmoke;
+    transform-origin: top center;
+    animation: showMenu 0.5s ease-in-out;
+}
+
+.active {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+/* Main */
+
+main {
+    flex-direction: column;
+    min-width: 100%;
+}
+
+main section {
+    min-height: 100vh;
+    min-width: 100%
+}
+
+main section:nth-child(2n) {
+    background-color: purple;
+    color: white
+}
+
+/* Hero section */
+
+.hero {
+    margin-top: 200px
+}
+
+/* Faq section */
+
+#faq {
+    flex-direction: column;
+    padding: 5px
+}
+
+.faqs {
+    margin-top: 30px;
+    padding: 50px 30px;
+    border: 1px solid var(--BRIGHT-BLACK);
+    border-radius: 1rem;
+    max-width: 800px;
+}
+
+.faqs button {
+    font-size: 2rem;
+    color: whitesmoke;
+    display: flex;
+    align-items: start;
+    transition: all 1s ease-in-out;
+}
+
+.question {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.question h3 {
+    padding-right: 30px;
+}
+
+.answer {
+    padding-right: 30px;
+    max-height: 0;
+    overflow: hidden;
+    text-align: left;
+    transition: all 1s ease-in-out;
+    color: whitesmoke
+}
+
+.faq.active-faq .answer {
+    max-height: 1000px;
+}
+
+footer {
+    min-width: 100%;
+}
+
+/* TRANSLATOR */
 
 textarea {
     width: 400px;
@@ -49,4 +254,17 @@ textarea {
 
 .output-box:focus-visible {
     outline: 0px;
+}
+
+/* WIDE SCREENS */
+@media screen and (min-width:1000px) {
+
+    nav,
+    .signs {
+        display: flex;
+    }
+
+    .hamburger-button {
+        display: none
+    }
 }
