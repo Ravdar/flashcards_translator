@@ -10,19 +10,19 @@ class Translation(models.Model):
     def __str__(self):
         return self.input_text
 
-class Flashcard(models.Model):
-    front = models.CharField(max_length=500)
-    back = models.CharField(max_length=500)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.front
-
 class Deck(models.Model):
     name = models.CharField(max_length=140)
-    flashcards = models.ManyToManyField(Flashcard, blank=True, related_name="decks")
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     users = models.ManyToManyField(User,related_name="decks" )
 
     def __str__(self):
         return self.name
+    
+class Flashcard(models.Model):
+    front = models.CharField(max_length=500)
+    back = models.CharField(max_length=500)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    decks = models.ManyToManyField(Deck, related_name="flashcards")
+
+    def __str__(self):
+        return self.front

@@ -12,7 +12,7 @@ def landing_page(request):
 @login_required
 def translator(request):
     if request.method == "POST":
-        translator_form = TranslatorForm(request.POST)
+        translator_form = TranslatorForm(request.user,request.POST)
         if translator_form.is_valid():
             input_text = translator_form.cleaned_data["input_text"]
             translated_text = ts.translate_text(input_text, to_language="en")
@@ -23,7 +23,7 @@ def translator(request):
                  flashcard = Flashcard(front=input_text, back=translated_text, user=request.user)
                  flashcard.save()
     else:
-            translator_form = TranslatorForm()
+            translator_form = TranslatorForm(request.user)
             input_text = ""
             translated_text = ""
     return render(request, "mainapp/translator.html", {"translator_form":translator_form, "input_text":input_text, "translated_text":translated_text})

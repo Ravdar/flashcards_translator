@@ -1,0 +1,142 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="ravdar">
+    <meta name="description" content="Landing page for AnkiTranslator website.">
+    <title>AnkiTranslator</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <script defer src="{% static 'main.js' %}"></script>
+
+</head>
+
+<body>
+    <header id="header">
+        <h3>AnkiTranslator</h3>
+        <nav>
+            <a href="#how-it-works">How it works?</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#faq">FAQ</a>
+            <a href="#examples">Examples</a>
+        </nav>
+        <div class="signs"><a href="">Sign up</a><a href="">Sign in</a></div><button class="hamburger-button center">
+            <div class="hamburger-icon"></div>
+            <div class="hamburger-menu">
+                <a href="#how-it-works">How it works?</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
+                <a href="#examples">Examples</a>
+                <br>
+                <a href="">Sign up</a>
+                <a href="">Sign in</a>
+            </div>
+        </button>
+    </header>
+
+    <main class="center">
+        <section class="hero">
+            <h1>AnkiTranslator</h1>
+            <h3>Like Anki met Google Translator</h3>
+            <p>New
+                way of creating flashcards and learning languages. Create flashcards while translating the text. Repeat
+
+                material using advanced algorithm. Review your progress through extensive statistics.</p><button>Get
+                Started</button>
+        </section>
+        <section id="how-it-works">
+            <h1>How it works?</h1>
+        </section>
+        <section id="pricing">
+            <h1>Pricing</h1>
+        </section>
+
+        <section id="faq" class="center">
+            <h1>Frequently asked questions</h1>
+            <div class="faqs">
+                <div class="faq">
+                    <div class="question">
+                        <h3>What is movvie?</h3><button class="faq-button">+</button>
+                    </div><br>
+                    <div class="answer">
+                        <p>movvie is minimalistic movie recommender fueled with AI. You just have to write
+                            prompt in the
+                            inputbox at the bottom of a page and movvie will recommend you five movies based on
+                            your
+                            prompt. You can also draw random movies by clicking a dice button. It provides poster,
+                            title, info about year of production, TMDB rating, length, available streaming platforms
+                            and
+                            short desciption.</p><br>
+                    </div>
+                    <hr><br>
+                </div>
+                <div class="faq">
+                    <div class="question">
+                        <h3>How does it work?</h3><button class="faq-button">+</button>
+                    </div><br>
+                    <div class="answer">
+                        <p>movvie is an AI tool and it uses OpenAI gpt-3.5-turbo-1106 model. Movies data comes
+                            from TMDB
+                            API and streaming services info is provided by JustWatch.com</p><br>
+                    </div>
+                    <hr><br>
+                </div>
+
+                <div class="faq">
+                    <div class="question">
+                        <h3>Is it free?</h3><button class="faq-button">+</button>
+                    </div><br>
+                    <div class="answer">
+                        <p>Yes, movvie is fully free for now. It generates costs tought: OpenAI API is paid, so
+                            every
+                            movvie recommendation is new cost. There are also other costs like hosting a website.
+                            For
+                            the best user experience our platform is ad free, so we do not make any money on it.
+                            Due to
+                            that fact, if you enjoy it, please consider buying us a coffee. </p><br>
+                    </div>
+                    <hr><br>
+                </div>
+                <div class="faq">
+                    <div class="question">
+                        <h3>Does moovie recommend latest movies?</h3><button class="faq-button">+</button>
+                    </div><br>
+                    <div class="answer">
+                        <p>movvie is running og OpenAI gpt-3.5-turbo-1106 model which is trained on a data up
+                            to
+                            September 2021. Despite that it has acces to movies released after the date. It might
+                            not
+                            recommend postions from latest two or three moinths, but it will easily recommend
+                            movies
+                            from the last year.</p><br>
+                    </div>
+                    <hr><br>
+                </div>
+                <div class="faq">
+                    <div class="question">
+                        <h3>Does moovie also work for TV series?</h3><button class="faq-button">+</button>
+                    </div><br>
+
+                    <div class="answer">
+                        <p>Our tool is designed to recommend movies, so results of asking it about TV Series
+                            might be a
+                            little bit messy. But go ahead and give it a try!</p><br>
+                    </div>
+                    <hr><br>
+                </div>
+            </div>
+        </section>
+        <section id="examples">
+            <h1>Examples</h1>
+        </section>
+
+    </main>
+
+    <footer>Footer</footer>
+
+</body>
+
+</html>
