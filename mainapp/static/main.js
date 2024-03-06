@@ -33,3 +33,8 @@ faqs.forEach((faq) => {
         }
     });
 });
+
+
+// Function to hide and show decks on is_flashcard checkbox
+
+// Function for clearing output_box when input_box is selected

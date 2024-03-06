@@ -5,8 +5,9 @@ class TranslatorForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super(TranslatorForm, self).__init__(*args, **kwargs)
         self.fields['decks'].queryset = Deck.objects.filter(user=user)
+        self.fields['decks'].required = False
 
-    decks = forms.ModelMultipleChoiceField(queryset=Deck.objects.none())
+    decks = forms.ModelMultipleChoiceField(queryset=Deck.objects.none(),widget=forms.CheckboxSelectMultiple)
 
     class Meta:
         model = Translation

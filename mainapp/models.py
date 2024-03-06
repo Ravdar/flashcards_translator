@@ -13,7 +13,7 @@ class Translation(models.Model):
 class Deck(models.Model):
     name = models.CharField(max_length=140)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    users = models.ManyToManyField(User,related_name="decks" )
+    user = models.ManyToManyField(User,related_name="decks")
 
     def __str__(self):
         return self.name
