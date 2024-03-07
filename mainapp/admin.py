@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from.models import Translation,Flashcard,Deck
+from.models import Translation,Flashcard,Deck,Language
 
 class FlashcardInline(admin.TabularInline):
     model = Flashcard.decks.through
@@ -13,3 +13,4 @@ class DeckAdmin(admin.ModelAdmin):
 admin.site.register(Translation)
 admin.site.register(Flashcard)
 admin.site.register(Deck, DeckAdmin)
+admin.site.register(Language)
