@@ -18,10 +18,9 @@
             {% csrf_token %}
             {{ translator_form.is_flashcard.label }}
             {{ translator_form.is_flashcard }}
-            <!-- {% for deck in translator_form.decks %}
-            {{deck}}
-            {% endfor %} -->
-            {{translator_form.decks}}
+            <div class="decks-list">{{translator_form.decks}}</div>
+            <div class="from-languages-container">{{translator_form.from_language}}</div>
+            <div class="to-languages-container">{{translator_form.to_language}}</div>
             <input type="hidden" name="form_type" value="translator_form">
             <textarea name="input_text" class="input-box"
                 placeholder="Write the text that you want to translate.">{{ input_text }}</textarea>

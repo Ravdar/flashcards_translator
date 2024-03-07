@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class Language(models.Model):
     name = models.CharField(max_length=20)
-    symbol = models.CharField(max_length=3)
+    symbol = models.CharField(max_length=4)
 
     def __str__(self):
         return self.name
@@ -13,7 +13,7 @@ class Translation(models.Model):
     output_text = models.CharField(max_length=500, null=True, blank=True)
     is_flashcard = models.BooleanField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    from_language = models.ForeignKey(Language, related_name="translation_from", on_delete=models.PROTECT)
+    from_language = models.ForeignKey(Language, related_name="translation_from", on_delete=models.PROTECT, default=70)
     to_language = models.ForeignKey(Language, related_name="translation_to", on_delete=models.PROTECT)
 
     def __str__(self):
