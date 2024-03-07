@@ -14,29 +14,50 @@
 
 </head>
 
+
 <body>
-    <header id="header">
-        <h3>AnkiTranslator</h3>
-        <nav>
-            <a href="#how-it-works">How it works?</a>
-            <a href="#pricing">Pricing</a>
-            <a href="#faq">FAQ</a>
-            <a href="#examples">Examples</a>
-        </nav>
-        <div class="signs"><a href="">Sign up</a><a href="">Sign in</a></div><button class="hamburger-button center">
-            <div class="hamburger-icon"></div>
-            <div class="hamburger-menu">
+    <header id="header" class="center">
+        <div class="header-container">
+            <h3><a href="{% url 'mainapp:landing_page' %}">AnkiTranslator</a></h3>
+            <nav>
                 <a href="#how-it-works">How it works?</a>
                 <a href="#pricing">Pricing</a>
                 <a href="#faq">FAQ</a>
                 <a href="#examples">Examples</a>
-                <br>
-                <a href="">Sign up</a>
-                <a href="">Sign in</a>
+            </nav>
+            <div class="signs">
+                {% if request.user.is_authenticated %}
+                <a class="nav-button mr" href="{% url 'mainapp:translator' %}">Create flashcards+</a>
+                <a href="{% url 'users:logout' %}">Log out</a>
+                <a href="{% url 'mainapp:user_profile' user.username %}">
+                    {% if user.profile.profile_picture.url %}
+                    <img src="{{ user.profile.profile_picture.url }}" id="profile-picture" alt="Profile picture">
+                    {% else %}
+                    <p>{{user.username}}</p>
+                    {% endif %}
+                </a>
+                {% else %}
+                <a href="{% url 'users:register_view' %}">Sign up</a>
+                <a href="{% url 'users:login' %}">Sign in</a>
+                {% endif %}
             </div>
-        </button>
+
+            <button class="hamburger-button center">
+                <div class="hamburger-icon"></div>
+                <div class="hamburger-menu">
+                    <a href="#how-it-works">How it works?</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="#examples">Examples</a>
+                    <br>
+                    <a href="{% url 'users:register_view' %}">Sign up</a>
+                    <a href="{% url 'users:login' %}">Sign in</a>
+                </div>
+            </button>
+        </div>
     </header>
 
+    {% block content %}
     <main class="center">
         <section class="hero">
             <h1>AnkiTranslator</h1>
@@ -134,6 +155,8 @@
         </section>
 
     </main>
+
+    {% endblock content %}
 
     <footer>Footer</footer>
 

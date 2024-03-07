@@ -23,6 +23,7 @@ class Deck(models.Model):
     name = models.CharField(max_length=140)
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     user = models.ManyToManyField(User,related_name="decks")
+    description = models.CharField(max_length=300, blank=True, null=True)
 
     def __str__(self):
         return self.name

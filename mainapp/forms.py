@@ -14,3 +14,9 @@ class TranslatorForm(forms.ModelForm):
     class Meta:
         model = Translation
         fields = ["input_text", "is_flashcard","decks","from_language", "to_language"]
+
+
+class NewDeck(forms.ModelForm):
+    class Meta:
+        model = Deck
+        fields = ["name", "created_by", "user"]

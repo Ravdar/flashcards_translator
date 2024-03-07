@@ -1,0 +1,16 @@
+{% extends "mainapp/landing_page.html" %}
+
+{% block content %}
+{{user.profile.profile_picture}}
+{{user.username}}
+{% for deck in user.decks.all %}
+{{deck.name}}
+{% endfor %}
+<div class="decks-container"><button class="add-deck-button">Add deck</button></div>
+<div class="add-deck-container">
+    <form method="post">
+        {{new_deck_form.as_p}}
+        <button type="submit">Add</button>
+    </form>
+</div>
+{% endblock content %}

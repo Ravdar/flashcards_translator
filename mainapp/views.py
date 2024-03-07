@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-from .forms import TranslatorForm
-from .models import Translation, Flashcard,Deck
+from .forms import TranslatorForm, NewDeck
+from .models import Translation, Flashcard,Deck,Language
 
 import translators as ts
 
@@ -14,13 +15,18 @@ def translator(request):
     if request.method == "POST":
         translator_form = TranslatorForm(request.user,request.POST)
         if translator_form.is_valid():
+            # Get data from the form
             input_text = translator_form.cleaned_data["input_text"]
-            translated_text = ts.translate_text(query_text=input_text, translator="google",from_language="pl", to_language="en")
+            from_language=Language.objects.get(name=translator_form.cleaned_data["from_language"])
+            from_language_symbol = from_language.symbol
+            to_language = Language.objects.get(name=translator_form.cleaned_data["to_language"])
+            to_language_symbol = to_language.symbol            
             is_flashcard = translator_form.cleaned_data["is_flashcard"]
-            from_language= translator_form.cleaned_data["from_language"]
-            to_language = translator_form.cleaned_data["to_language"]
+            #Translate text and create Translation object
+            translated_text = ts.translate_text(query_text=input_text, translator="google",from_language=from_language_symbol, to_language=to_language_symbol)
             translation = Translation(input_text=input_text, output_text=translated_text,is_flashcard=is_flashcard, user=request.user, from_language=from_language, to_language=to_language)
             translation.save()
+            # Create Flashcard object and manage decks
             if is_flashcard:
                 flashcard = Flashcard(front=input_text, back=translated_text,  user=request.user)
                 flashcard.save()
@@ -28,7 +34,7 @@ def translator(request):
                 if not decks.exists():
                     unnamed_deck = Deck.objects.filter(name="Unnamed deck")
                     if not unnamed_deck.exists():
-                        unnamed_deck = Deck(name="Unnamed deck", created_by=request.user)
+                        unnamed_deck = Deck(name="Unnamed deck", created_by=request.user, description="Default deck for cards created without selecting any deck")
                         unnamed_deck.save()
                         unnamed_deck.user.add(request.user)
                         unnamed_deck.save()
@@ -38,10 +44,22 @@ def translator(request):
                 else:
                     flashcard.decks.set(decks)
                 flashcard.save()
-        else:
-            print("invalid")
+    # GET request               
     else:
         translator_form = TranslatorForm(request.user)
         input_text = ""
         translated_text = ""
     return render(request, "mainapp/translator.html", {"translator_form":translator_form, "input_text":input_text, "translated_text":translated_text})
+
+def study(request, user_username):
+    pass
+
+
+def user_profile(request, user_username):
+    user = get_object_or_404(User, username=user_username)
+    if request.method == request.POST:
+        new_deck_form = NewDeck(request.POST)
+    else: 
+        new_deck_form= NewDeck()
+    return render(request, "mainapp/user_profile.html", {"user":user, "new_deck_form":new_deck_form})
+

@@ -19,6 +19,8 @@
 /* VARIABLES */
 
 :root {
+    /* Colors */
+    --MAIN-COLOR: gray;
     /* Fonts */
     --MAIN-FONT: Gabarito;
     /* Other */
@@ -71,7 +73,7 @@ a {
 }
 
 a:hover {
-    color: purple;
+    color: var(--MAIN-COLOR);
     cursor: pointer;
 }
 
@@ -94,15 +96,19 @@ h1 {
 /* Header styling */
 
 header {
-    display: flex;
-    justify-content: space-between;
-    max-width: var(--PAGE-WIDTH);
     width: 100%;
-    padding: 5px;
     position: fixed;
     top: 0;
     transition: top 0.5s;
     background-color: whitesmoke;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 5px;
+    max-width: var(--PAGE-WIDTH);
 }
 
 nav,
@@ -162,7 +168,6 @@ nav,
 }
 
 
-
 /* Main */
 
 main {
@@ -176,7 +181,7 @@ main section {
 }
 
 main section:nth-child(2n) {
-    background-color: purple;
+    background-color: var(--MAIN-COLOR);
     color: white
 }
 
