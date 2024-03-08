@@ -261,6 +261,26 @@ textarea {
     outline: 0px;
 }
 
+/* DECKS  */
+
+.decks-container {
+    display: flex;
+    gap: 20px;
+}
+
+.decks-container div {
+    width: 100px;
+    height: 140px;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: white;
+    background-color: gray;
+}
+
+.decks-container div:last-child {
+    background-color: whitesmoke;
+}
+
 /* WIDE SCREENS */
 @media screen and (min-width:1000px) {
 

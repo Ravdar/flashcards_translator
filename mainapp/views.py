@@ -57,8 +57,15 @@ def study(request, user_username):
 
 def user_profile(request, user_username):
     user = get_object_or_404(User, username=user_username)
-    if request.method == request.POST:
+    if request.method == "POST":
         new_deck_form = NewDeck(request.POST)
+        if new_deck_form.is_valid():
+            new_deck = new_deck_form.save(commit=False)
+            new_deck.created_by = request.user
+            new_deck.save()
+            new_deck.user.add(request.user)
+            new_deck.save()
+            new_deck_form= NewDeck()
     else: 
         new_deck_form= NewDeck()
     return render(request, "mainapp/user_profile.html", {"user":user, "new_deck_form":new_deck_form})

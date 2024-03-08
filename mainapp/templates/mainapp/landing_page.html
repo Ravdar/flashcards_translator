@@ -16,6 +16,7 @@
 
 
 <body>
+    {% block content %}
     <header id="header" class="center">
         <div class="header-container">
             <h3><a href="{% url 'mainapp:landing_page' %}">AnkiTranslator</a></h3>
@@ -57,7 +58,6 @@
         </div>
     </header>
 
-    {% block content %}
     <main class="center">
         <section class="hero">
             <h1>AnkiTranslator</h1>

@@ -19,4 +19,4 @@ class TranslatorForm(forms.ModelForm):
 class NewDeck(forms.ModelForm):
     class Meta:
         model = Deck
-        fields = ["name", "created_by", "user"]
+        fields = ["name", "description"]

@@ -3,12 +3,16 @@
 {% block content %}
 {{user.profile.profile_picture}}
 {{user.username}}
-{% for deck in user.decks.all %}
-{{deck.name}}
-{% endfor %}
-<div class="decks-container"><button class="add-deck-button">Add deck</button></div>
+
+<div class="decks-container">
+    {% for deck in user.decks.all %}
+    <div class="center">{{deck.name}}</div>
+    {% endfor %}
+    <div class="center"><button class="add-deck-button">+</button></div>
+</div>
 <div class="add-deck-container">
     <form method="post">
+        {% csrf_token %}
         {{new_deck_form.as_p}}
         <button type="submit">Add</button>
     </form>
