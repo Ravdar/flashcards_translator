@@ -1,0 +1,16 @@
+{% extends "mainapp/landing_page.html" %}
+
+{% block content %}
+<!-- Selectbox with decks, visible which one is currently studied -->
+<!-- Statiics on how many cards left etc -->
+{{deck.name}}
+{{first_card.front}}
+<hr>
+{{first_card.back}}
+<div class="quality-buttons-container center">
+    <button>Very hard</button>
+    <button>Hard</button>
+    <button>Ok</button>
+    <button>Easy</button>
+</div>
+{% endblock content %}

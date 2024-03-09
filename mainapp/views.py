@@ -7,6 +7,7 @@ from .forms import TranslatorForm, NewDeck
 from .models import Translation, Flashcard,Deck,Language
 
 import translators as ts
+import random
 
 def landing_page(request):
      return render(request,"mainapp/landing_page.html", {})
@@ -40,11 +41,14 @@ def translator(request):
         translated_text = ""
     return render(request, "mainapp/translator.html", {"translator_form":translator_form, "input_text":input_text, "translated_text":translated_text})
 
-def study(request, deck_name):
-    deck = get_object_or_404(Deck, name=deck_name)
-
-
-
+def review(request):
+    deck_name = request.GET.get("deck_name")
+    deck = get_object_or_404(Deck, name=deck_name, user=request.user)
+    flashcards_for_review = deck.flashcards_to_review()
+    flashcards_list = list(flashcards_for_review)
+    random.shuffle(flashcards_list)
+    first_card = flashcards_list[0]
+    return render(request, "mainapp/review.html", {"flashcards_list":flashcards_list, "first_card":first_card})
 
 def user_profile(request, user_username):
     user = get_object_or_404(User, username=user_username)

@@ -6,7 +6,9 @@
 
 <div class="decks-container">
     {% for deck in user.decks.all %}
-    <div class="center">{{deck.name}}</div>
+    <a href="{% url 'mainapp:review' %}?deck_name={{ deck.name }}">
+        <div class="center">{{deck.name}}</div>
+    </a>
     {% endfor %}
     <div class="center"><button class="add-deck-button">+</button></div>
 </div>

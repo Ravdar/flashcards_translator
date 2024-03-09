@@ -281,6 +281,21 @@ textarea {
     background-color: whitesmoke;
 }
 
+/* REVIEW */
+
+.quality-buttons-container {
+    gap: 15px;
+}
+
+.quality-buttons-container button {
+    font-size: 2em;
+    color: white;
+    border: 1px solid black;
+    background-color: grey;
+    border-radius: 5px;
+    padding: 5px;
+}
+
 /* WIDE SCREENS */
 @media screen and (min-width:1000px) {
 
