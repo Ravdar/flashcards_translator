@@ -23,28 +23,16 @@ def translator(request):
             to_language = Language.objects.get(name=translator_form.cleaned_data["to_language"])
             to_language_symbol = to_language.symbol            
             is_flashcard = translator_form.cleaned_data["is_flashcard"]
+            decks = translator_form.cleaned_data["decks"]
             #Translate text and create Translation object
             translated_text = ts.translate_text(query_text=input_text, translator="google",from_language=from_language_symbol, to_language=to_language_symbol)
             translation = Translation(input_text=input_text, output_text=translated_text,is_flashcard=is_flashcard, user=request.user, from_language=from_language, to_language=to_language)
             translation.save()
-            # Create Flashcard object and manage decks
+            # Create Flashcard objects and manage all selected decks
             if is_flashcard:
-                flashcard = Flashcard(front=input_text, back=translated_text,  user=request.user)
-                flashcard.save()
-                decks = translator_form.cleaned_data["decks"]
-                if not decks.exists():
-                    unnamed_deck = Deck.objects.filter(name="Unnamed deck")
-                    if not unnamed_deck.exists():
-                        unnamed_deck = Deck(name="Unnamed deck", created_by=request.user, description="Default deck for cards created without selecting any deck")
-                        unnamed_deck.save()
-                        unnamed_deck.user.add(request.user)
-                        unnamed_deck.save()
-                        flashcard.decks.add(unnamed_deck)
-                    else:
-                        flashcard.decks.set(unnamed_deck)
-                else:
-                    flashcard.decks.set(decks)
-                flashcard.save()
+                for deck in decks:
+                    flashcard = Flashcard(front=input_text, back=translated_text,  user=request.user, deck=deck)
+                    flashcard.save()
     # GET request               
     else:
         translator_form = TranslatorForm(request.user)
@@ -54,18 +42,8 @@ def translator(request):
 
 def study(request, deck_name):
     deck = get_object_or_404(Deck, name=deck_name)
-    flashcards_for_review = deck.flashcards.filter(next_review__lte=timezone.now().date())
-    for flashcard in flashcards_for_review:
-        if quality >= 2:
-            if flashcard.winning_streak == 0:
-                flashcard.next_review += 1
-            elif flashcard.winning_streak == 1:
-                    flashcard.next_review += 5
-            else:
-                flashcard.next_review = round(flashcard.next_review * flashcard.easiness_factor)
-        
 
-        pass
+
 
 
 def user_profile(request, user_username):

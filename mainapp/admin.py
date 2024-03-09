@@ -4,7 +4,7 @@ from users.models import Profile
 from.models import Translation,Flashcard,Deck,Language
 
 class FlashcardInline(admin.TabularInline):
-    model = Flashcard.decks.through
+    model = Flashcard
     extra = 1
 
 class DeckAdmin(admin.ModelAdmin):

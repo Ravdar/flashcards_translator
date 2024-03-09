@@ -24,8 +24,7 @@ class Translation(models.Model):
 
 class Deck(models.Model):
     name = models.CharField(max_length=140)
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    user = models.ManyToManyField(User,related_name="decks")
+    user = models.ForeignKey(User,related_name="decks",on_delete=models.CASCADE)
     description = models.CharField(max_length=300, blank=True, null=True)
 
     def __str__(self):
@@ -39,7 +38,7 @@ class Flashcard(models.Model):
     front = models.CharField(max_length=500)
     back = models.CharField(max_length=500)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    decks = models.ManyToManyField(Deck, related_name="flashcards")
+    deck = models.ForeignKey(Deck, related_name="flashcards",on_delete=models.CASCADE)
     winning_streak = models.IntegerField(default=0)
     easiness_factor = models.FloatField(default=2.5)
     interval = models.IntegerField(default=0)
