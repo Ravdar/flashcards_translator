@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 
 from .forms import TranslatorForm, NewDeck
 from .models import Translation, Flashcard,Deck,Language
@@ -51,8 +52,20 @@ def translator(request):
         translated_text = ""
     return render(request, "mainapp/translator.html", {"translator_form":translator_form, "input_text":input_text, "translated_text":translated_text})
 
-def study(request, user_username):
-    pass
+def study(request, deck_name):
+    deck = get_object_or_404(Deck, name=deck_name)
+    flashcards_for_review = deck.flashcards.filter(next_review__lte=timezone.now().date())
+    for flashcard in flashcards_for_review:
+        if quality >= 2:
+            if flashcard.winning_streak == 0:
+                flashcard.next_review += 1
+            elif flashcard.winning_streak == 1:
+                    flashcard.next_review += 5
+            else:
+                flashcard.next_review = round(flashcard.next_review * flashcard.easiness_factor)
+        
+
+        pass
 
 
 def user_profile(request, user_username):
