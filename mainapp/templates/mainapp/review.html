@@ -4,11 +4,13 @@
 <!-- Selectbox with decks, visible which one is currently studied -->
 <!-- Statiics on how many cards left etc -->
 {{deck.name}}
-<div id="flashcard-container">
+<div id="flashcard-container" data-deck-name="{{ deck.name }}">
     {% if flashcards_list %}
     {{flashcards_list.0.front}}
     <hr>
     {{flashcards_list.0.back}}
+    {% else %}
+    <p>Congratulations! There is no cards to review in this deck for today!</p>
     {% endif %}
 </div>
 <div class="quality-buttons-container center">
@@ -20,22 +22,24 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    var currentIndex = 0;
     $(document).ready(function () {
         $('.quality-buttons-container button').click(function () {
-            var current_index = currentIndex + 1;
+            var flashcardContainer = $("#flashcard-container");
+            var deckName = flashcardContainer.attr("data-deck-name");
+            console.log(deckName);
+            var current_index = 1;
             $.ajax({
-                url: '{% url "mainapp:get_next_flashcard" %}',
+                url: '{% url "mainapp:review" %}',
                 data: {
-                    'deck_name': 'superdeck',
+                    'deck_name': deckName,
                     'current_index': current_index
                 },
                 dataType: 'json',
                 success: function (data) {
                     console.log("succes");
-                    $('#flashcard-container').html(data.front + '<hr>' + data.back);
+                    flashcardContainer.html(data.front + '<hr>' + data.back);
                     // Update the displayed card index
-                    $('#flashcard-container').data('index', data.index);
+                    flashcardContainer.data('index', data.index);
                 }
             });
         });
