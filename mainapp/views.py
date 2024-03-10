@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.utils import timezone
+from django.http import JsonResponse
 
 from .forms import TranslatorForm, NewDeck
 from .models import Translation, Flashcard,Deck,Language
@@ -47,8 +47,28 @@ def review(request):
     flashcards_for_review = deck.flashcards_to_review()
     flashcards_list = list(flashcards_for_review)
     random.shuffle(flashcards_list)
-    first_card = flashcards_list[0]
-    return render(request, "mainapp/review.html", {"flashcards_list":flashcards_list, "first_card":first_card})
+    print(f"FLASHCARD LIST:{flashcards_list}")
+
+    return render(request, "mainapp/review.html", {"flashcards_list":flashcards_list})
+
+def get_next_flashcard(request):
+    deck_name = request.GET.get("deck_name")
+    deck = get_object_or_404(Deck, name=deck_name, user=request.user)
+    flashcards_for_review = deck.flashcards_to_review()
+    flashcards_list = list(flashcards_for_review)
+    random.shuffle(flashcards_list)
+
+    # Assuming you're keeping track of the index of the currently displayed flashcard
+    current_index = int(request.GET.get("current_index", 0))
+    next_index = (current_index + 1) % len(flashcards_list)
+
+    next_flashcard = flashcards_list[next_index]
+
+    return JsonResponse({
+        'front': next_flashcard.front,
+        'back': next_flashcard.back,
+        'index': next_index
+    })
 
 def user_profile(request, user_username):
     user = get_object_or_404(User, username=user_username)

@@ -4,13 +4,41 @@
 <!-- Selectbox with decks, visible which one is currently studied -->
 <!-- Statiics on how many cards left etc -->
 {{deck.name}}
-{{first_card.front}}
-<hr>
-{{first_card.back}}
-<div class="quality-buttons-container center">
-    <button>Very hard</button>
-    <button>Hard</button>
-    <button>Ok</button>
-    <button>Easy</button>
+<div id="flashcard-container">
+    {% if flashcards_list %}
+    {{flashcards_list.0.front}}
+    <hr>
+    {{flashcards_list.0.back}}
+    {% endif %}
 </div>
+<div class="quality-buttons-container center">
+    <button class="quality-button">Very hard</button>
+    <button class="quality-button">Hard</button>
+    <button class="quality-button">Ok</button>
+    <button class="quality-button">Easy</button>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    var currentIndex = 0;
+    $(document).ready(function () {
+        $('.quality-buttons-container button').click(function () {
+            var current_index = currentIndex + 1;
+            $.ajax({
+                url: '{% url "mainapp:get_next_flashcard" %}',
+                data: {
+                    'deck_name': 'superdeck',
+                    'current_index': current_index
+                },
+                dataType: 'json',
+                success: function (data) {
+                    console.log("succes");
+                    $('#flashcard-container').html(data.front + '<hr>' + data.back);
+                    // Update the displayed card index
+                    $('#flashcard-container').data('index', data.index);
+                }
+            });
+        });
+    });
+</script>
 {% endblock content %}
