@@ -42,22 +42,21 @@ def translator(request):
     return render(request, "mainapp/translator.html", {"translator_form":translator_form, "input_text":input_text, "translated_text":translated_text})
 
 def review(request):
-    # Initial display, calling and shuffling a deck
+    # Calling a deck, shuffling it
     deck_name = request.GET.get("deck_name")
     deck = get_object_or_404(Deck, name=deck_name, user=request.user)
     flashcards_for_review = deck.flashcards_to_review()
     flashcards_list = list(flashcards_for_review)
     random.shuffle(flashcards_list)
-
     # Displaying next cards, handled by AJAX request
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
         current_index = int(request.GET.get("current_index",0))
         next_index = current_index+1
         next_flashcard = flashcards_list[next_index]
-
+        
         return JsonResponse({"front":next_flashcard.front, "back":next_flashcard.back, "index":next_index})
 
-    return render(request, "mainapp/review.html", {"flashcards_list":flashcards_list})
+    return render(request, "mainapp/review.html", {"deck_name":deck_name,"flashcards_list":flashcards_list})
 
 
 def user_profile(request, user_username):

@@ -283,17 +283,25 @@ textarea {
 
 /* REVIEW */
 
-.quality-buttons-container {
-    gap: 15px;
+.flashcard-back {
+    display: none;
+    background-color: green;
 }
 
-.quality-buttons-container button {
+.quality-buttons-container {
+    gap: 15px;
+    display: none;
+}
+
+.quality-buttons-container button,
+.show-answer {
     font-size: 2em;
     color: white;
     border: 1px solid black;
     background-color: grey;
     border-radius: 5px;
     padding: 5px;
+    cursor: pointer;
 }
 
 /* WIDE SCREENS */

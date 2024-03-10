@@ -3,29 +3,52 @@
 {% block content %}
 <!-- Selectbox with decks, visible which one is currently studied -->
 <!-- Statiics on how many cards left etc -->
-{{deck.name}}
-<div id="flashcard-container" data-deck-name="{{ deck.name }}">
+<h2 id="deck-name">{{deck_name}}</h2>
+{{flashcards_list}}
+<div id="flashcard-container">
     {% if flashcards_list %}
     {{flashcards_list.0.front}}
     <hr>
-    {{flashcards_list.0.back}}
+    <div class="flashcard-back">
+        {{flashcards_list.0.back}}
+    </div>
     {% else %}
     <p>Congratulations! There is no cards to review in this deck for today!</p>
     {% endif %}
 </div>
+<button class="show-answer">Flip the card</button>
 <div class="quality-buttons-container center">
-    <button class="quality-button">Very hard</button>
-    <button class="quality-button">Hard</button>
-    <button class="quality-button">Ok</button>
-    <button class="quality-button">Easy</button>
+    <button>Very hard</button>
+    <button>Hard</button>
+    <button>Ok</button>
+    <button>Easy</button>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+
+    var flashcardBack = document.querySelector(".flashcard-back");
+    var flipCardButton = document.querySelector(".show-answer");
+    var qualityButtonsContainer = document.querySelector(".quality-buttons-container");
+    var qualityButtons = qualityButtonsContainer.querySelectorAll("button");
+
+    flipCardButton.addEventListener("click", function () { qualityButtonsContainer.style.display = "block"; flipCardButton.style.display = "none"; flashcardBack.style.display = "block" });
+
+    qualityButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            flipCardButton.style.display = "block";
+            qualityButtonsContainer.style.display = "none";
+            flashcardBack.style.opacity = "0.5";
+        });
+    });
+
+
+
+    var deckName = document.getElementById("deck-name").textContent;
+    console.log(deckName)
     $(document).ready(function () {
         $('.quality-buttons-container button').click(function () {
             var flashcardContainer = $("#flashcard-container");
-            var deckName = flashcardContainer.attr("data-deck-name");
             console.log(deckName);
             var current_index = 1;
             $.ajax({
@@ -36,10 +59,23 @@
                 },
                 dataType: 'json',
                 success: function (data) {
-                    console.log("succes");
-                    flashcardContainer.html(data.front + '<hr>' + data.back);
+                    flashcardContainer.html(data.front + '<hr>' + '<div class="flashcard-back">' + data.back + '</div>');
                     // Update the displayed card index
                     flashcardContainer.data('index', data.index);
+                    var flashcardBack = document.querySelector(".flashcard-back");
+                    var flipCardButton = document.querySelector(".show-answer");
+                    var qualityButtonsContainer = document.querySelector(".quality-buttons-container");
+                    var qualityButtons = qualityButtonsContainer.querySelectorAll("button");
+
+                    flipCardButton.addEventListener("click", function () { qualityButtonsContainer.style.display = "block"; flipCardButton.style.display = "none"; flashcardBack.style.display = "block" });
+
+                    qualityButtons.forEach(button => {
+                        button.addEventListener("click", function () {
+                            flipCardButton.style.display = "block";
+                            qualityButtonsContainer.style.display = "none";
+                            flashcardBack.style.opacity = "0.5";
+                        });
+                    });
                 }
             });
         });
