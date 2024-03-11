@@ -10,14 +10,19 @@ import translators as ts
 import random
 
 def landing_page(request):
+     """View for landing page."""
+
      return render(request,"mainapp/landing_page.html", {})
+
 
 @login_required
 def translator(request):
+    """View for translatation and adding flashcards."""
+
     if request.method == "POST":
         translator_form = TranslatorForm(request.user,request.POST)
         if translator_form.is_valid():
-            # Get data from the form
+            # Retrieve data from the form
             input_text = translator_form.cleaned_data["input_text"]
             from_language=Language.objects.get(name=translator_form.cleaned_data["from_language"])
             from_language_symbol = from_language.symbol
@@ -39,32 +44,34 @@ def translator(request):
         translator_form = TranslatorForm(request.user)
         input_text = ""
         translated_text = ""
+
     return render(request, "mainapp/translator.html", {"translator_form":translator_form, "input_text":input_text, "translated_text":translated_text})
 
+
 def review(request):
-    # Displaying next cards, handled by AJAX request
+    """View for deck review."""
+
+    # Displaying next card, handled by AJAX request
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
-        # Update review card based on selected quality
+        # Update reviewed card based on selected quality
         quality = int(request.GET.get("quality"))
         previous_card_id = int(request.GET.get("id"))
         previous_card = get_object_or_404(Flashcard, pk=previous_card_id)
         previous_card.review_flashcard(quality)
         previous_card.save()
-        # Another call and shuffle on updated deck
+        # Retrieve deck, cards for review and shuffle it
         deck_name = request.GET.get("deck_name")
         deck = get_object_or_404(Deck, name=deck_name, user=request.user)
         flashcards_for_review = deck.flashcards_to_review()
         flashcards_list = list(flashcards_for_review)
+        # Send next card for review if there are any
         if flashcards_list != []:
             random.shuffle(flashcards_list)
             next_card = flashcards_list[0]
-            print(f"Sent id: {next_card.id}")
+            return JsonResponse({"front":next_card.front, "back":next_card.back, "id":next_card.id})
         else:
-            # Assign previous card as a new one, in AJAX request it is a signal to display Congratulations message
-            next_card = previous_card
-
-
-        return JsonResponse({"front":next_card.front, "back":next_card.back, "id":next_card.id})
+            return JsonResponse({"id":"no more cards"})
+    
     else:
         # Initial call and deck shuffle
         deck_name = request.GET.get("deck_name")
@@ -77,8 +84,12 @@ def review(request):
 
 
 def user_profile(request, user_username):
+    """View for user profile and managing decks."""
+
+    # Assign user
     user = get_object_or_404(User, username=user_username)
     if request.method == "POST":
+        # Handling form for adding new deck
         new_deck_form = NewDeck(request.POST)
         if new_deck_form.is_valid():
             new_deck = new_deck_form.save(commit=False)

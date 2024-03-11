@@ -1,26 +1,32 @@
-// Popping up hamburger menu for small screens
-var hamburgerButton = document.querySelector(".hamburger-button")
-var hamburgerMenu = document.querySelector(".hamburger-menu")
+// LANDING PAGE SCRIPTS
 
-hamburgerButton.addEventListener("click", function () {
-    hamburgerMenu.classList.toggle("active");
-})
+// Popping up hamburger menu for small screens
+const hamburgerButton = document.querySelector(".hamburger-button")
+const hamburgerMenu = document.querySelector(".hamburger-menu")
+
+if (hamburgerButton) {
+    hamburgerButton.addEventListener("click", function () {
+        hamburgerMenu.classList.toggle("active");
+    })
+}
 
 // Hiding header while scrolling down
 var prevScrollpos = window.scrollY;
 var header = document.getElementById("header");
-window.onscroll = function () {
-    var currentScrollPos = window.scrollY;
-    if (prevScrollpos > currentScrollPos) {
-        header.style.top = "0";
-    } else {
-        header.style.top = "-350px";
+if (header) {
+    window.onscroll = function () {
+        var currentScrollPos = window.scrollY;
+        if (prevScrollpos > currentScrollPos) {
+            header.style.top = "0";
+        } else {
+            header.style.top = "-350px";
+        }
+        prevScrollpos = currentScrollPos;
     }
-    prevScrollpos = currentScrollPos;
 }
 
 // Displaying answers in faq question on button click
-const faqs = document.querySelectorAll(".faq");
+var faqs = document.querySelectorAll(".faq");
 
 faqs.forEach((faq) => {
     faq.addEventListener("click", (event) => {
@@ -38,3 +44,8 @@ faqs.forEach((faq) => {
 // Function to hide and show decks on is_flashcard checkbox
 
 // Function for clearing output_box when input_box is selected
+
+
+// REVIEW PAGE SCRIPTS
+
+

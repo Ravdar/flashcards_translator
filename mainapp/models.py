@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
-from datetime import datetime, timedelta
+from datetime import timedelta
+
 
 class Language(models.Model):
     name = models.CharField(max_length=20)
@@ -10,6 +11,7 @@ class Language(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Translation(models.Model):
     input_text = models.CharField(max_length=500)
@@ -21,6 +23,7 @@ class Translation(models.Model):
 
     def __str__(self):
         return self.input_text
+
 
 class Deck(models.Model):
     name = models.CharField(max_length=140)
@@ -34,6 +37,7 @@ class Deck(models.Model):
         """Returns deck's flashcards which are ready for review."""
         return self.flashcards.filter(next_review__lte=timezone.now().date())
     
+
 class Flashcard(models.Model):
     front = models.CharField(max_length=500)
     back = models.CharField(max_length=500)
@@ -59,7 +63,7 @@ class Flashcard(models.Model):
                 self.interval = round(self.interval * self.easiness_factor)
         else:
             self.winning_streak = 0
-            self.interval = 1        
+            self.interval = 0       
 
     def update_easiness_factor(self, quality):
         """Updates easiness factor (variable used to determine interval)."""

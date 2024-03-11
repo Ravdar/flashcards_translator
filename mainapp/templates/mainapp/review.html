@@ -26,31 +26,40 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script>
 
-    var cardId = document.getElementById("card-id").textContent;
-    var flashcardBack = document.querySelector(".flashcard-back");
-    var flipCardButton = document.querySelector(".show-answer");
-    var qualityButtonsContainer = document.querySelector(".quality-buttons-container");
-    var qualityButtons = qualityButtonsContainer.querySelectorAll("button");
+    // Initialize elements and assign actions to buttons
+    function initializeReviewElements() {
+        var flashcardBack = document.querySelector(".flashcard-back");
+        var flipCardButton = document.querySelector(".show-answer");
+        var qualityButtonsContainer = document.querySelector(".quality-buttons-container");
+        var qualityButtons = qualityButtonsContainer.querySelectorAll("button");
 
-    flipCardButton.addEventListener("click", function () { qualityButtonsContainer.style.display = "block"; flipCardButton.style.display = "none"; flashcardBack.style.display = "block" });
+        // Actions after clicking Flip Card button
+        flipCardButton.addEventListener("click", function () { qualityButtonsContainer.style.display = "block"; flipCardButton.style.display = "none"; flashcardBack.style.display = "block" });
 
-    qualityButtons.forEach(button => {
-        button.addEventListener("click", function () {
-            flipCardButton.style.display = "block";
-            qualityButtonsContainer.style.display = "none";
-            flashcardBack.style.opacity = "0.5";
+        // Actions after clicking one of quality buttons
+        qualityButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                flipCardButton.style.display = "block";
+                qualityButtonsContainer.style.display = "none";
+                flashcardBack.style.opacity = "0.5";
+            });
         });
-    });
+    }
+
+    // Execute Initalization
+    initializeReviewElements();
 
 
-
+    // Retrieve card id and deck name
+    var cardId = document.getElementById("card-id").textContent;
     var deckName = document.getElementById("deck-name").textContent;
+
+    // AJAX request
     $(document).ready(function () {
         $('.quality-buttons-container button').click(function () {
-            console.log("Sent id");
-            console.log(cardId);
             var flashcardContainer = $("#flashcard-container");
             var quality = $(this).data("quality");
             $.ajax({
@@ -62,31 +71,17 @@
                 },
                 dataType: 'json',
                 success: function (data) {
-                    console.log(data)
-                    console.log("Received id")
-                    console.log(data.id)
-                    if (data.id == cardId) { flashcardContainer.html('<h3>Congratulations! There are nor cards to reveiew in this deck for today!</h3>') }
+                    if (data.id == "no more cards") { flashcardContainer.html('<h3>Congratulations! There are nor cards to reveiew in this deck for today!</h3>') }
                     else {
                         cardId = data.id
                         flashcardContainer.html('<h3 id="card-id">' + data.id + '</h3>' + data.front + '<hr>' + '<div class="flashcard-back">' + data.back + '</div>');
-                        var flashcardBack = document.querySelector(".flashcard-back");
-                        var flipCardButton = document.querySelector(".show-answer");
-                        var qualityButtonsContainer = document.querySelector(".quality-buttons-container");
-                        var qualityButtons = qualityButtonsContainer.querySelectorAll("button");
-
-                        flipCardButton.addEventListener("click", function () { qualityButtonsContainer.style.display = "block"; flipCardButton.style.display = "none"; flashcardBack.style.display = "block" });
-
-                        qualityButtons.forEach(button => {
-                            button.addEventListener("click", function () {
-                                flipCardButton.style.display = "block";
-                                qualityButtonsContainer.style.display = "none";
-                                flashcardBack.style.opacity = "0.5";
-                            });
-                        });
+                        initializeReviewElements();
                     }
                 }
             });
         });
     });
+
 </script>
+
 {% endblock content %}
