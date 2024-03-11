@@ -42,19 +42,36 @@ def translator(request):
     return render(request, "mainapp/translator.html", {"translator_form":translator_form, "input_text":input_text, "translated_text":translated_text})
 
 def review(request):
-    # Calling a deck, shuffling it
-    deck_name = request.GET.get("deck_name")
-    deck = get_object_or_404(Deck, name=deck_name, user=request.user)
-    flashcards_for_review = deck.flashcards_to_review()
-    flashcards_list = list(flashcards_for_review)
-    random.shuffle(flashcards_list)
     # Displaying next cards, handled by AJAX request
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
-        current_index = int(request.GET.get("current_index",0))
-        next_index = current_index+1
-        next_flashcard = flashcards_list[next_index]
-        
-        return JsonResponse({"front":next_flashcard.front, "back":next_flashcard.back, "index":next_index})
+        # Update review card based on selected quality
+        quality = int(request.GET.get("quality"))
+        previous_card_id = int(request.GET.get("id"))
+        previous_card = get_object_or_404(Flashcard, pk=previous_card_id)
+        previous_card.review_flashcard(quality)
+        previous_card.save()
+        # Another call and shuffle on updated deck
+        deck_name = request.GET.get("deck_name")
+        deck = get_object_or_404(Deck, name=deck_name, user=request.user)
+        flashcards_for_review = deck.flashcards_to_review()
+        flashcards_list = list(flashcards_for_review)
+        if flashcards_list != []:
+            random.shuffle(flashcards_list)
+            next_card = flashcards_list[0]
+            print(f"Sent id: {next_card.id}")
+        else:
+            # Assign previous card as a new one, in AJAX request it is a signal to display Congratulations message
+            next_card = previous_card
+
+
+        return JsonResponse({"front":next_card.front, "back":next_card.back, "id":next_card.id})
+    else:
+        # Initial call and deck shuffle
+        deck_name = request.GET.get("deck_name")
+        deck = get_object_or_404(Deck, name=deck_name, user=request.user)
+        flashcards_for_review = deck.flashcards_to_review()
+        flashcards_list = list(flashcards_for_review)
+        random.shuffle(flashcards_list)
 
     return render(request, "mainapp/review.html", {"deck_name":deck_name,"flashcards_list":flashcards_list})
 

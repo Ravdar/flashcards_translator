@@ -70,5 +70,7 @@ class Flashcard(models.Model):
         """Updates flashcard easiness factor, calulates interval and sets a date for next review."""
 
         self.update_easiness_factor(quality)
-        self.calculate_interval(self)
+        self.calculate_interval(quality)
         self.next_review = timezone.now().date() + timedelta(days=self.interval)
+        print(self.next_review)
+        print("Updated")
