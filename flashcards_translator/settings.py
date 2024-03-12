@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "mainapp.apps.MainappConfig",
     "users.apps.UsersConfig",
     "widget_tweaks",
+    'django_select2',
 ]
 
 MIDDLEWARE = [

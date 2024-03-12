@@ -1,6 +1,8 @@
 {% load static %}
 {% load widget_tweaks %}
 
+<!-- Add flags to selected languages -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,13 +16,13 @@
 </head>
 
 <body class="center">
-    <main class="center">
+    <main class="translator-main center">
         <form method="post">
+            {{ translator_form.media.css }}
             {% csrf_token %}
             {{ translator_form.is_flashcard.label }}
             {{ translator_form.is_flashcard }}
             <div class="decks-list">{{translator_form.decks}}</div>
-
             <input type="hidden" name="form_type" value="translator_form">
             <div class="textarea-container">
                 <textarea name="input_text" class="input-box" placeholder="Write the text that you want to translate.">
@@ -38,6 +40,8 @@
             <button type="submit">Translate</button>
         </form>
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {{ translator_form.media.js }}
 </body>
 
 </html>

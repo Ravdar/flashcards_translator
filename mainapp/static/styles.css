@@ -255,9 +255,17 @@ footer {
 
 /* TRANSLATOR */
 
+.translator-main {
+    max-width: 600px;
+}
+
+.deck-list {
+    display: none
+}
+
 .textarea-container {
-    width: 400px;
-    height: 300px;
+    width: 100%;
+    max-height: 400px;
     position: relative;
 }
 
@@ -285,6 +293,10 @@ textarea {
     top: 10px;
     left: 10px;
     border: none;
+}
+
+.select2 {
+    max-width: 100% !important;
 }
 
 /* DECKS  */
