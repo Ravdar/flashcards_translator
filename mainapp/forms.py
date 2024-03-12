@@ -6,8 +6,11 @@ class TranslatorForm(forms.ModelForm):
         super(TranslatorForm, self).__init__(*args, **kwargs)
         self.fields["decks"].queryset = Deck.objects.filter(user=user)
         self.fields["decks"].required = False
-        self.fields['from_language'] = forms.ModelChoiceField(queryset=Language.objects.all())
-        self.fields['to_language'] = forms.ModelChoiceField(queryset=Language.objects.exclude(name="auto"))
+
+        default_from_language = Language.objects.get(name="auto")
+        default_to_language = Language.objects.get(name="english")
+        self.fields['from_language'] = forms.ModelChoiceField(queryset=Language.objects.all(),initial=default_from_language)
+        self.fields['to_language'] = forms.ModelChoiceField(queryset=Language.objects.exclude(name="auto"),initial=default_to_language)
 
     decks = forms.ModelMultipleChoiceField(queryset=Deck.objects.none(),widget=forms.CheckboxSelectMultiple)
 

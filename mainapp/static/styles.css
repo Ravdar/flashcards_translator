@@ -21,6 +21,18 @@
 :root {
     /* Colors */
     --MAIN-COLOR: gray;
+    --DECK-BLUE: #A3F6FE;
+    --DECK-BLUE-2: #A3CAFE;
+    --DECK-RED: #FEA3A3;
+    --DECK-YELLOW: #FEE5A3;
+    --DECK-YELLOW-2: #FEFBA3;
+    --DECK-GREEN: #79AC78;
+    --DECK-GREEN-2: #A3FEA3;
+    --DECK-ORANGE: #FEC7A3;
+    --DECK-PURPLE: #BAA3FE;
+    --DECK-PINK: #D7A3FE;
+    --DECK-PINK-2: #FDA3FE;
+    --DECK-AQUA: #A3FEDD;
     /* Fonts */
     --MAIN-FONT: Gabarito;
     /* Other */
@@ -243,14 +255,20 @@ footer {
 
 /* TRANSLATOR */
 
-textarea {
+.textarea-container {
     width: 400px;
     height: 300px;
+    position: relative;
+}
+
+textarea {
+    width: 100%;
+    height: 100%;
     font-size: 1.5em;
     border-radius: 10px;
     font-family: var(--TRANSLATOR-FONT);
-    padding: 10px;
-    resize: none
+    padding: 35px 10px 10px 10px;
+    resize: none;
 }
 
 .output-box {
@@ -259,6 +277,14 @@ textarea {
 
 .output-box:focus-visible {
     outline: 0px;
+}
+
+.language-selectbox {
+    position: absolute;
+    z-index: 1;
+    top: 10px;
+    left: 10px;
+    border: none;
 }
 
 /* DECKS  */
@@ -285,7 +311,6 @@ textarea {
 
 .flashcard-back {
     display: none;
-    background-color: green;
 }
 
 .quality-buttons-container {

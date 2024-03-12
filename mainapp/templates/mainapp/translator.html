@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,21 +13,28 @@
     <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 
-<body>
+<body class="center">
     <main class="center">
         <form method="post">
             {% csrf_token %}
             {{ translator_form.is_flashcard.label }}
             {{ translator_form.is_flashcard }}
             <div class="decks-list">{{translator_form.decks}}</div>
-            <div class="from-languages-container">{{translator_form.from_language}}</div>
-            <div class="to-languages-container">{{translator_form.to_language}}</div>
+
             <input type="hidden" name="form_type" value="translator_form">
-            <textarea name="input_text" class="input-box"
-                placeholder="Write the text that you want to translate.">{{ input_text }}</textarea>
-            <textarea class="output-box"
-                placeholder="Translated text will appear here. Flashcard will be created automatically."
-                readonly>{{ translated_text }}</textarea>
+            <div class="textarea-container">
+                <textarea name="input_text" class="input-box" placeholder="Write the text that you want to translate.">
+                {{ input_text }}
+            </textarea>
+                <div class="from-languages-container">{{translator_form.from_language|add_class:"language-selectbox"}}
+                </div>
+            </div>
+            <div class="textarea-container">
+                <textarea class="output-box"
+                    placeholder="Translated text will appear here. Flashcard will be created automatically."
+                    readonly>{{ translated_text }}</textarea>
+                <div class="to-languages-container">{{translator_form.to_language|add_class:"language-selectbox"}}</div>
+            </div>
             <button type="submit">Translate</button>
         </form>
     </main>
