@@ -3,6 +3,7 @@ from django import forms
 from .models import Translation, Deck, Language
 
 from django_select2 import forms as s2forms
+from django_toggle_switch_widget.widgets import DjangoToggleSwitchWidget
 
 
 class TranslatorForm(forms.ModelForm):
@@ -14,8 +15,9 @@ class TranslatorForm(forms.ModelForm):
 
         default_from_language = Language.objects.get(name="auto")
         default_to_language = Language.objects.get(name="english")
-        self.fields['from_language'] = forms.ModelChoiceField(queryset=Language.objects.all(),initial=default_from_language)
-        self.fields['to_language'] = forms.ModelChoiceField(queryset=Language.objects.exclude(name="auto"),initial=default_to_language)
+        self.fields["from_language"] = forms.ModelChoiceField(queryset=Language.objects.all(),initial=default_from_language)
+        self.fields["to_language"] = forms.ModelChoiceField(queryset=Language.objects.exclude(name="auto"),initial=default_to_language)
+        self.fields["is_flashcard"].widget = DjangoToggleSwitchWidget(round=True, klass="django-toggle-switch-success")
 
     decks = forms.ModelMultipleChoiceField(queryset=Deck.objects.none(),widget=s2forms.Select2MultipleWidget(attrs={'data-placeholder': 'Select decks'}))
 

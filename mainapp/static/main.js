@@ -46,6 +46,26 @@ faqs.forEach((faq) => {
 // Function for clearing output_box when input_box is selected
 
 
-// REVIEW PAGE SCRIPTS
+// TRANSLATOR PAGE SCRIPTS
+
+var isFlashcardSwitch = document.getElementById("is-flashcard-switch2");
+
+// Displaying and hiding decks selectbox on toggle switch
+if (isFlashcardSwitch) {
+    console.log("exists")
+    isFlashcardSwitch.addEventListener("click", function () {
+        console.log("clicked")
+        var deckList = document.querySelector(".decks-list");
+        console.log(deckList.style.display)
+        // classList.toggle doesn't work for some reason
+        if (deckList.style.display === "none") {
+            console.log("none");
+            deckList.style.display = "block";
+        } else if (deckList.style.display === "block") {
+            console.log("block");
+            deckList.style.display = "none";
+        }
+    })
+}
 
 

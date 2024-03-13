@@ -13,6 +13,7 @@
     <meta name="description" content="Page for translating and adding card to the deck.">
     <title>AnkiTranslator</title>
     <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <script defer src="{% static 'main.js' %}"></script>
 </head>
 
 <body class="center">
@@ -20,9 +21,12 @@
         <form method="post">
             {{ translator_form.media.css }}
             {% csrf_token %}
-            {{ translator_form.is_flashcard.label }}
-            {{ translator_form.is_flashcard }}
-            <div class="decks-list">{{translator_form.decks}}</div>
+            <div class="is-flashcard-container">
+                <label for="is-flashcard-switch">Flashcard</label>
+                {{ translator_form.is_flashcard|attr:"id:is-flashcard-switch2"}}
+                <div class="decks-list">{{translator_form.decks}}</div>
+            </div>
+
             <input type="hidden" name="form_type" value="translator_form">
             <div class="textarea-container">
                 <textarea name="input_text" class="input-box" placeholder="Write the text that you want to translate.">

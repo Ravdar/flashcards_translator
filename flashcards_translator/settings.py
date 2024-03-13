@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig",
     "widget_tweaks",
     'django_select2',
+    'django_toggle_switch_widget',
 ]
 
 MIDDLEWARE = [
