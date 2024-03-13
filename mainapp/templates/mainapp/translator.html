@@ -17,6 +17,47 @@
 </head>
 
 <body class="center">
+    <header id="header" class="center">
+        <div class="header-container">
+            <h3><a href="{% url 'mainapp:landing_page' %}">AnkiTranslator</a></h3>
+            <nav>
+                <a href="#how-it-works">How it works?</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
+                <a href="#examples">Examples</a>
+            </nav>
+            <div class="signs">
+                {% if request.user.is_authenticated %}
+                <a class="nav-button mr" href="{% url 'mainapp:translator' %}">Create flashcards+</a>
+                <a href="{% url 'users:logout' %}">Log out</a>
+                <a href="{% url 'mainapp:user_profile' user.username %}">
+                    {% if user.profile.profile_picture.url %}
+                    <img src="{{ user.profile.profile_picture.url }}" id="profile-picture" alt="Profile picture">
+                    {% else %}
+                    <p>{{user.username}}</p>
+                    {% endif %}
+                </a>
+                {% else %}
+                <a href="{% url 'users:register_view' %}">Sign up</a>
+                <a href="{% url 'users:login' %}">Sign in</a>
+                {% endif %}
+            </div>
+
+            <button class="hamburger-button center">
+                <div class="hamburger-icon"></div>
+                <div class="hamburger-menu">
+                    <a href="#how-it-works">How it works?</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="#examples">Examples</a>
+                    <br>
+                    <a href="{% url 'users:register_view' %}">Sign up</a>
+                    <a href="{% url 'users:login' %}">Sign in</a>
+                </div>
+            </button>
+        </div>
+    </header>
+
     <main class="translator-main center">
         <form method="post">
             {{ translator_form.media.css }}
@@ -26,20 +67,24 @@
                 {{ translator_form.is_flashcard|attr:"id:is-flashcard-switch2"}}
                 <div class="decks-list">{{translator_form.decks}}</div>
             </div>
-
             <input type="hidden" name="form_type" value="translator_form">
-            <div class="textarea-container">
-                <textarea name="input_text" class="input-box" placeholder="Write the text that you want to translate.">
+            <div class="textareas">
+                <div class="textarea-container">
+                    <textarea name="input_text" class="input-box"
+                        placeholder="Write the text that you want to translate.">
                 {{ input_text }}
             </textarea>
-                <div class="from-languages-container">{{translator_form.from_language|add_class:"language-selectbox"}}
+                    <div class="from-languages-container">
+                        {{translator_form.from_language|add_class:"language-selectbox"}}
+                    </div>
                 </div>
-            </div>
-            <div class="textarea-container">
-                <textarea class="output-box"
-                    placeholder="Translated text will appear here. Flashcard will be created automatically."
-                    readonly>{{ translated_text }}</textarea>
-                <div class="to-languages-container">{{translator_form.to_language|add_class:"language-selectbox"}}</div>
+                <div class="textarea-container">
+                    <textarea class="output-box"
+                        placeholder="Translated text will appear here. Flashcard will be created automatically."
+                        readonly>{{ translated_text }}</textarea>
+                    <div class="to-languages-container">{{translator_form.to_language|add_class:"language-selectbox"}}
+                    </div>
+                </div>
             </div>
             <button type="submit">Translate</button>
         </form>

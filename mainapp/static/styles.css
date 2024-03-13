@@ -20,7 +20,8 @@
 
 :root {
     /* Colors */
-    --MAIN-COLOR: gray;
+    --MAIN-BLUE: #5299ff;
+    --LIGHT-BLUE: #8fbeff;
     --DECK-BLUE: #A3F6FE;
     --DECK-BLUE-2: #A3CAFE;
     --DECK-RED: #FEA3A3;
@@ -85,7 +86,7 @@ a {
 }
 
 a:hover {
-    color: var(--MAIN-COLOR);
+    color: var(--MAIN-BLUE);
     cursor: pointer;
 }
 
@@ -119,8 +120,9 @@ header {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    padding: 5px;
+    padding: 1px 5px;
     max-width: var(--PAGE-WIDTH);
+    align-items: center;
 }
 
 nav,
@@ -193,7 +195,7 @@ main section {
 }
 
 main section:nth-child(2n) {
-    background-color: var(--MAIN-COLOR);
+    background-color: var(--MAIN-BLUE);
     color: white
 }
 
@@ -256,15 +258,29 @@ footer {
 /* TRANSLATOR */
 
 .translator-main {
-    max-width: 600px;
     padding: 0px 10px;
+    flex-grow: 1;
+    margin-top: 75px;
 }
 
 .translator-main form {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
+    flex-grow: 1;
+    max-width: 800px;
+}
+
+.translator-main form button {
+    font-size: 1.5em;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: var(--MAIN-BLUE);
+    padding: 10px;
+    align-self: center;
+    color: white;
+    margin: 15px 0px;
 }
 
 .is-flashcard-container {
@@ -275,35 +291,70 @@ footer {
     ;
 }
 
-.is-flashcard-switch {
-    width: 70px;
+.decks-list {
+    display: block;
+    overflow: hidden;
+    flex-grow: 1;
 }
 
-.decks-list {
-    display: none;
-    overflow: hidden;
-    min-width: 200px;
+/* Django-select2-styling */
+
+.select2 {
+    width: 100% !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: var(--LIGHT-BLUE) !important;
+    border: none !important;
+    color: white !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: white !important;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: var(--LIGHT-BLUE) !important;
+}
+
+.select2-container--default .select2-selection--multiple {
+    border-radius: 5px !important
 }
 
 .active-is-flashcard {
-    display: block !important;
+    display: block;
     min-width: 30px;
 }
 
+.textareas {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 10px;
+}
+
 .textarea-container {
-    width: 100%;
-    max-height: 400px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    /* To make it fill the available space */
     position: relative;
 }
 
 textarea {
-    width: 100%;
-    min-height: 300px;
+    flex-grow: 1;
+    /* Fill the remaining space within the container */
     font-size: 1.5em;
     border-radius: 10px;
     font-family: var(--TRANSLATOR-FONT);
     padding: 35px 10px 10px 10px;
     resize: none;
+    box-sizing: border-box;
+}
+
+.input-box:focus {
+    outline: 2px solid var(--MAIN-BLUE);
+    border: none;
 }
 
 .output-box {
@@ -322,8 +373,21 @@ textarea {
     border: none;
 }
 
-.select2 {
-    width: 100% !important;
+select:focus {
+    border: none;
+    outline: none;
+}
+
+.language-selectbox option {
+    /* Your styles for the options */
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.language-selectbox option:checked {
+    background-color: var(--MAIN-BLUE);
+    color: white;
 }
 
 /* DECKS  */
@@ -378,5 +442,17 @@ textarea {
 
     .hamburger-button {
         display: none
+    }
+
+    /* TRANSLATOR PAGE */
+
+    .translator-main form {
+        max-height: 500px;
+        max-width: 100px;
+        ;
+    }
+
+    .textareas {
+        flex-direction: row;
     }
 }
