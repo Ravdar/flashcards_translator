@@ -43,29 +43,23 @@ faqs.forEach((faq) => {
 
 // Function to hide and show decks on is_flashcard checkbox
 
-// Function for clearing output_box when input_box is selected
+// Function for clearing output_box when input-box is selected
 
 
 // TRANSLATOR PAGE SCRIPTS
 
 var isFlashcardSwitch = document.getElementById("is-flashcard-switch2");
+var deckList = document.querySelector(".decks-list");
 
-// Displaying and hiding decks selectbox on toggle switch
+// Displaying and hiding decks selectbox based on checkbox state
 if (isFlashcardSwitch) {
-    console.log("exists")
-    isFlashcardSwitch.addEventListener("click", function () {
-        console.log("clicked")
-        var deckList = document.querySelector(".decks-list");
-        console.log(deckList.style.display)
-        // classList.toggle doesn't work for some reason
-        if (deckList.style.display === "none") {
-            console.log("none");
+    isFlashcardSwitch.addEventListener("change", function () {
+        if (isFlashcardSwitch.checked) {
             deckList.style.display = "block";
-        } else if (deckList.style.display === "block") {
-            console.log("block");
+        } else {
             deckList.style.display = "none";
         }
-    })
+    });
 }
 
 

@@ -39,6 +39,8 @@ def translator(request):
                 for deck in decks:
                     flashcard = Flashcard(front=input_text, back=translated_text,  user=request.user, deck=deck)
                     flashcard.save()
+        else:
+            print("invalid")            
     # GET request               
     else:
         translator_form = TranslatorForm(request.user)

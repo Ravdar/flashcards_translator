@@ -16,7 +16,7 @@
     <script defer src="{% static 'main.js' %}"></script>
 </head>
 
-<body class="center">
+<body>
     <header id="header" class="center">
         <div class="header-container">
             <h3><a href="{% url 'mainapp:landing_page' %}">AnkiTranslator</a></h3>
@@ -71,9 +71,7 @@
             <div class="textareas">
                 <div class="textarea-container">
                     <textarea name="input_text" class="input-box"
-                        placeholder="Write the text that you want to translate.">
-                {{ input_text }}
-            </textarea>
+                        placeholder="Write the text that you want to translate.">{{ input_text}}</textarea>
                     <div class="from-languages-container">
                         {{translator_form.from_language|add_class:"language-selectbox"}}
                     </div>

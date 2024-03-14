@@ -18,7 +18,7 @@ class Translation(models.Model):
     output_text = models.CharField(max_length=500, null=True, blank=True)
     is_flashcard = models.BooleanField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    from_language = models.ForeignKey(Language, related_name="translation_from", on_delete=models.PROTECT, default=70)
+    from_language = models.ForeignKey(Language, related_name="translation_from", on_delete=models.PROTECT)
     to_language = models.ForeignKey(Language, related_name="translation_to", on_delete=models.PROTECT)
 
     def __str__(self):

@@ -288,11 +288,11 @@ footer {
     align-items: center;
     gap: 5px;
     font-size: 1.2em;
-    ;
+    min-height: 34px;
 }
 
 .decks-list {
-    display: block;
+    display: none;
     overflow: hidden;
     flex-grow: 1;
 }
@@ -311,6 +311,7 @@ footer {
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
     color: white !important;
+    max-height: 28px !important;
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
@@ -319,6 +320,15 @@ footer {
 
 .select2-container--default .select2-selection--multiple {
     border-radius: 5px !important
+}
+
+.select2-hidden-accessible {
+    position: static !important;
+    height: auto !important;
+    width: auto !important;
+    overflow: visible !important;
+    clip: auto !important;
+    white-space: normal !important;
 }
 
 .active-is-flashcard {
@@ -390,6 +400,11 @@ select:focus {
     color: white;
 }
 
+.language-selectbox option:hover {
+    background-color: var(--LIGHT-BLUE);
+    color: white;
+}
+
 /* DECKS  */
 
 .decks-container {
@@ -446,9 +461,13 @@ select:focus {
 
     /* TRANSLATOR PAGE */
 
+    .translator-main {
+        margin-top: -75px;
+    }
+
     .translator-main form {
         max-height: 500px;
-        max-width: 100px;
+        max-width: 1000px;
         ;
     }
 
