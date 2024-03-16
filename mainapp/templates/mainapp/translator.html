@@ -1,12 +1,15 @@
+{% extends "mainapp/user_profile.html" %}
+
 {% load static %}
 {% load widget_tweaks %}
+
 
 <!-- Add flags to selected languages -->
 
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<!-- <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Rafał Darnobid">
@@ -14,9 +17,9 @@
     <title>AnkiTranslator</title>
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     <script defer src="{% static 'main.js' %}"></script>
-</head>
+</head> -->
 
-<body>
+<!-- <body>
     <header id="header" class="center">
         <div class="header-container">
             <h3><a href="{% url 'mainapp:landing_page' %}">AnkiTranslator</a></h3>
@@ -56,39 +59,42 @@
                 </div>
             </button>
         </div>
-    </header>
+    </header> -->
 
-    <main class="translator-main center">
-        <form method="post">
-            {{ translator_form.media.css }}
-            {% csrf_token %}
-            <div class="is-flashcard-container">
-                <label for="is-flashcard-switch">Flashcard</label>
-                {{ translator_form.is_flashcard|attr:"id:is-flashcard-switch2"}}
-                <div class="decks-list">{{translator_form.decks}}</div>
-            </div>
-            <input type="hidden" name="form_type" value="translator_form">
-            <div class="textareas">
-                <div class="textarea-container">
-                    <textarea name="input_text" class="input-box"
-                        placeholder="Write the text that you want to translate.">{{ input_text}}</textarea>
-                    <div class="from-languages-container">
-                        {{translator_form.from_language|add_class:"language-selectbox"}}
-                    </div>
-                </div>
-                <div class="textarea-container">
-                    <textarea class="output-box"
-                        placeholder="Translated text will appear here. Flashcard will be created automatically."
-                        readonly>{{ translated_text }}</textarea>
-                    <div class="to-languages-container">{{translator_form.to_language|add_class:"language-selectbox"}}
-                    </div>
+{% block content %}
+<main class="translator-main center">
+    <form method="post">
+        {{ translator_form.media.css }}
+        {% csrf_token %}
+        <div class="is-flashcard-container">
+            <label for="is-flashcard-switch">Flashcard</label>
+            {{ translator_form.is_flashcard|attr:"id:is-flashcard-switch2"}}
+            <div class="decks-list">{{translator_form.decks}}</div>
+        </div>
+        <input type="hidden" name="form_type" value="translator_form">
+        <div class="textareas">
+            <div class="textarea-container">
+                <textarea name="input_text" class="input-box"
+                    placeholder="Write the text that you want to translate.">{{ input_text}}</textarea>
+                <div class="from-languages-container">
+                    {{translator_form.from_language|add_class:"language-selectbox"}}
                 </div>
             </div>
-            <button type="submit">Translate</button>
-        </form>
-    </main>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    {{ translator_form.media.js }}
-</body>
+            <div class="textarea-container">
+                <textarea class="output-box"
+                    placeholder="Translated text will appear here. Flashcard will be created automatically."
+                    readonly>{{ translated_text }}</textarea>
+                <div class="to-languages-container">{{translator_form.to_language|add_class:"language-selectbox"}}
+                </div>
+            </div>
+        </div>
+        <button type="submit">Translate</button>
+    </form>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{{ translator_form.media.js }}
 
-</html>
+{% endblock content %}
+<!-- </body>
+
+</html> -->

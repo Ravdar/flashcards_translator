@@ -64,6 +64,19 @@ body {
     display: flex;
     align-items: center;
     font-family: var(--MAIN-FONT);
+    max-width: 100vh;
+}
+
+body::-webkit-scrollbar {
+    width: 0.35rem;
+}
+
+body::-webkit-scrollbar-track {
+    background-color: whitesmoke;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: grey;
 }
 
 main {
@@ -92,7 +105,8 @@ a:hover {
 
 button {
     background-color: transparent;
-    border: none
+    border: none;
+    cursor: pointer;
 }
 
 h1 {
@@ -125,7 +139,7 @@ header {
     align-items: center;
 }
 
-nav,
+.landing-nav,
 .signs {
     display: none;
     gap: 15px
@@ -255,12 +269,66 @@ footer {
     min-width: 100%;
 }
 
+/* USER PANEL */
+
+.navbar {
+    width: 100vw;
+    height: 5rem;
+    position: fixed;
+    background-color: var(--bg-primary);
+    bottom: 0;
+    left: 0;
+    justify-content: center;
+    background-color: var(--MAIN-BLUE);
+    z-index: 2;
+    /* transition: width 200ms ease-in-out; */
+}
+
+.navbar:hover {
+    width: 14rem;
+}
+
+.navbar ul {
+    list-style: none;
+    width: 100%;
+}
+
+.navbar ul li {
+    width: 100%;
+    padding: 20px;
+    transition: all 200ms ease-in-out;
+}
+
+.navbar ul li:hover {
+    background-color: var(--LIGHT-BLUE);
+}
+
+.logo {
+    display: none;
+}
+
+.navbar a {
+    display: flex;
+    align-items: center;
+}
+
+.link-text {
+    display: none;
+    color: white;
+    margin-left: 1rem;
+}
+
+.navbar:hover .link-text {
+    display: block;
+}
+
+
 /* TRANSLATOR */
 
 .translator-main {
     padding: 0px 10px;
     flex-grow: 1;
-    margin-top: 75px;
+    margin: 1rem 0px 5rem 0px;
 }
 
 .translator-main form {
@@ -400,11 +468,6 @@ select:focus {
     color: white;
 }
 
-.language-selectbox option:hover {
-    background-color: var(--LIGHT-BLUE);
-    color: white;
-}
-
 /* DECKS  */
 
 .decks-container {
@@ -450,7 +513,7 @@ select:focus {
 /* WIDE SCREENS */
 @media screen and (min-width:1000px) {
 
-    nav,
+    .landing-nav,
     .signs {
         display: flex;
     }
@@ -459,10 +522,34 @@ select:focus {
         display: none
     }
 
+    /* USER PANEL */
+    .navbar {
+        width: 5rem;
+        height: 100vh;
+        bottom: none;
+        flex-direction: column;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+    }
+
+    .navbar ul li {
+        justify-content: flex-start;
+    }
+
+    .logo {
+        display: block;
+    }
+
+    .navbar ul li:last-child {
+        bottom: 0;
+    }
+
     /* TRANSLATOR PAGE */
 
     .translator-main {
-        margin-top: -75px;
+        margin: -75px 0px 0rem 5rem;
     }
 
     .translator-main form {
