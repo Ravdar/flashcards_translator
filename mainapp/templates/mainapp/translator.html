@@ -4,63 +4,6 @@
 {% load widget_tweaks %}
 
 
-<!-- Add flags to selected languages -->
-
-<!DOCTYPE html>
-<html lang="en">
-
-<!-- <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Rafał Darnobid">
-    <meta name="description" content="Page for translating and adding card to the deck.">
-    <title>AnkiTranslator</title>
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
-    <script defer src="{% static 'main.js' %}"></script>
-</head> -->
-
-<!-- <body>
-    <header id="header" class="center">
-        <div class="header-container">
-            <h3><a href="{% url 'mainapp:landing_page' %}">AnkiTranslator</a></h3>
-            <nav>
-                <a href="#how-it-works">How it works?</a>
-                <a href="#pricing">Pricing</a>
-                <a href="#faq">FAQ</a>
-                <a href="#examples">Examples</a>
-            </nav>
-            <div class="signs">
-                {% if request.user.is_authenticated %}
-                <a class="nav-button mr" href="{% url 'mainapp:translator' %}">Create flashcards+</a>
-                <a href="{% url 'users:logout' %}">Log out</a>
-                <a href="{% url 'mainapp:user_profile' user.username %}">
-                    {% if user.profile.profile_picture.url %}
-                    <img src="{{ user.profile.profile_picture.url }}" id="profile-picture" alt="Profile picture">
-                    {% else %}
-                    <p>{{user.username}}</p>
-                    {% endif %}
-                </a>
-                {% else %}
-                <a href="{% url 'users:register_view' %}">Sign up</a>
-                <a href="{% url 'users:login' %}">Sign in</a>
-                {% endif %}
-            </div>
-
-            <button class="hamburger-button center">
-                <div class="hamburger-icon"></div>
-                <div class="hamburger-menu">
-                    <a href="#how-it-works">How it works?</a>
-                    <a href="#pricing">Pricing</a>
-                    <a href="#faq">FAQ</a>
-                    <a href="#examples">Examples</a>
-                    <br>
-                    <a href="{% url 'users:register_view' %}">Sign up</a>
-                    <a href="{% url 'users:login' %}">Sign in</a>
-                </div>
-            </button>
-        </div>
-    </header> -->
-
 {% block content %}
 <main class="translator-main center">
     <form method="post">
@@ -88,13 +31,10 @@
                 </div>
             </div>
         </div>
-        <button type="submit">Translate</button>
+        <button class="blue-button" type="submit">Translate</button>
     </form>
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {{ translator_form.media.js }}
 
 {% endblock content %}
-<!-- </body>
-
-</html> -->

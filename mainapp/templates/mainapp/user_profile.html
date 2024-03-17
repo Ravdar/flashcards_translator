@@ -35,7 +35,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{% url 'mainapp:user_profile' user.username %}" class="nav-link">
                     <svg fill="white" width="40px" height="40px" viewBox="0 0 20 20" version="1.1"
                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <g id="Page-1" stroke="none" stroke-width="1" fill-rule="evenodd">
@@ -54,7 +54,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{% url 'mainapp:user_profile' user.username %}" class="nav-link">
                     <svg fill="white" width="40px" height="40px" xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                         <path
@@ -65,7 +65,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{% url 'mainapp:user_profile' user.username %}" class="nav-link">
                     <svg fill="white" width="40px" height="40px" viewBox="0 0 256 256" id="Flat"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -76,7 +76,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{% url 'mainapp:translator' %}" class="nav-link">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="white" width="40px" height="40px"
                         viewBox="0 0 640 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                         <path
@@ -88,6 +88,7 @@
 
             <li class="nav-item center" id="themeButton">
                 <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                <a href="{% url 'users:logout' %}" class="nav-link"></a>
                 <svg fill="white" width="40px" height="40px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M17.2929 14.2929C16.9024 14.6834 16.9024 15.3166 17.2929 15.7071C17.6834 16.0976 18.3166 16.0976 18.7071 15.7071L21.6201 12.7941C21.6351 12.7791 21.6497 12.7637 21.6637 12.748C21.87 12.5648 22 12.2976 22 12C22 11.7024 21.87 11.4352 21.6637 11.252C21.6497 11.2363 21.6351 11.2209 21.6201 11.2059L18.7071 8.29289C18.3166 7.90237 17.6834 7.90237 17.2929 8.29289C16.9024 8.68342 16.9024 9.31658 17.2929 9.70711L18.5858 11H13C12.4477 11 12 11.4477 12 12C12 12.5523 12.4477 13 13 13H18.5858L17.2929 14.2929Z" />
@@ -101,22 +102,24 @@
     </nav>
 
     {% block content %}
+    <main class="translator-main center">
+        <div class="decks-container">
+            {% for deck in user.decks.all %}
+            <a href="{% url 'mainapp:review' %}?deck_name={{ deck.name }}">
+                <div class="center">{{deck.name}}</div>
+            </a>
+            {% endfor %}
+            <div class="center"><button class="add-deck-button">+</button></div>
+        </div>
+        <div class="add-deck-container">
+            <form method="post">
+                {% csrf_token %}
+                {{new_deck_form.as_p}}
+                <button type="submit">Add</button>
+            </form>
+        </div>
+    </main>
 
-    <div class="decks-container">
-        {% for deck in user.decks.all %}
-        <a href="{% url 'mainapp:review' %}?deck_name={{ deck.name }}">
-            <div class="center">{{deck.name}}</div>
-        </a>
-        {% endfor %}
-        <div class="center"><button class="add-deck-button">+</button></div>
-    </div>
-    <div class="add-deck-container">
-        <form method="post">
-            {% csrf_token %}
-            {{new_deck_form.as_p}}
-            <button type="submit">Add</button>
-        </form>
-    </div>
 
     {% endblock content %}
 

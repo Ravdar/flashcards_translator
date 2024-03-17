@@ -21,7 +21,7 @@
 :root {
     /* Colors */
     --MAIN-BLUE: #5299ff;
-    --LIGHT-BLUE: #8fbeff;
+    --LIGHT-BLUE: #d5e7ff;
     --DECK-BLUE: #A3F6FE;
     --DECK-BLUE-2: #A3CAFE;
     --DECK-RED: #FEA3A3;
@@ -345,16 +345,16 @@ footer {
     margin: 1rem 0px 5rem 0px;
 }
 
-.translator-main form {
+.translator-main form,
+#flashcard-container {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
     flex-grow: 1;
-    max-width: 800px;
 }
 
-.translator-main form button {
+.blue-button {
     font-size: 1.5em;
     font-weight: bold;
     border-radius: 5px;
@@ -429,19 +429,29 @@ footer {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    /* To make it fill the available space */
     position: relative;
 }
 
-textarea {
+textarea,
+.flashcard-front,
+.flashcard-back {
     flex-grow: 1;
-    /* Fill the remaining space within the container */
     font-size: 1.5em;
     border-radius: 10px;
     font-family: var(--TRANSLATOR-FONT);
+    box-sizing: border-box;
+}
+
+textarea {
     padding: 35px 10px 10px 10px;
     resize: none;
-    box-sizing: border-box;
+}
+
+.flashcard-front,
+.flashcard-back {
+    padding: 10px;
+    background-color: white;
+    border: 1px solid grey;
 }
 
 .input-box:focus {
@@ -504,6 +514,22 @@ select:focus {
 
 /* REVIEW */
 
+.review-main {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+    align-items: center;
+    margin: 1rem 0 5rem 0;
+    text-align: center;
+    padding: 10px;
+}
+
+#flashcard-container {
+    margin: 2rem;
+    max-height: 600px;
+    max-width: 500px;
+}
+
 .flashcard-back {
     display: none;
 }
@@ -513,7 +539,7 @@ select:focus {
     display: none;
 }
 
-.quality-buttons-container button,
+/* .quality-buttons-container button,
 .show-answer {
     font-size: 2em;
     color: white;
@@ -522,7 +548,7 @@ select:focus {
     border-radius: 5px;
     padding: 5px;
     cursor: pointer;
-}
+} */
 
 /* WIDE SCREENS */
 @media screen and (min-width:1000px) {
@@ -577,4 +603,8 @@ select:focus {
     .textareas {
         flex-direction: row;
     }
+
+    /* REVIEW PAGE */
+
+
 }
