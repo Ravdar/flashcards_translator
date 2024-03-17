@@ -7,6 +7,8 @@ from django_toggle_switch_widget.widgets import DjangoToggleSwitchWidget
 
 
 class TranslatorForm(forms.ModelForm):
+    """Form for creating translations and adding flashcards to the decks."""
+
     def __init__(self, user, *args, **kwargs):
         super(TranslatorForm, self).__init__(*args, **kwargs)
         self.fields["decks"].queryset = Deck.objects.filter(user=user)
@@ -18,7 +20,6 @@ class TranslatorForm(forms.ModelForm):
         self.fields["from_language"] = forms.ModelChoiceField(queryset=Language.objects.all(),initial=default_from_language)
         self.fields["to_language"] = forms.ModelChoiceField(queryset=Language.objects.exclude(name="auto"),initial=default_to_language)
         self.fields["is_flashcard"].widget = DjangoToggleSwitchWidget(round=True, klass="django-toggle-switch-success")
-        self.fields["is_flashcard"].default = False
 
     decks = forms.ModelMultipleChoiceField(queryset=Deck.objects.none(),widget=s2forms.Select2MultipleWidget(attrs={'data-placeholder': 'Select decks'}))
 
@@ -26,8 +27,23 @@ class TranslatorForm(forms.ModelForm):
         model = Translation
         fields = ["input_text", "is_flashcard","decks","from_language", "to_language"]
 
+class SearchDecks(forms.ModelForm):
+    """Form for searching specific deck."""
+
+    class Meta:
+        model=Deck
+        fields=["name"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # self.fields["name"].queryset = Deck.objects.filter(user=user)
+        # self.fields["name"].required = False
+        self.fields['name'].widget = s2forms.Select2MultipleWidget(attrs={'data-placeholder': 'Search for decks'})
+
 
 class NewDeck(forms.ModelForm):
+    """Form for creating a new deck."""
+
     class Meta:
         model = Deck
         fields = ["name", "description"]

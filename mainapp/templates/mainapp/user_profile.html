@@ -102,7 +102,25 @@
     </nav>
 
     {% block content %}
-    <main class="translator-main center">
+    <main class="user-profile-main">
+        <h2>Your decks</h2>
+        <form>
+            {{ decks_searchbar.media.css }}
+            {% csrf_token %}
+            {{decks_searchbar.name}}</form>
+        <div class="decks-container">
+            <div class="center"><button class="add-deck-button">+</button></div>
+            {% for deck in user.decks.all %}
+            <a href="{% url 'mainapp:review' %}?deck_name={{ deck.name }}">
+                <div class=" deck center">{{deck.name}}</div>
+            </a>
+            {% endfor %}
+
+        </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {{ decks_searchbar.media.js }}
+    <!-- <main class="translator-main center">
         <div class="decks-container">
             {% for deck in user.decks.all %}
             <a href="{% url 'mainapp:review' %}?deck_name={{ deck.name }}">
@@ -118,7 +136,8 @@
                 <button type="submit">Add</button>
             </form>
         </div>
-    </main>
+    </main> -->
+
 
 
     {% endblock content %}

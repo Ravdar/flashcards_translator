@@ -24,9 +24,9 @@
     {% endif %}
     <button id="flip-the-card-button" class="blue-button">Flip the card</button>
     <div class="quality-buttons-container center">
-        <button class="blue-button" data-quality="0">Very hard</button>
+        <button class="blue-button" data-quality="0">Again</button>
         <button class="blue-button" data-quality="1">Hard</button>
-        <button class="blue-button" data-quality="2">Ok</button>
+        <button class="blue-button" data-quality="2">Good</button>
         <button class="blue-button" data-quality="3">Easy</button>
     </div>
 </main>
@@ -45,7 +45,7 @@
         var qualityButtons = qualityButtonsContainer.querySelectorAll("button");
 
         // Actions after clicking Flip Card button
-        flipCardButton.addEventListener("click", function () { qualityButtonsContainer.style.display = "block"; flipCardButton.style.display = "none"; flashcardBack.style.opacity = "1" });
+        flipCardButton.addEventListener("click", function () { qualityButtonsContainer.style.display = "flex"; flipCardButton.style.display = "none"; flashcardBack.style.opacity = "1" });
 
         // Actions after clicking one of quality buttons
         qualityButtons.forEach(button => {

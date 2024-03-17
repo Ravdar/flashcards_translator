@@ -270,6 +270,8 @@ footer {
 
 /* USER PANEL */
 
+/* Sidebar */
+
 .navbar {
     width: 100vw;
     height: 5rem;
@@ -333,6 +335,26 @@ footer {
     margin: 0 20px;
     width: 40px;
     min-width: 40px;
+}
+
+/* Decks section */
+
+.decks-container {
+    display: grid;
+    gap: 20px;
+}
+
+.decks-container div {
+    width: 100px;
+    height: 140px;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: white;
+    background-color: gray;
+}
+
+.decks-container div:first-child {
+    background-color: whitesmoke;
 }
 
 
@@ -486,26 +508,6 @@ select:focus {
     color: white;
 }
 
-/* DECKS  */
-
-.decks-container {
-    display: flex;
-    gap: 20px;
-}
-
-.decks-container div {
-    width: 100px;
-    height: 140px;
-    border: 1px solid black;
-    border-radius: 5px;
-    color: white;
-    background-color: gray;
-}
-
-.decks-container div:last-child {
-    background-color: whitesmoke;
-}
-
 /* REVIEW */
 
 .review-main {
@@ -533,16 +535,6 @@ select:focus {
     display: none;
 }
 
-/* .quality-buttons-container button,
-.show-answer {
-    font-size: 2em;
-    color: white;
-    border: 1px solid black;
-    background-color: grey;
-    border-radius: 5px;
-    padding: 5px;
-    cursor: pointer;
-} */
 
 /* WIDE SCREENS */
 @media screen and (min-width:1000px) {
@@ -557,6 +549,9 @@ select:focus {
     }
 
     /* USER PANEL */
+
+    /* Sidebar */
+
     .navbar {
         width: 5rem;
         height: 100vh;

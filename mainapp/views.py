@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
-from .forms import TranslatorForm, NewDeck
+from .forms import TranslatorForm, NewDeck, SearchDecks
 from .models import Translation, Flashcard,Deck,Language
 
 import translators as ts
@@ -50,6 +50,7 @@ def translator(request):
     return render(request, "mainapp/translator.html", {"translator_form":translator_form, "input_text":input_text, "translated_text":translated_text})
 
 
+@login_required
 def review(request):
     """View for deck review."""
 
@@ -85,6 +86,7 @@ def review(request):
     return render(request, "mainapp/review.html", {"deck_name":deck_name,"flashcards_list":flashcards_list})
 
 
+@login_required
 def user_profile(request, user_username):
     """View for user profile and managing decks."""
 
@@ -93,6 +95,7 @@ def user_profile(request, user_username):
     if request.method == "POST":
         # Handling form for adding new deck
         new_deck_form = NewDeck(request.POST)
+        decks_searchbar = SearchDecks(request.POST)
         if new_deck_form.is_valid():
             new_deck = new_deck_form.save(commit=False)
             new_deck.created_by = request.user
@@ -100,7 +103,9 @@ def user_profile(request, user_username):
             new_deck.user.add(request.user)
             new_deck.save()
             new_deck_form= NewDeck()
-    else: 
+    else:
+        # GET request 
         new_deck_form= NewDeck()
-    return render(request, "mainapp/user_profile.html", {"user":user, "new_deck_form":new_deck_form})
+        decks_searchbar = SearchDecks()
+    return render(request, "mainapp/user_profile.html", {"user":user, "new_deck_form":new_deck_form,"decks_searchbar":decks_searchbar})
 
