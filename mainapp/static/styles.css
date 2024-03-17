@@ -21,7 +21,7 @@
 :root {
     /* Colors */
     --MAIN-BLUE: #5299ff;
-    --LIGHT-BLUE: #d5e7ff;
+    --LIGHT-BLUE: #8fbeff;
     --DECK-BLUE: #A3F6FE;
     --DECK-BLUE-2: #A3CAFE;
     --DECK-RED: #FEA3A3;
@@ -274,7 +274,6 @@ footer {
     width: 100vw;
     height: 5rem;
     position: fixed;
-    background-color: var(--bg-primary);
     bottom: 0;
     left: 0;
     background-color: var(--MAIN-BLUE);
@@ -413,11 +412,6 @@ footer {
     white-space: normal !important;
 }
 
-.active-is-flashcard {
-    display: block;
-    min-width: 30px;
-}
-
 .textareas {
     display: flex;
     flex-direction: column;
@@ -531,7 +525,7 @@ select:focus {
 }
 
 .flashcard-back {
-    display: none;
+    opacity: 0;
 }
 
 .quality-buttons-container {

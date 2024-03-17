@@ -4,8 +4,8 @@
 
 <main class="review-main">
     <h2 id="deck-name">{{deck_name}}</h2>
+    {% if flashcards_list %}
     <div id="flashcard-container">
-        {% if flashcards_list %}
         <div class="textarea-container">
             <div class="flashcard-front center">
                 <h3 id="card-id" style="display: none;">{{flashcards_list.0.id}}</h3>
@@ -18,10 +18,10 @@
                 {{flashcards_list.0.back}}
             </div>
         </div>
-        {% else %}
-        <p>Congratulations! There are no cards to review in this deck for today!</p>
-        {% endif %}
     </div>
+    {% else %}
+    <p>Congratulations! There are no cards to review in this deck for today!</p>
+    {% endif %}
     <button id="flip-the-card-button" class="blue-button">Flip the card</button>
     <div class="quality-buttons-container center">
         <button class="blue-button" data-quality="0">Very hard</button>
@@ -45,12 +45,12 @@
         var qualityButtons = qualityButtonsContainer.querySelectorAll("button");
 
         // Actions after clicking Flip Card button
-        flipCardButton.addEventListener("click", function () { qualityButtonsContainer.style.display = "block"; flipCardButton.style.display = "none"; flashcardBack.style.display = "flex" });
+        flipCardButton.addEventListener("click", function () { qualityButtonsContainer.style.display = "block"; flipCardButton.style.display = "none"; flashcardBack.style.opacity = "1" });
 
         // Actions after clicking one of quality buttons
         qualityButtons.forEach(button => {
             button.addEventListener("click", function () {
-                flipCardButton.style.display = "block";
+                flipCardButton.transform.scale = "block";
                 qualityButtonsContainer.style.display = "none";
             });
         });
@@ -78,10 +78,10 @@
                 },
                 dataType: 'json',
                 success: function (data) {
-                    if (data.id == "no more cards") { flashcardContainer.html('<h3>Congratulations! There are nor cards to reveiew in this deck for today!</h3>') }
+                    if (data.id == "no more cards") { flashcardContainer.html('<br> <p>Congratulations! There are no cards to review in this deck for today!</p><br>') }
                     else {
                         cardId = data.id
-                        flashcardContainer.html('<h3 id="card-id" style="display: none;">' + data.id + '</h3>' + data.front + '<hr>' + '<div class="flashcard-back center">' + data.back + '</div>');
+                        flashcardContainer.html('<div class="textarea-container"><div class="flashcard-front center"><h3 id="card-id" style="display: none;">' + data.id + '</h3>' + data.front + '</div></div>' + '<div class="textarea-container"><div class="flashcard-back center">' + data.back + '</div></div>');
                         initializeReviewElements();
                     }
                 }
