@@ -102,18 +102,19 @@
     </nav>
 
     {% block content %}
-    <main class="user-profile-main">
+    <main class="user-profile-main center">
         <h2>Your decks</h2>
         <form>
             {{ decks_searchbar.media.css }}
             {% csrf_token %}
             {{decks_searchbar.name}}</form>
         <div class="decks-container">
-            <div class="center"><button class="add-deck-button">+</button></div>
-            {% for deck in user.decks.all %}
-            <a href="{% url 'mainapp:review' %}?deck_name={{ deck.name }}">
-                <div class=" deck center">{{deck.name}}</div>
-            </a>
+            <div class="deck center"><button class="add-deck-button">+</button></div>
+            {% for deck in user.decks.all %}<div class=" deck center">
+                <a href="{% url 'mainapp:review' %}?deck_name={{ deck.name }}">
+                    {{deck.name}}
+                </a>
+            </div>
             {% endfor %}
 
         </div>
