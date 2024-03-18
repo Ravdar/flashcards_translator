@@ -354,28 +354,64 @@ footer {
     gap: 20px;
 }
 
-.decks-container div {
+.decks-container button,
+.decks-container a {
     width: 100px;
     height: 140px;
     border: 2px solid var(--MAIN-BLUE);
     border-radius: 5px;
     background-color: var(--LIGHT-BLUE);
-}
-
-.decks-container div a {
+    font-weight: bold;
+    overflow: auto;
+    padding: 0 10px;
+    box-shadow: 10px 10px var(--MAIN-BLUE);
     color: white;
 }
 
-.decks-container div button {
+.decks-container button {
+    background-color: whitesmoke;
     font-size: 75px;
     color: var(--MAIN-BLUE);
-    font-weight: bold;
 }
 
-.decks-container div:first-child {
+.add-deck-container {
+    position: absolute;
     background-color: whitesmoke;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    top: 50%;
+    left: 50%;
+    width: 80%;
+    max-width: 700px;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+    /* transform: scale(0); */
 }
 
+.add-deck-container form {
+    display: grid;
+    gap: 10px;
+}
+
+.add-deck-container form input {
+    border: 1px solid gray;
+    outline: none;
+    padding: 5px;
+    border-radius: 5px;
+    font-family: var(--TRANSLATOR-FONT);
+}
+
+.add-deck-container form :nth-child(5) {
+    font-size: 0.7em;
+    padding: 5px;
+}
+
+.close-dial {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
 
 /* TRANSLATOR */
 
@@ -573,6 +609,10 @@ select:focus {
 
     /* USER PANEL */
 
+    .user-profile-main {
+        gap: 40px;
+    }
+
     /* Sidebar */
 
     .navbar {
@@ -598,6 +638,13 @@ select:focus {
         margin-top: auto;
         justify-content: center;
         margin-bottom: 20px;
+    }
+
+    /* Decks page */
+
+    .decks-container {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 40px;
     }
 
     /* TRANSLATOR PAGE */

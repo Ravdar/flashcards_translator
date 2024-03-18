@@ -44,6 +44,10 @@ class SearchDecks(forms.ModelForm):
 class NewDeck(forms.ModelForm):
     """Form for creating a new deck."""
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["description"].widget = forms.Textarea(attrs={'cols':70,'rows':8})
+
     class Meta:
         model = Deck
         fields = ["name", "description"]

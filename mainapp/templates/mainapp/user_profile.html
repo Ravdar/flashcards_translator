@@ -103,46 +103,43 @@
 
     {% block content %}
     <main class="user-profile-main center">
-        <h2>Your decks</h2>
+        <h1>Your decks</h1>
         <form>
             {{ decks_searchbar.media.css }}
             {% csrf_token %}
             {{decks_searchbar.name}}</form>
         <div class="decks-container">
-            <div class="deck center"><button class="add-deck-button">+</button></div>
-            {% for deck in user.decks.all %}<div class=" deck center">
-                <a href="{% url 'mainapp:review' %}?deck_name={{ deck.name }}">
-                    {{deck.name}}
-                </a>
-            </div>
+            <button id="add-deck-button" class="deck center">+</button>
+            {% for deck in user.decks.all %}
+            <a href="{% url 'mainapp:review' %}?deck_name={{ deck.name }}" class=" deck center">{{deck.name}}</a>
             {% endfor %}
-
         </div>
     </main>
+
+
+    <!-- Modal window for adding a deck -->
+    <div class="add-deck-container">
+        <button><img class="close-dial" src="{% static 'close_dial.png' %}" alt="Close" loading="lazy" width="25"
+                height="25"></button>
+        <form method="post">
+            {% csrf_token %}
+            <label for="new_deck_form_name">Name:</label>
+            {{new_deck_form.name}}
+            <label for="new_deck_form_description">Description:</label>
+            {{new_deck_form.description}}
+            <button class="blue-button" type="submit">Add</button>
+        </form>
+    </div>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     {{ decks_searchbar.media.js }}
-    <!-- <main class="translator-main center">
-        <div class="decks-container">
-            {% for deck in user.decks.all %}
-            <a href="{% url 'mainapp:review' %}?deck_name={{ deck.name }}">
-                <div class="center">{{deck.name}}</div>
-            </a>
-            {% endfor %}
-            <div class="center"><button class="add-deck-button">+</button></div>
-        </div>
-        <div class="add-deck-container">
-            <form method="post">
-                {% csrf_token %}
-                {{new_deck_form.as_p}}
-                <button type="submit">Add</button>
-            </form>
-        </div>
-    </main> -->
-
 
 
     {% endblock content %}
 
 </body>
+
+<script></script>
 
 </html>
