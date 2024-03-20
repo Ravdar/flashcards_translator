@@ -70,8 +70,57 @@
         <section id="how-it-works">
             <h1>How it works?</h1>
         </section>
+
         <section id="pricing">
+            <div class="pricing-label"></div>
             <h1>Pricing</h1>
+            <br>
+            <p>Find clear and flexible pricing options suited for your learning path. Experience value alligned
+                with your goals. Choose you ideal plan and dive into a world on language exploration.</p>
+            <div class="pricing-container center">
+                <div class="pricing-deck">
+                    <p class="bolded">Free</p>
+                    <h1>$0/mth</h1>
+                    <p>Get started with essentials. Try our solutions and find out if it suits you.</p>
+                    <br>
+                    <ul>
+                        <li>One deck</li>
+                        <li>Up to 200 cards</li>
+                        <li>35 languages</li>
+                    </ul>
+                    <br>
+                    <button class="blue-button">Get started now</button>
+
+                </div>
+                <div class="pricing-deck">
+                    <p class="bolded">Pro</p>
+                    <h1>$5/mth</h1>
+                    <p>Gain full, unlimited acces to our tools. Resign whenever you want.</p>
+                    <br>
+                    <ul>
+                        <li>Unlimited number of decks</li>
+                        <li>Unlimited cards</li>
+                        <li>35 languages</li>
+                    </ul>
+                    <br>
+
+                    <button class="blue-button">Get started now</button>
+                    <div class="pricing-tag">Most popular</div>
+                </div>
+                <div class="pricing-deck">
+                    <p class="bolded">Permanent</p>
+                    <h1>$50</h1>
+                    <p>Gain full, unlimited acces to our tools. One time payment. No subscription.</p>
+                    <br>
+                    <ul>
+                        <li>Unlimited number of decks</li>
+                        <li>Unlimited cards</li>
+                        <li>35 languages</li>
+                    </ul>
+                    <br>
+                    <button class="blue-button">Get started now</button>
+                </div>
+            </div>
         </section>
 
         <section id="faq" class="center">
@@ -149,8 +198,10 @@
                 </div>
             </div>
         </section>
-        <section id="examples">
-            <h1>Examples</h1>
+        <section id="examples" class="ending-section center">
+            <h1>Learn languages fast and effectively</h1>
+            <p>Translate. Create flashcards. Study.</p>
+            <a href="{% url 'users:register_view' %}"><button class="blue-button">Start now!</button></a>
         </section>
 
     </main>

@@ -204,7 +204,8 @@ main {
 
 main section {
     min-height: 100vh;
-    min-width: 100%
+    min-width: 100%;
+    padding-top: 1rem;
 }
 
 main section:nth-child(2n) {
@@ -216,6 +217,52 @@ main section:nth-child(2n) {
 
 .hero {
     margin-top: 200px
+}
+
+/* Pricing section */
+
+.pricing-container {
+    gap: 2rem;
+    margin: 100px 0px;
+    flex-direction: column;
+}
+
+.pricing-deck {
+    border-radius: 5px;
+    border: 1px solid grey;
+    max-width: 300px;
+    padding: 25px;
+    min-width: 250px;
+}
+
+.pricing-deck:nth-child(2) {
+    border: 3px solid var(--MAIN-BLUE);
+    position: relative;
+    transform: scale(1.1);
+}
+
+.pricing-container li {
+    text-align: left;
+    margin-left: 20px
+}
+
+.pricing-tag {
+    border-radius: 3em !important;
+    font-size: 0.75em;
+    padding: 5px !important;
+    position: absolute;
+    color: white;
+    background-color: var(--MAIN-BLUE);
+    border: none !important;
+    bottom: 97%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.bolded {
+    font-weight: bold;
+    color: black;
+    font-size: 1.5em
 }
 
 /* Faq section */
@@ -245,6 +292,7 @@ main section:nth-child(2n) {
     display: flex;
     justify-content: space-between;
     cursor: pointer;
+    text-align: left;
 }
 
 .question h3 {
@@ -263,6 +311,28 @@ main section:nth-child(2n) {
 .faq.active-faq .answer {
     max-height: 1000px;
 }
+
+/* Ending section */
+
+.ending-section {
+    flex-direction: column;
+    background-color: #f5f5f5;
+    background-color: #f5f5f5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='77' height='107' viewBox='0 0 77 107'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='stamp-collection' fill='%238fbeff' fill-opacity='0.4'%3E%3Cpath d='M46 101a5 5 0 0 1 5 5h5a5 5 0 0 1 10 0h5a5 5 0 0 1 5-5v-5a5 5 0 0 1 0-10v-5a5 5 0 0 1 0-10v-5a5 5 0 0 1 0-10v-5a5 5 0 0 1 0-10v-5a5 5 0 0 1 0-10v-5a5 5 0 0 1 0-10V6a5 5 0 0 1-5-5h-5a5 5 0 0 1-10 0h-5a5 5 0 0 1-10 0h-5a5 5 0 0 1-10 0h-5a5 5 0 0 1-10 0H6a5 5 0 0 1-5 5v5a5 5 0 0 1 0 10v5a5 5 0 0 1 0 10v5a5 5 0 0 1 0 10v5a5 5 0 0 1 0 10v5a5 5 0 0 1 0 10v5a5 5 0 0 1 0 10v5a5 5 0 0 1 5 5h5a5 5 0 0 1 10 0h5a5 5 0 0 1 10 0h5a5 5 0 0 1 5-5zm15-2a7 7 0 0 0-6.71 5h-1.58a7 7 0 0 0-13.42 0h-1.58a7 7 0 0 0-13.42 0h-1.58a7 7 0 0 0-13.42 0H7.71A7.01 7.01 0 0 0 3 99.29v-1.58a7 7 0 0 0 0-13.42v-1.58a7 7 0 0 0 0-13.42v-1.58a7 7 0 0 0 0-13.42v-1.58a7 7 0 0 0 0-13.42v-1.58a7 7 0 0 0 0-13.42v-1.58A7 7 0 0 0 3 9.29V7.71A7.02 7.02 0 0 0 7.71 3h1.58a7 7 0 0 0 13.42 0h1.58a7 7 0 0 0 13.42 0h1.58a7 7 0 0 0 13.42 0h1.58a7 7 0 0 0 13.42 0h1.58A7.02 7.02 0 0 0 74 7.71v1.58a7 7 0 0 0 0 13.42v1.58a7 7 0 0 0 0 13.42v1.58a7 7 0 0 0 0 13.42v1.58a7 7 0 0 0 0 13.42v1.58a7 7 0 0 0 0 13.42v1.58a7 7 0 0 0 0 13.42v1.58a7.01 7.01 0 0 0-4.71 4.71h-1.58A7 7 0 0 0 61 99zM12 12h53v83H12V12zm51 81H14V14h49v79z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    gap: 40px;
+    font-size: 2rem;
+}
+
+.ending-section h1 {
+    font-size: 6rem;
+}
+
+.ending-section p {
+    color: grey;
+    font-weight: bold;
+}
+
+
 
 footer {
     min-width: 100%;
@@ -598,6 +668,10 @@ select:focus {
 /* WIDE SCREENS */
 @media screen and (min-width:1000px) {
 
+    /* LANDING PAGE */
+
+    /* Navbar */
+
     .landing-nav,
     .signs {
         display: flex;
@@ -605,6 +679,13 @@ select:focus {
 
     .hamburger-button {
         display: none
+    }
+
+    /* Pricing section */
+
+    .pricing-container {
+        flex-direction: row;
+        margin: 100px 0 0 0;
     }
 
     /* USER PANEL */
