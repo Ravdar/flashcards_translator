@@ -40,6 +40,32 @@ faqs.forEach((faq) => {
     });
 });
 
+// Fliping section cards animation on scroll
+function flipCard() {
+    var cards = document.querySelectorAll(".section-card");
+    console.log("scrolled");
+
+    for (var i = 0; i < cards.length; i++) {
+        var windowHeight = window.innerHeight;
+        var elementTop = cards[i].getBoundingClientRect().top;
+        var elementVisible = 150;
+
+        if (elementTop < windowHeight - elementVisible) {
+            (function (index) {
+                setTimeout(() => {
+                    cards[index].classList.add("rotate");
+                }, 1000);
+            })(i);
+        } else {
+            cards[i].classList.remove("rotate");
+        }
+    }
+}
+
+window.addEventListener("scroll", flipCard);
+
+flipCard();
+
 
 // Function to hide and show decks on is_flashcard checkbox
 
