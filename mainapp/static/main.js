@@ -48,13 +48,14 @@ function flipCard() {
     for (var i = 0; i < cards.length; i++) {
         var windowHeight = window.innerHeight;
         var elementTop = cards[i].getBoundingClientRect().top;
-        var elementVisible = 150;
+        var elementVisiblePercentage = 50;
+        var elementVisiblePixels = (windowHeight * elementVisiblePercentage) / 100;
 
-        if (elementTop < windowHeight - elementVisible) {
+        if (elementTop < windowHeight - elementVisiblePixels) {
             (function (index) {
                 setTimeout(() => {
                     cards[index].classList.add("rotate");
-                }, 1000);
+                }, 750);
             })(i);
         } else {
             cards[i].classList.remove("rotate");

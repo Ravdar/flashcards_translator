@@ -225,7 +225,30 @@ main section {
 /* Hero section */
 
 .hero {
-    margin-top: 200px
+    display: flex;
+    padding: 100px;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-message {
+    text-align: left;
+    font-size: 1.5rem
+}
+
+.hero-message h1 {
+    font-size: 5rem
+}
+
+.hero-message p {
+    color: gray;
+    margin: 40px 0;
+}
+
+
+
+.instantly-text {
+    color: var(--MAIN-BLUE)
 }
 
 /* How it works section */
@@ -716,6 +739,10 @@ select:focus {
 @media screen and (min-width:1000px) {
 
     /* LANDING PAGE */
+
+    header {
+        font-size: 1.5rem;
+    }
 
     /* Navbar */
 
