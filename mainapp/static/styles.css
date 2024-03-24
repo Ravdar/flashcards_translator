@@ -116,6 +116,7 @@ button {
     background-color: transparent;
     border: none;
     cursor: pointer;
+    font-family: var(--MAIN-FONT);
 }
 
 h1 {
@@ -147,14 +148,33 @@ header {
     padding: 1px 5px;
     max-width: var(--PAGE-WIDTH);
     align-items: center;
+    margin-top: 3px;
 }
 
 .landing-nav,
 .signs {
     display: none;
-    gap: 15px
+    gap: 15px;
+    align-items: center;
 }
 
+.landing-nav a,
+.signs a {
+    color: grey;
+}
+
+.landing-nav a:hover,
+.signs a:hover {
+    color: var(--LIGHT-BLUE)
+}
+
+.small-blue-button {
+    font-size: 1.5rem;
+    padding: 5px;
+    background-color: var(--MAIN-BLUE);
+    border-radius: 5px;
+    color: white;
+}
 
 .hamburger-button {
     width: 40px;
@@ -229,6 +249,9 @@ main section {
     padding: 100px;
     justify-content: center;
     align-items: center;
+    min-width: 0;
+    /* reset */
+    max-width: 1580px;
 }
 
 .hero-message {
@@ -237,18 +260,37 @@ main section {
 }
 
 .hero-message h1 {
-    font-size: 5rem
+    font-size: 4rem
 }
 
 .hero-message p {
-    color: gray;
+    color: grey;
     margin: 40px 0;
 }
 
+.hero-message ul {
+    margin: 40px 0px;
+    color: grey;
+    list-style-type: none;
+    display: grid;
+    gap: 10px;
+    font-size: 1.1rem;
+}
+
+.hero-message ul li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
 
 
 .instantly-text {
     color: var(--MAIN-BLUE)
+}
+
+.hero-image {
+    width: 45%;
+    height: 35%
 }
 
 /* How it works section */
@@ -535,7 +577,7 @@ footer {
 }
 
 .add-deck-container form input {
-    border: 1px solid gray;
+    border: 1px solid grey;
     outline: none;
     padding: 5px;
     border-radius: 5px;
