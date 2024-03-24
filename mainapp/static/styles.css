@@ -246,30 +246,34 @@ main section {
 
 .hero {
     display: flex;
-    padding: 100px;
+    padding: 20px;
     justify-content: center;
     align-items: center;
-    min-width: 0;
     /* reset */
+    min-width: 0;
     max-width: 1580px;
 }
 
 .hero-message {
     text-align: left;
-    font-size: 1.5rem
+    font-size: 1.5rem;
+    /* header height */
+    margin-top: 42px;
+    display: grid;
 }
 
 .hero-message h1 {
-    font-size: 4rem
+    font-size: 4rem;
+    line-height: 4rem;
 }
 
 .hero-message p {
     color: grey;
-    margin: 40px 0;
+    margin: 30px 0;
 }
 
 .hero-message ul {
-    margin: 40px 0px;
+    margin: 30px 0px;
     color: grey;
     list-style-type: none;
     display: grid;
@@ -289,8 +293,7 @@ main section {
 }
 
 .hero-image {
-    width: 45%;
-    height: 35%
+    display: none;
 }
 
 /* How it works section */
@@ -444,11 +447,34 @@ main section {
     font-weight: bold;
 }
 
-
+/* Footer */
 
 footer {
     min-width: 100%;
+    min-height: 40vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 70px 70px;
+    gap: 60px;
 }
+
+footer div {
+    display: grid;
+    gap: 10px;
+}
+
+footer a,
+footer p {
+    color: grey;
+}
+
+.footer-subtext {
+    color: black
+}
+
+
 
 /* USER PANEL */
 
@@ -801,11 +827,43 @@ select:focus {
         font-size: 6rem;
     }
 
+    /* Hero page */
+
+    .hero {
+        padding: 100px;
+    }
+
+    .hero-message {
+        display: block;
+    }
+
+    .hero-message h1 {
+        line-height: normal;
+    }
+
+    .hero-message p {
+        margin: 40px 0;
+    }
+
+    .hero-message ul {
+        margin: 40px 0px;
+    }
+
+    .hero-image {
+        display: block;
+        width: 45%;
+        height: 35%
+    }
+
     /* Pricing section */
 
     .pricing-container {
         flex-direction: row;
-        margin: 100px 0 0 0;
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 
     /* Ending section */
@@ -816,6 +874,13 @@ select:focus {
 
     .ending-section h1 {
         font-size: 6rem;
+    }
+
+    /* Footer */
+
+    footer {
+        flex-direction: row;
+        gap: 150px;
     }
 
     /* USER PANEL */

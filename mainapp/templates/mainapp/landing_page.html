@@ -20,7 +20,7 @@
         <div class="header-container">
             <h3><a href="{% url 'mainapp:landing_page' %}">AnkiTranslator</a></h3>
             <nav class="landing-nav">
-                <a href="#how-it-works">How it works?</a>
+                <a href="#how-it-works">How it works</a>
                 <a href="#pricing">Pricing</a>
                 <a href="#faq">FAQ</a>
                 <a href="#examples">Examples</a>
@@ -45,7 +45,7 @@
             <button class="hamburger-button center">
                 <div class="hamburger-icon"></div>
                 <div class="hamburger-menu">
-                    <a href="#how-it-works">How it works?</a>
+                    <a href="#how-it-works">How it works</a>
                     <a href="#pricing">Pricing</a>
                     <a href="#faq">FAQ</a>
                     <a href="#examples">Examples</a>
@@ -93,7 +93,7 @@
                     <h1>So, how it works?</h1>
                 </div>
                 <div class="section-back">
-                    <h1>How it works?</h1>
+                    <h1>How it works</h1>
                 </div>
             </div>
         </section>
@@ -245,7 +245,33 @@
 
     {% endblock content %}
 
-    <footer>Footer</footer>
+    <footer>
+        <div class="footer-container">
+            <h3>AnkiTranslator</h3>
+            <p class="footer-subtext">Create flashcards while translating. Instantly.</p>
+            <br>
+            <p>Copyright &copy 2024 - All rights reserved</p>
+            <p>Build by ravdar</p>
+        </div>
+        <div class="links-container">
+            <h4>LINKS</h4>
+            <a href="#how-it-works">How it works</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#faq">FAQ</a>
+            <a href="#examples">Examples</a>
+            <br>
+            <a href="{% url 'users:register_view' %}">Sign up</a>
+            <a href="{% url 'users:login' %}">Sign in</a>
+        </div>
+        <div class="legal-container">
+            <h4>LEGAL</h4>
+            <a href="">Terms of services</a>
+            <a href="">Privacy Policy</a>
+        </div>
+        <div class="more-container">
+            <h4>MORE</h4><a href="">movvie</a><a href="">bloggin</a>
+        </div>
+    </footer>
 
 </body>
 
