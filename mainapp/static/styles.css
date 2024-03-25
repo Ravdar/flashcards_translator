@@ -168,12 +168,22 @@ header {
     color: var(--LIGHT-BLUE)
 }
 
-.small-blue-button {
+.small-blue-button,
+.border-button {
     font-size: 1.5rem;
     padding: 5px;
-    background-color: var(--MAIN-BLUE);
     border-radius: 5px;
+}
+
+.small-blue-button {
+    background-color: var(--MAIN-BLUE);
     color: white;
+}
+
+.border-button {
+    background-color: whitesmoke;
+    color: var(--MAIN-BLUE);
+    border: 2px solid var(--MAIN-BLUE)
 }
 
 .hamburger-button {
@@ -287,9 +297,36 @@ main section {
     gap: 15px;
 }
 
+.instantly-card {
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid var(--MAIN-BLUE);
+    width: 250px;
+    height: 75px;
+    transform: rotate(-4deg);
+    transition: all 1s ease-in-out;
+    transform-style: preserve-3d;
+    position: relative;
+    margin-top: 15px;
+}
 
-.instantly-text {
-    color: var(--MAIN-BLUE)
+.instantly-card.rotate {
+    transform: rotateX(180deg) rotate(4deg);
+}
+
+.instantly-card-front,
+.instantly-card-back {
+    background-color: white;
+    backface-visibility: hidden;
+    position: absolute;
+    color: var(--MAIN-BLUE);
+    font-size: 3rem;
+    font-weight: normal;
+    font-family: "Roboto";
+}
+
+.instantly-card-back {
+    transform: rotateX(180deg);
 }
 
 .hero-image {
@@ -802,6 +839,47 @@ select:focus {
     display: none;
 }
 
+/* LOGIN AND REGISTER PAGES */
+
+.logotype-login {
+    font-size: 3rem;
+    color: var(--MAIN-BLUE);
+    font-family: var(--MAIN-FONT);
+    font-weight: bold;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form button {
+    background-color: var(--MAIN-BLUE);
+    width: fit-content;
+    border: none;
+    color: white;
+}
+
+form button:hover {
+    background-color: var(--LIGHT-BLUE);
+}
+
+.form-control {
+    text-align: center;
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.form-control:focus,
+.new-article-inputs:focus {
+    border: 0.5px solid var(--MAIN-BLUE);
+    box-shadow: 0 0 0 0.5px var(--MAIN-BLUE);
+    outline: none;
+}
+
 
 /* WIDE SCREENS */
 @media screen and (min-width:1000px) {
@@ -810,6 +888,10 @@ select:focus {
 
     header {
         font-size: 1.5rem;
+    }
+
+    .header-container {
+        padding: 3px 5px 4px 5px;
     }
 
     /* Navbar */

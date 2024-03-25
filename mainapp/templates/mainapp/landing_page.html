@@ -38,7 +38,7 @@
                 </a>
                 {% else %}
                 <a href="{% url 'users:register_view' %}"><button class="small-blue-button">Sign up</button></a>
-                <a href="{% url 'users:login' %}">Sign in</a>
+                <a href="{% url 'users:login' %}"><button class="border-button">Sign in</button></a>
                 {% endif %}
             </div>
 
@@ -61,7 +61,14 @@
         <section class="hero">
             <div class="hero-message">
                 <h1>Create flashcards while translating.</h1>
-                <h1 class="instantly-text">Instantly.</h1>
+                <div class="instantly-card center">
+                    <div class="instantly-card-front">
+                        Instantly.
+                    </div>
+                    <div class="instantly-card-back">
+                        Al instante
+                    </div>
+                </div>
                 <p>New way of creating flashcards and learning languages.</p>
                 <ul>
                     <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24px"

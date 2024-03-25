@@ -67,6 +67,33 @@ window.addEventListener("scroll", flipCard);
 
 flipCard();
 
+// Function for flipping "Instantly." card in hero section
+
+var instantlyCard = document.querySelector(".instantly-card");
+var instantlyFront = document.querySelector(".instantly-card-front");
+var instantlyBack = document.querySelector(".instantly-card-back");
+
+var frontText = ["すぐに。", "Sofort.", "Omedelbart.", "Instantly."];
+var backText = ["Tout de suite.", "Anında", "तुरंत", "Al instante."];
+
+let index = 0;
+
+function flipInstantlyCard() {
+    instantlyBack.textContent = backText[index];
+    instantlyCard.classList.add("rotate");
+
+    setTimeout(function () {
+        instantlyFront.textContent = frontText[index];
+        instantlyCard.classList.remove("rotate");
+        index = (index + 1) % frontText.length;
+    }, 2000);
+}
+
+if (instantlyCard) {
+    setInterval(flipInstantlyCard, 4000);
+}
+
+
 
 // Function to hide and show decks on is_flashcard checkbox
 
