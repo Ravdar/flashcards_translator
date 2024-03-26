@@ -513,7 +513,6 @@ footer p {
 }
 
 
-
 /* USER PANEL */
 
 /* Sidebar */
@@ -547,10 +546,6 @@ footer p {
     transition: all 200ms ease-in-out;
 }
 
-/* .navbar ul li:hover {
-    background-color: var(--LIGHT-BLUE);
-} */
-
 .logo {
     display: none;
 }
@@ -583,14 +578,34 @@ footer p {
     min-width: 40px;
 }
 
+/* Main user profile */
+
+.main-user-profile {
+    min-height: 100vh;
+    margin-left: 80px;
+    align-self: normal;
+    /* Screen width minus navbar */
+    max-width: calc(100vw - 80px);
+    padding: 25px;
+    min-width: auto;
+}
+
+.today-stats {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 25px;
+    display: flex;
+    gap: 100px;
+}
+
 /* Decks section */
 
-.user-profile-main {
+.decks-main {
     gap: 20px;
     margin-top: 10px;
 }
 
-.user-profile-main form {
+.decks-main form {
     min-width: 300px;
 }
 
@@ -978,7 +993,7 @@ form button:hover {
 
     /* USER PANEL */
 
-    .user-profile-main {
+    .decks-main {
         gap: 40px;
     }
 
