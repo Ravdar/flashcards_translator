@@ -73,8 +73,8 @@ var instantlyCard = document.querySelector(".instantly-card");
 var instantlyFront = document.querySelector(".instantly-card-front");
 var instantlyBack = document.querySelector(".instantly-card-back");
 
-var frontText = ["すぐに。", "Sofort.", "Omedelbart.", "Instantly."];
-var backText = ["Tout de suite.", "Anında", "तुरंत", "Al instante."];
+var frontText = ["Sofort.", "Anında", "तुरंत", "Instantly."];
+var backText = ["Al instante.", "すぐに。", "Tout de suite.", "Omedelbart."];
 
 let index = 0;
 
@@ -94,18 +94,19 @@ if (instantlyCard) {
 }
 
 
+// TRANSLATOR PAGE SCRIPTS
 
 // Function to hide and show decks on is_flashcard checkbox
 
 // Function for clearing output_box when input-box is selected
 
 
-// TRANSLATOR PAGE SCRIPTS
+// Displaying and hiding decks selectbox based on checkbox state
 
 var isFlashcardSwitch = document.getElementById("is-flashcard-switch2");
 var deckList = document.querySelector(".decks-list");
 
-// Displaying and hiding decks selectbox based on checkbox state
+
 if (isFlashcardSwitch) {
     isFlashcardSwitch.addEventListener("change", function () {
         if (isFlashcardSwitch.checked) {
@@ -115,5 +116,31 @@ if (isFlashcardSwitch) {
         }
     });
 }
+
+// DECKS PAGE SCRIPTS
+
+// Function to show add deck form on button click
+function showAddDeckForm() {
+    const button = document.getElementById("add-deck-button");
+    const addDeckContainer = document.querySelector(".add-deck-container");
+
+    button.addEventListener("click", function () {
+        addDeckContainer.style.transform = "translate(-50%, -50%) scale(1)";
+    })
+}
+
+// Function to hide add deck form on button click
+function hideAddDeckForm() {
+    const button = document.querySelector(".close-dial");
+    const addDeckContainer = document.querySelector(".add-deck-container");
+
+    button.addEventListener("click", function () {
+        addDeckContainer.style.transform = " translate(-50%, -50%) scale(0)";
+    })
+}
+
+// Call the functions to show and hide full streaming info
+showAddDeckForm();
+hideAddDeckForm();
 
 

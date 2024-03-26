@@ -92,6 +92,15 @@ def user_profile(request, user_username):
 
     # Assign user
     user = get_object_or_404(User, username=user_username)
+    return render(request, "mainapp/user_profile.html", {"user":user,})
+
+
+@login_required
+def decks(request):
+    """View for managing decks in user panel."""
+
+    # Assign user
+    user = request.user
     if request.method == "POST":
         # Handling form for adding new deck
         new_deck_form = NewDeck(request.POST)
@@ -107,5 +116,4 @@ def user_profile(request, user_username):
         # GET request 
         new_deck_form= NewDeck()
         decks_searchbar = SearchDecks()
-    return render(request, "mainapp/user_profile.html", {"user":user, "new_deck_form":new_deck_form,"decks_searchbar":decks_searchbar})
-
+    return render(request, "mainapp/decks.html", {"user":user, "new_deck_form":new_deck_form,"decks_searchbar":decks_searchbar})

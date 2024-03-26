@@ -327,6 +327,7 @@ main section {
 
 .instantly-card-back {
     transform: rotateX(180deg);
+    font-size: 2.5rem;
 }
 
 .hero-image {
@@ -629,9 +630,9 @@ footer p {
     left: 50%;
     width: 80%;
     max-width: 700px;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(0);
     font-size: 1.5rem;
-    /* transform: scale(0); */
+    transition: all 0.5s ease-in-out;
 }
 
 .add-deck-container form {
@@ -645,6 +646,8 @@ footer p {
     padding: 5px;
     border-radius: 5px;
     font-family: var(--TRANSLATOR-FONT);
+    width: 100px;
+    font-size: 1.2em;
 }
 
 .add-deck-container form :nth-child(5) {
@@ -675,7 +678,8 @@ footer p {
     flex-grow: 1;
 }
 
-.blue-button {
+.blue-button,
+.translate-button {
     font-size: 1.5em;
     font-weight: bold;
     border-radius: 5px;
@@ -684,6 +688,11 @@ footer p {
     align-self: center;
     color: white;
     margin: 10px 0px 20px 0px;
+    width: 100%;
+}
+
+.translate-button {
+    width: fit-content;
 }
 
 .is-flashcard-container {
@@ -692,6 +701,7 @@ footer p {
     gap: 5px;
     font-size: 1.2em;
     min-height: 34px;
+    width: 100%;
 }
 
 .decks-list {
@@ -743,6 +753,7 @@ footer p {
     flex-direction: column;
     flex-grow: 1;
     gap: 10px;
+    width: 100%;
 }
 
 .textarea-container {
