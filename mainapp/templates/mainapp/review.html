@@ -8,8 +8,11 @@
     <div id="flashcard-container">
         <div class="textarea-container">
             <div class="flashcard-front center">
+
+                <!-- Hidden fields, needed for Ajax response -->
                 <h3 id="card-id" style="display: none;">{{flashcards_list.0.id}}</h3>
-                <!-- Hidden, needed for Ajax response -->
+                <h3 id="start-time" style="display: none;">{{start_time}}</h3>
+
                 {{flashcards_list.0.front}}
             </div>
         </div>
@@ -59,10 +62,12 @@
     // Execute Initalization
     initializeReviewElements();
 
-
     // Retrieve card id and deck name
     var cardId = document.getElementById("card-id").textContent;
     var deckName = document.getElementById("deck-name").textContent;
+    var startTime = document.getElementById("start-time").textContent;
+
+
 
     // AJAX request
     $(document).ready(function () {
@@ -74,14 +79,15 @@
                 data: {
                     'deck_name': deckName,
                     'id': cardId,
-                    'quality': quality
+                    'quality': quality,
+                    'start_time': startTime,
                 },
                 dataType: 'json',
                 success: function (data) {
                     if (data.id == "no more cards") { flashcardContainer.html('<br> <p>Congratulations! There are no cards to review in this deck for today!</p><br>') }
                     else {
                         cardId = data.id
-                        flashcardContainer.html('<div class="textarea-container"><div class="flashcard-front center"><h3 id="card-id" style="display: none;">' + data.id + '</h3>' + data.front + '</div></div>' + '<div class="textarea-container"><div class="flashcard-back center">' + data.back + '</div></div>');
+                        flashcardContainer.html('<div class="textarea-container"><div class="flashcard-front center"><h3 id="card-id" style="display: none;">' + data.id + '</h3>' + '<h3 id="card-id" style="display: none;">' + startTime + '</h3>' + data.front + '</div></div>' + '<div class="textarea-container"><div class="flashcard-back center">' + data.back + '</div></div>');
                         initializeReviewElements();
                     }
                 }

@@ -8,6 +8,7 @@ from .models import Translation, Flashcard,Deck,Language
 
 import translators as ts
 import random
+import time
 
 def landing_page(request):
      """View for landing page."""
@@ -57,21 +58,35 @@ def review(request):
     # Displaying next card, handled by AJAX request
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
         # Update reviewed card based on selected quality
+        end_time = int(time.time() * 1000)
+        print(end_time)
+        start_time = int(request.GET.get("start_time"))
         quality = int(request.GET.get("quality"))
         previous_card_id = int(request.GET.get("id"))
         previous_card = get_object_or_404(Flashcard, pk=previous_card_id)
+        previous_card.total_time += (end_time-start_time)/1000
         previous_card.review_flashcard(quality)
+        if quality == 3:
+            previous_card.number_of_easy += 1
+        elif quality == 2:
+            previous_card.number_of_good += 1
+        elif quality == 1:
+            previous_card.number_of_hard +=1
+        elif quality == 0:
+            previous_card.number_of_agains +=1
+        
         previous_card.save()
         # Retrieve deck, cards for review and shuffle it
         deck_name = request.GET.get("deck_name")
         deck = get_object_or_404(Deck, name=deck_name, user=request.user)
         flashcards_for_review = deck.flashcards_to_review()
         flashcards_list = list(flashcards_for_review)
+        start_time = int(time.time() * 1000) 
         # Send next card for review if there are any
         if flashcards_list != []:
             random.shuffle(flashcards_list)
             next_card = flashcards_list[0]
-            return JsonResponse({"front":next_card.front, "back":next_card.back, "id":next_card.id})
+            return JsonResponse({"front":next_card.front, "back":next_card.back, "id":next_card.id, "start_time":start_time})
         else:
             return JsonResponse({"id":"no more cards"})
     
@@ -81,9 +96,12 @@ def review(request):
         deck = get_object_or_404(Deck, name=deck_name, user=request.user)
         flashcards_for_review = deck.flashcards_to_review()
         flashcards_list = list(flashcards_for_review)
+        start_time = int(time.time() * 1000) 
         random.shuffle(flashcards_list)
 
-    return render(request, "mainapp/review.html", {"deck_name":deck_name,"flashcards_list":flashcards_list})
+    print(start_time)
+
+    return render(request, "mainapp/review.html", {"deck_name":deck_name,"flashcards_list":flashcards_list,"start_time":start_time})
 
 
 @login_required

@@ -119,28 +119,28 @@ if (isFlashcardSwitch) {
 
 // DECKS PAGE SCRIPTS
 
-// Function to show add deck form on button click
-function showAddDeckForm() {
-    const button = document.getElementById("add-deck-button");
-    const addDeckContainer = document.querySelector(".add-deck-container");
+const addDeckButton = document.getElementById("add-deck-button");
+const addDeckContainer = document.querySelector(".add-deck-container");
+const closeDialButton = document.querySelector(".close-dial");
 
-    button.addEventListener("click", function () {
-        addDeckContainer.style.transform = "translate(-50%, -50%) scale(1)";
-    })
+
+if (addDeckContainer) {
+    // Function to show add deck form on button click
+    function showAddDeckForm() {
+
+        addDeckButton.addEventListener("click", function () {
+            addDeckContainer.style.transform = "translate(-50%, -50%) scale(1)";
+        })
+    }
+
+    // Function to hide add deck form on button click
+    function hideAddDeckForm() {
+
+        closeDialButtonutton.addEventListener("click", function () {
+            addDeckContainer.style.transform = " translate(-50%, -50%) scale(0)";
+        })
+    }
 }
 
-// Function to hide add deck form on button click
-function hideAddDeckForm() {
-    const button = document.querySelector(".close-dial");
-    const addDeckContainer = document.querySelector(".add-deck-container");
-
-    button.addEventListener("click", function () {
-        addDeckContainer.style.transform = " translate(-50%, -50%) scale(0)";
-    })
-}
-
-// Call the functions to show and hide full streaming info
-showAddDeckForm();
-hideAddDeckForm();
 
 

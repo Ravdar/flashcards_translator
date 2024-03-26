@@ -43,13 +43,31 @@ class Flashcard(models.Model):
     back = models.CharField(max_length=500)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     deck = models.ForeignKey(Deck, related_name="flashcards",on_delete=models.CASCADE)
+
+    # Review algorithm fields
     winning_streak = models.IntegerField(default=0)
     easiness_factor = models.FloatField(default=2.5)
     interval = models.IntegerField(default=0)
     next_review = models.DateField(default=timezone.now().date())
+    last_review = models.DateField(blank=True, null=True, default=None)
+    
+    # Statistics fields
+    number_of_reviews = models.IntegerField(default=0)
+    number_of_agains = models.IntegerField(default=0)
+    number_of_hard = models.IntegerField(default=0)
+    number_of_good = models.IntegerField(default=0)
+    number_of_easy = models.IntegerField(default=0)
+    total_time = models.FloatField(default=0) # In seconds
 
     def __str__(self):
-        return self.front    
+        return self.front   
+
+    @property
+    def average_time(self):
+        if self.number_of_reviews > 0:
+            return self.total_time / self.number_of_reviews
+        else:
+            return 0 
 
     def calculate_interval(self,quality):
         """Updates winning streak and interval (number of days remaining to the flashcards next review)."""
@@ -76,5 +94,5 @@ class Flashcard(models.Model):
         self.update_easiness_factor(quality)
         self.calculate_interval(quality)
         self.next_review = timezone.now().date() + timedelta(days=self.interval)
-        print(self.next_review)
-        print("Updated")
+        self.last_review = timezone.now().date()
+        self.number_of_reviews += 1
