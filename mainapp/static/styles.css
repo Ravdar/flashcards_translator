@@ -32,6 +32,9 @@
     /* Colors */
     --MAIN-BLUE: #5299ff;
     --LIGHT-BLUE: #8fbeff;
+    --MAIN-RED: #ff5252;
+    --MAIN-GREEN: #3ad949;
+    --LIGHTER-BLACK: #575757;
     --DECK-BLUE: #A3F6FE;
     --DECK-BLUE-2: #A3CAFE;
     --DECK-RED: #FEA3A3;
@@ -596,6 +599,30 @@ footer p {
     padding: 25px;
     display: flex;
     gap: 100px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.today-stats h3 {
+    font-size: 2rem;
+    font-weight: normal;
+    color: var(--LIGHTER-BLACK)
+}
+
+
+.today-studied,
+.today-left {
+    font-size: 3rem;
+    font-weight: bold;
+
+}
+
+.today-studied {
+    color: var(--MAIN-GREEN)
+}
+
+.today-left {
+    color: var(--MAIN-RED);
 }
 
 /* Decks section */
