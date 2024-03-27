@@ -625,6 +625,24 @@ footer p {
     color: var(--MAIN-RED);
 }
 
+.number-to-review,
+.number-reviewed {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.number-reviewed {
+    color: var(--MAIN-GREEN);
+    text-align: left;
+}
+
+.number-to-review {
+    color: var(--MAIN-RED);
+    ;
+    text-align: right;
+}
+
 /* Decks section */
 
 .decks-main {
@@ -947,6 +965,10 @@ form button:hover {
         padding: 3px 5px 4px 5px;
     }
 
+    .blue-button {
+        width: fit-content;
+    }
+
     /* Navbar */
 
     .landing-nav,
@@ -1051,7 +1073,7 @@ form button:hover {
         margin-bottom: 20px;
     }
 
-    /* Decks page */
+    /* DECKS PAGE */
 
     .decks-container {
         grid-template-columns: repeat(6, 1fr);

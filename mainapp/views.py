@@ -110,7 +110,15 @@ def user_profile(request, user_username):
 
     # Assign user
     user = get_object_or_404(User, username=user_username)
-    return render(request, "mainapp/user_profile.html", {"user":user,})
+    all_user_decks = Deck.objects.filter(user=user)
+    decks_to_review = [deck for deck in all_user_decks if deck.has_flashcards_to_review]
+    decks_data =[]
+    for deck in decks_to_review:
+        number_of_flashcards_to_review = deck.flashcards_to_review().count()
+        number_of_flashcards_reviewed_today = deck.number_of_flashcards_reviewed_today
+        decks_data.append({
+            "deck":deck,"number_of_flashcards_to_review":number_of_flashcards_to_review, "number_of_flashcards_reviewed_today":number_of_flashcards_reviewed_today})
+    return render(request, "mainapp/user_profile.html", {"user":user,"decks_data":decks_data})
 
 
 @login_required

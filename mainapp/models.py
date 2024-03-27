@@ -35,7 +35,21 @@ class Deck(models.Model):
     
     def flashcards_to_review(self):
         """Returns deck's flashcards which are ready for review."""
+        
         return self.flashcards.filter(next_review__lte=timezone.now().date())
+    
+    @property
+    def has_flashcards_to_review(self):
+        """Returns True if the deck has flashcards ready for review, False otherwise."""
+        
+        return self.flashcards_to_review().exists()
+    
+    @property
+    def number_of_flashcards_reviewed_today(self):
+        """Returns the number of flashcards from this deck that were reviewed today."""
+        
+        return self.flashcards.filter(last_review=timezone.now().date()).count()
+
     
 
 class Flashcard(models.Model):
