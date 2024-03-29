@@ -630,17 +630,22 @@ footer p {
     font-size: 1.5rem;
     font-weight: bold;
     margin-top: 10px;
+    position: absolute;
 }
 
 .number-reviewed {
     color: var(--MAIN-GREEN);
-    text-align: left;
+    left: 5px;
 }
 
 .number-to-review {
     color: var(--MAIN-RED);
     ;
-    text-align: right;
+    right: 0px;
+}
+
+.deck-container {
+    position: relative;
 }
 
 /* Decks section */

@@ -5,6 +5,7 @@ from django.http import JsonResponse
 
 from .forms import TranslatorForm, NewDeck, SearchDecks
 from .models import Translation, Flashcard,Deck,Language
+from users.models import Profile
 
 import translators as ts
 import random
@@ -111,14 +112,19 @@ def user_profile(request, user_username):
     # Assign user
     user = get_object_or_404(User, username=user_username)
     all_user_decks = Deck.objects.filter(user=user)
+    user_profile = get_object_or_404(Profile, user=user)
     decks_to_review = [deck for deck in all_user_decks if deck.has_flashcards_to_review]
+    total_decks_reviewed_today = user_profile.total_decks_reviewed_today
+    total_cards_reviewed_today = user_profile.total_flashcards_reviewed_today
+    total_decks_to_review_today = len(decks_to_review)
+    total_cards_to_review_today = user_profile.total_flashcards_to_review_today
     decks_data =[]
     for deck in decks_to_review:
         number_of_flashcards_to_review = deck.flashcards_to_review().count()
         number_of_flashcards_reviewed_today = deck.number_of_flashcards_reviewed_today
         decks_data.append({
             "deck":deck,"number_of_flashcards_to_review":number_of_flashcards_to_review, "number_of_flashcards_reviewed_today":number_of_flashcards_reviewed_today})
-    return render(request, "mainapp/user_profile.html", {"user":user,"decks_data":decks_data})
+    return render(request, "mainapp/user_profile.html", {"user":user,"decks_data":decks_data,"total_decks_reviewed_today":total_decks_reviewed_today,"total_cards_reviewed_today":total_cards_reviewed_today, "total_cards_to_review_today":total_cards_to_review_today, "total_decks_to_review_today":total_decks_to_review_today})
 
 
 @login_required

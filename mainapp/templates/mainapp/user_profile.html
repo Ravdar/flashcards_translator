@@ -105,8 +105,10 @@
     <main class="main-user-profile">
         <div class="today-stats">
             <h1>TODAY</h1>
-            <h3> studied <span class="today-studied">0</span> cards from <span class="today-studied">0</span> decks</h3>
-            <h3><span class="today-left">146</span> cards from <span class="today-left">4</span> decks left</h3>
+            <h3> studied <span class="today-studied">{{total_cards_reviewed_today}}</span> cards from <span
+                    class="today-studied">{{total_decks_reviewed_today}}</span> decks</h3>
+            <h3><span class="today-left">{{total_cards_to_review_today}}</span> cards from <span
+                    class="today-left">{{total_decks_to_review_today}}</span> decks left</h3>
         </div>
         <div class="today-stats">
             <h1>STUDY</h1>
