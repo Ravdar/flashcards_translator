@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+from users.models import Profile
+
 from datetime import timedelta
 
 
@@ -51,7 +53,6 @@ class Deck(models.Model):
         return self.flashcards.filter(last_review=timezone.now().date()).count()
 
     
-
 class Flashcard(models.Model):
     front = models.CharField(max_length=500)
     back = models.CharField(max_length=500)
@@ -110,3 +111,14 @@ class Flashcard(models.Model):
         self.next_review = timezone.now().date() + timedelta(days=self.interval)
         self.last_review = timezone.now().date()
         self.number_of_reviews += 1
+
+        # Update Profile activity
+        today = timezone.now().date().isoformat()
+        try:
+            profile = Profile.objects.get(user=self.user)
+            activity_list = profile.activity or []
+            activity_list.append(today)
+            profile.activity = activity_list
+            profile.save()
+        except Profile.DoesNotExist:
+            pass

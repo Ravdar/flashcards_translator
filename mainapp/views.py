@@ -123,6 +123,7 @@ def user_profile(request, user_username):
     total_cards_reviewed_today = user_profile.total_flashcards_reviewed_today
     total_decks_to_review_today = len(decks_to_review)
     total_cards_to_review_today = user_profile.total_flashcards_to_review_today
+    activity_streak = user_profile.activity_streak
 
     # Stats for specific deck
     decks_data =[]
@@ -138,7 +139,7 @@ def user_profile(request, user_username):
     contributions = []
     calendar = generate_contributors_graph(contributions, title="Decks reviews")
         
-    return render(request, "mainapp/user_profile.html", {"user":user,"decks_data":decks_data,"total_decks_reviewed_today":total_decks_reviewed_today,"total_cards_reviewed_today":total_cards_reviewed_today, "total_cards_to_review_today":total_cards_to_review_today, "total_decks_to_review_today":total_decks_to_review_today,"calendar":calendar}, )
+    return render(request, "mainapp/user_profile.html", {"user":user,"decks_data":decks_data,"total_decks_reviewed_today":total_decks_reviewed_today,"total_cards_reviewed_today":total_cards_reviewed_today, "total_cards_to_review_today":total_cards_to_review_today, "total_decks_to_review_today":total_decks_to_review_today,"calendar":calendar, "activity_streak":activity_streak}, )
 
 
 @login_required

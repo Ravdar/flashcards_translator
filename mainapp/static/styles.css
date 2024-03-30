@@ -385,10 +385,12 @@ main section {
 
 .pricing-deck {
     border-radius: 5px;
-    border: 1px solid grey;
-    max-width: 300px;
-    padding: 25px;
-    min-width: 250px;
+    border: 2px solid black;
+    max-width: 80vw;
+    padding: 25px 25px;
+    min-width: 300px;
+    display: grid;
+    gap: 10px;
 }
 
 .pricing-deck:nth-child(2) {
@@ -397,9 +399,18 @@ main section {
     transform: scale(1.1);
 }
 
+.pricing-container ul {
+    list-style-type: none;
+    display: grid;
+    gap: 10px;
+}
+
 .pricing-container li {
     text-align: left;
-    margin-left: 20px
+    color: gray;
+    display: flex;
+    gap: 10px;
+
 }
 
 .pricing-tag {
@@ -531,10 +542,6 @@ footer p {
     transition: width 300ms linear;
 }
 
-.navbar:hover {
-    width: 14rem;
-}
-
 .navbar ul {
     list-style: none;
     display: flex;
@@ -571,10 +578,6 @@ footer p {
     margin-left: 1rem;
 }
 
-.navbar:hover .link-text {
-    display: block;
-}
-
 .nav-link svg {
     margin: 0 20px;
     width: 40px;
@@ -591,6 +594,8 @@ footer p {
     max-width: calc(100vw - 80px);
     padding: 25px;
     min-width: auto;
+    display: grid;
+    gap: 25px;
 }
 
 .today-stats {
@@ -1058,6 +1063,14 @@ form button:hover {
         height: 100vh;
         bottom: none;
         flex-direction: column;
+    }
+
+    .navbar:hover {
+        width: 14rem;
+    }
+
+    .navbar:hover .link-text {
+        display: block;
     }
 
     .navbar ul {

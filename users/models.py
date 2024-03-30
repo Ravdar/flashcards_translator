@@ -1,9 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from datetime import datetime, timedelta
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(null=True, blank=True, default="images/default_pp.png", upload_to="images/")
+    activity = models.JSONField(default=list)
 
     def __str__(self):
         return self.user.username
@@ -41,4 +44,27 @@ class Profile(models.Model):
             total_flashcards += deck.flashcards_to_review().count()
         
         return total_flashcards    
+    
+    @property
+    def activity_streak(self):
+        """Returns the length of the current streak of consecutive days where the user has used the app."""
+
+        unique_activity = list(set(self.activity))
+
+        unique_activity_dates = [datetime.strptime(date, "%Y-%m-%d") for date in unique_activity]
+        unique_activity_dates.sort(reverse=True)
+
+        streak = 0
+         
+        for i in range(1,len(unique_activity_dates)):
+            if unique_activity_dates[i-1]-unique_activity_dates[i] == timedelta(days=1):
+                 streak+=1
+            else:
+                break
+
+        return streak
+             
+
+    
+            
 

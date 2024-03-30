@@ -1,0 +1,17 @@
+LICENSE
+MANIFEST.in
+README.md
+setup.cfg
+setup.py
+contributions_django/__init__.py
+contributions_django/apps.py
+contributions_django/dateutils.py
+contributions_django/graphs.py
+contributions_django/settings.py
+contributions_django/urls.py
+contributions_django.egg-info/PKG-INFO
+contributions_django.egg-info/SOURCES.txt
+contributions_django.egg-info/dependency_links.txt
+contributions_django.egg-info/not-zip-safe
+contributions_django.egg-info/top_level.txt
+contributions_django/templates/contributions_django/graph.html
