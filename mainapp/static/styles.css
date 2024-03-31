@@ -189,6 +189,31 @@ header {
     border: 2px solid var(--MAIN-BLUE)
 }
 
+.profile-picture-container {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+profile-picture-container a {
+    display: flex;
+}
+
+.profile-picture-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    max-width: none;
+    max-height: none;
+    min-width: 40px;
+    min-height: 40px;
+    object-fit: cover;
+    object-position: center;
+    align-self: center;
+}
+
 .hamburger-button {
     width: 40px;
     height: 40px;
@@ -253,6 +278,7 @@ main section {
     max-width: 100vw;
     position: relative;
     overflow: hidden;
+    /* padding: 0 10px; */
 }
 
 /* Hero section */
@@ -365,6 +391,10 @@ main section {
     backface-visibility: hidden;
 }
 
+.section-front {
+    padding: 0 10px;
+}
+
 .section-front h1 {
     font-size: 4rem;
 }
@@ -377,8 +407,19 @@ main section {
 
 /* Pricing section */
 
+#pricing {
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#pricing p {
+    max-width: 66ch;
+}
+
 .pricing-container {
-    gap: 2rem;
+    gap: 3rem;
     margin: 100px 0px;
     flex-direction: column;
 }
@@ -410,7 +451,6 @@ main section {
     color: gray;
     display: flex;
     gap: 10px;
-
 }
 
 .pricing-tag {
@@ -488,6 +528,7 @@ main section {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='77' height='107' viewBox='0 0 77 107'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='stamp-collection' fill='%238fbeff' fill-opacity='0.4'%3E%3Cpath d='M46 101a5 5 0 0 1 5 5h5a5 5 0 0 1 10 0h5a5 5 0 0 1 5-5v-5a5 5 0 0 1 0-10v-5a5 5 0 0 1 0-10v-5a5 5 0 0 1 0-10v-5a5 5 0 0 1 0-10v-5a5 5 0 0 1 0-10v-5a5 5 0 0 1 0-10V6a5 5 0 0 1-5-5h-5a5 5 0 0 1-10 0h-5a5 5 0 0 1-10 0h-5a5 5 0 0 1-10 0h-5a5 5 0 0 1-10 0H6a5 5 0 0 1-5 5v5a5 5 0 0 1 0 10v5a5 5 0 0 1 0 10v5a5 5 0 0 1 0 10v5a5 5 0 0 1 0 10v5a5 5 0 0 1 0 10v5a5 5 0 0 1 0 10v5a5 5 0 0 1 5 5h5a5 5 0 0 1 10 0h5a5 5 0 0 1 10 0h5a5 5 0 0 1 5-5zm15-2a7 7 0 0 0-6.71 5h-1.58a7 7 0 0 0-13.42 0h-1.58a7 7 0 0 0-13.42 0h-1.58a7 7 0 0 0-13.42 0H7.71A7.01 7.01 0 0 0 3 99.29v-1.58a7 7 0 0 0 0-13.42v-1.58a7 7 0 0 0 0-13.42v-1.58a7 7 0 0 0 0-13.42v-1.58a7 7 0 0 0 0-13.42v-1.58a7 7 0 0 0 0-13.42v-1.58A7 7 0 0 0 3 9.29V7.71A7.02 7.02 0 0 0 7.71 3h1.58a7 7 0 0 0 13.42 0h1.58a7 7 0 0 0 13.42 0h1.58a7 7 0 0 0 13.42 0h1.58a7 7 0 0 0 13.42 0h1.58A7.02 7.02 0 0 0 74 7.71v1.58a7 7 0 0 0 0 13.42v1.58a7 7 0 0 0 0 13.42v1.58a7 7 0 0 0 0 13.42v1.58a7 7 0 0 0 0 13.42v1.58a7 7 0 0 0 0 13.42v1.58a7 7 0 0 0 0 13.42v1.58a7.01 7.01 0 0 0-4.71 4.71h-1.58A7 7 0 0 0 61 99zM12 12h53v83H12V12zm51 81H14V14h49v79z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     gap: 40px;
     font-size: 1.75rem;
+    padding: 0 10px;
 }
 
 .ending-section h1 {
@@ -1024,6 +1065,7 @@ form button:hover {
 
     /* Pricing section */
 
+
     .pricing-container {
         flex-direction: row;
         margin: 0;
@@ -1031,6 +1073,7 @@ form button:hover {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        gap: 2rem;
     }
 
     /* Ending section */
