@@ -858,6 +858,14 @@ footer p {
     width: 100% !important;
 }
 
+.select2-container--default.select2-container--focus {
+    border: solid 1px var(--MAIN-BLUE) !important;
+}
+
+.label.django-toggle-switch {
+    min-width: 56px !important;
+}
+
 .textareas {
     display: flex;
     flex-direction: column;
