@@ -12,7 +12,8 @@
         <div class="is-flashcard-container">
             <label for="is-flashcard-switch">Flashcard</label>
             {{ translator_form.is_flashcard|attr:"id:is-flashcard-switch2"}}
-            <div class="decks-list">{{translator_form.decks}}</div>
+            <div class="decks-list">
+                {{translator_form.decks}}</div>
         </div>
         <input type="hidden" name="form_type" value="translator_form">
         <div class="textareas">

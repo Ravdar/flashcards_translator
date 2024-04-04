@@ -817,14 +817,13 @@ footer p {
 
 .decks-list {
     display: none;
-    overflow: hidden;
     flex-grow: 1;
 }
 
 /* Django-select2-styling */
 
-.select2 {
-    width: 100% !important;
+.select2-container {
+    flex-grow: 1;
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
@@ -856,7 +855,7 @@ footer p {
 }
 
 .select2-search__field {
-    max-width: 100%
+    width: 100% !important;
 }
 
 .textareas {
