@@ -15,9 +15,9 @@ class TranslatorForm(forms.ModelForm):
         self.fields["decks"].required = False
 
 
-        default_from_language = Language.objects.get(name="auto")
-        default_to_language = Language.objects.get(name="english")
-        self.fields["from_language"] = forms.ModelChoiceField(queryset=Language.objects.all(),initial=default_from_language)
+        default_from_language = Language.objects.get(name="english")
+        default_to_language = Language.objects.get(name="french")
+        self.fields["from_language"] = forms.ModelChoiceField(queryset=Language.objects.exclude(name="auto"),initial=default_from_language)
         self.fields["to_language"] = forms.ModelChoiceField(queryset=Language.objects.exclude(name="auto"),initial=default_to_language)
         self.fields["is_flashcard"].widget = DjangoToggleSwitchWidget(round=True, klass="django-toggle-switch-success")
 

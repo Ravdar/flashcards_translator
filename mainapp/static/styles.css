@@ -858,8 +858,8 @@ footer p {
     width: 100% !important;
 }
 
-.select2-container--default.select2-container--focus {
-    border: solid 1px var(--MAIN-BLUE) !important;
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: solid 2px var(--MAIN-BLUE) !important;
 }
 
 .label.django-toggle-switch {

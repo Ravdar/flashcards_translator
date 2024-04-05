@@ -10,22 +10,22 @@
         {{ translator_form.media.css }}
         {% csrf_token %}
         <div class="is-flashcard-container">
-            <label for="is-flashcard-switch">Flashcard</label>
+            <label for="is-flashcard-switch2">Flashcard</label>
             {{ translator_form.is_flashcard|attr:"id:is-flashcard-switch2"}}
             <div class="decks-list">
-                {{translator_form.decks}}</div>
+                {{translator_form.decks|attr:" id:decks-list-selectbox"}}</div>
         </div>
         <input type="hidden" name="form_type" value="translator_form">
         <div class="textareas">
             <div class="textarea-container">
-                <textarea name="input_text" class="input-box"
-                    placeholder="Write the text that you want to translate.">{{ input_text}}</textarea>
+                <textarea id="input-textarea" name="input_text" class="input-box"
+                    placeholder="Write the text that you want to translate.">{{input_text}}</textarea>
                 <div class="from-languages-container">
                     {{translator_form.from_language|add_class:"language-selectbox"}}
                 </div>
             </div>
             <div class="textarea-container">
-                <textarea class="output-box"
+                <textarea id="output-textarea" class="output-box"
                     placeholder="Translated text will appear here. Flashcard will be created automatically."
                     readonly>{{ translated_text }}</textarea>
                 <div class="to-languages-container">{{translator_form.to_language|add_class:"language-selectbox"}}
@@ -35,7 +35,34 @@
         <button class="translate-button" type="submit">Translate</button>
     </form>
 </main>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {{ translator_form.media.js }}
+
+<script>
+
+    function initializeTranslatorElements() {
+        var outputTextarea = document.getElementById("output-textarea");
+        var translateButton = document.querySelector(".translate-button");
+
+
+        translateButton.addEventListener("mouseover", function () { console.log("hovered") });
+    }
+
+    initializeTranslatorElements();
+
+    var inputText = document.getElementById("input-textarea").textContent;
+    var selectedDecks = document.getElementById("decks-list-selectbox").selectedOptions;
+    var isFlashcardSwitch = document.getElementById("is-flashcard-switch2");
+
+    console.log(inputText);
+    console.log(selectedDecks);
+
+
+
+
+</script>
+
+
 
 {% endblock content %}

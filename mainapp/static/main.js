@@ -122,15 +122,17 @@ const addDeckButton = document.getElementById("add-deck-button");
 const addDeckContainer = document.querySelector(".add-deck-container");
 const closeDialButton = document.querySelector(".close-dial");
 
-// Function to show add deck form on button click
-addDeckButton.addEventListener("click", function () {
-    addDeckContainer.style.transform = "translate(-50%, -50%) scale(1)";
-})
+if (addDeckButton) {
+    // Function to show add deck form on button click
+    addDeckButton.addEventListener("click", function () {
+        addDeckContainer.style.transform = "translate(-50%, -50%) scale(1)";
+    })
 
-// Function to hide add deck form on button click
-closeDialButton.addEventListener("click", function () {
-    addDeckContainer.style.transform = " translate(-50%, -50%) scale(0)";
-})
+    // Function to hide add deck form on button click
+    closeDialButton.addEventListener("click", function () {
+        addDeckContainer.style.transform = " translate(-50%, -50%) scale(0)";
+    })
+}
 
 
 
