@@ -25,27 +25,53 @@ def translator(request):
     """View for translatation and adding flashcards."""
 
     if request.method == "POST":
-        translator_form = TranslatorForm(request.user,request.POST)
-        if translator_form.is_valid():
-            # Retrieve data from the form
-            input_text = translator_form.cleaned_data["input_text"]
-            from_language=Language.objects.get(name=translator_form.cleaned_data["from_language"])
-            from_language_symbol = from_language.symbol
-            to_language = Language.objects.get(name=translator_form.cleaned_data["to_language"])
-            to_language_symbol = to_language.symbol            
-            is_flashcard = translator_form.cleaned_data["is_flashcard"]
-            decks = translator_form.cleaned_data["decks"]
+        if request.headers.get("x-requested-with") == "XMLHttpRequest":
+            print("ajax")
+            #Retrieve data from AJAX request
+            input_text = request.GET.get("input_text")
+            is_flashcard = request.Get.get("is_flashcard")
+            decks = request.Get.get("decks")
+            from_language_symbol = request.Get.get("from_language_symbol")
+            to_language_symbol = request.Get.get("to_language_symbol")
+            print(input_text)
+            print(is_flashcard)
+            print(decks)
+            print(from_language_symbol)
+            print(to_language_symbol)
             #Translate text and create Translation object
             translated_text = ts.translate_text(query_text=input_text, translator="google",from_language=from_language_symbol, to_language=to_language_symbol)
-            translation = Translation(input_text=input_text, output_text=translated_text,is_flashcard=is_flashcard, user=request.user, from_language=from_language, to_language=to_language)
+            translation = Translation(input_text=input_text, output_text=translated_text,is_flashcard=is_flashcard, user=request.user, from_language=from_language_symbol, to_language=to_language_symbol)
             translation.save()
             # Create Flashcard objects and manage all selected decks
             if is_flashcard:
                 for deck in decks:
                     flashcard = Flashcard(front=input_text, back=translated_text,  user=request.user, deck=deck)
                     flashcard.save()
-        else:
-            print("invalid")            
+            print(translated_text)
+            return JsonResponse({"output_text":translated_text})
+        # else:
+        #     print("not ajax")
+        #     translator_form = TranslatorForm(request.user,request.POST)
+        #     if translator_form.is_valid():
+        #         # Retrieve data from the form
+        #         input_text = translator_form.cleaned_data["input_text"]
+        #         from_language=Language.objects.get(name=translator_form.cleaned_data["from_language"])
+        #         from_language_symbol = from_language.symbol
+        #         to_language = Language.objects.get(name=translator_form.cleaned_data["to_language"])
+        #         to_language_symbol = to_language.symbol            
+        #         is_flashcard = translator_form.cleaned_data["is_flashcard"]
+        #         decks = translator_form.cleaned_data["decks"]
+        #         #Translate text and create Translation object
+        #         translated_text = ts.translate_text(query_text=input_text, translator="google",from_language=from_language_symbol, to_language=to_language_symbol)
+        #         translation = Translation(input_text=input_text, output_text=translated_text,is_flashcard=is_flashcard, user=request.user, from_language=from_language, to_language=to_language)
+        #         translation.save()
+        #         # Create Flashcard objects and manage all selected decks
+        #         if is_flashcard:
+        #             for deck in decks:
+        #                 flashcard = Flashcard(front=input_text, back=translated_text,  user=request.user, deck=deck)
+        #                 flashcard.save()
+        #     else:
+        #         print("invalid")            
     # GET request               
     else:
         translator_form = TranslatorForm(request.user)

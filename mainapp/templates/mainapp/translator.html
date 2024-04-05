@@ -21,14 +21,15 @@
                 <textarea id="input-textarea" name="input_text" class="input-box"
                     placeholder="Write the text that you want to translate.">{{input_text}}</textarea>
                 <div class="from-languages-container">
-                    {{translator_form.from_language|add_class:"language-selectbox"}}
+                    {{translator_form.from_language|attr:"id:from-language-selectbox"|add_class:"language-selectbox"}}
                 </div>
             </div>
             <div class="textarea-container">
                 <textarea id="output-textarea" class="output-box"
                     placeholder="Translated text will appear here. Flashcard will be created automatically."
                     readonly>{{ translated_text }}</textarea>
-                <div class="to-languages-container">{{translator_form.to_language|add_class:"language-selectbox"}}
+                <div class="to-languages-container">
+                    {{translator_form.to_language|attr:"id:to-language-selectbox"|add_class:"language-selectbox"}}
                 </div>
             </div>
         </div>
@@ -41,24 +42,49 @@
 
 <script>
 
-    function initializeTranslatorElements() {
-        var outputTextarea = document.getElementById("output-textarea");
-        var translateButton = document.querySelector(".translate-button");
+    // Retrieve input data
+    var isFlashcard = document.getElementById("is-flashcard-switch2").checked;
+    var fromLanguage = document.getElementById("from-language-selectbox").selectedOptions[0];
+    var toLanguage = document.getElementById("to-language-selectbox").selectedOptions[0];
 
-
-        translateButton.addEventListener("mouseover", function () { console.log("hovered") });
-    }
-
-    initializeTranslatorElements();
-
-    var inputText = document.getElementById("input-textarea").textContent;
     var selectedDecks = document.getElementById("decks-list-selectbox").selectedOptions;
-    var isFlashcardSwitch = document.getElementById("is-flashcard-switch2");
-
-    console.log(inputText);
-    console.log(selectedDecks);
 
 
+
+    var outputTextarea = document.getElementById("output-textarea");
+
+
+
+    // AJAX request
+    $(document).ready(function () {
+        $('.translate-button').click(function (event) {
+            event.preventDefault(); // Prevent default form submission
+            var selectedDeckValues = [];
+            var inputText = document.getElementById("input-textarea").value;
+            console.log(inputText);
+            for (var i = 0; i < selectedDecks.length; i++) {
+                selectedDeckValues.push(selectedDecks[i].textContent);
+            }
+            console.log(selectedDeckValues);
+            var outputTextarea = document.getElementById("output-textarea");
+            $.ajax({
+                url: '{% url "mainapp:translator" %}',
+                data: {
+                    'input_text': inputText,
+                    'is_flashcard': isFlashcard,
+                    'decks': selectedDeckValues,
+                    'from_language_symbol': fromLanguage.textContent,
+                    'to_language_symbol': toLanguage.textContent,
+                },
+                dataType: 'json',
+                success: function (data) {
+                    console.log("success");
+                    outputText = data.output_text;
+                    outputTextarea.textContent = outputText;
+                }
+            });
+        });
+    });
 
 
 </script>
