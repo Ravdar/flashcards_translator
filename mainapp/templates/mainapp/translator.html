@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <button class="translate-button">Translate</button>
+        <button type="button" class="translate-button">Translate</button>
     </form>
 </main>
 
@@ -61,21 +61,20 @@
                 selectedDeckValues.push(selectedDecks[i].textContent);
             }
             console.log(selectedDeckValues);
-            var outputTextarea = document.getElementById("output-textarea");
             $.ajax({
                 url: '{% url "mainapp:translator" %}',
                 data: {
                     'input_text': inputText,
                     'is_flashcard': isFlashcard,
-                    'decks': selectedDeckValues,
+                    'decks': JSON.stringify(selectedDeckValues),
                     'from_language': fromLanguage.textContent,
                     'to_language': toLanguage.textContent,
                 },
                 dataType: 'json',
                 success: function (data) {
                     console.log("success");
-                    outputText = data.output_text;
-                    outputTextarea.textContent = outputText;
+                    console.log("data");
+                    outputTextarea.textContent = data.output_text;
                 },
                 error: function (xhr, status, error) {
                     console.log("Error occurred: " + error);

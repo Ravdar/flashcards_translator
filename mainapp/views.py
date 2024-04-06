@@ -30,39 +30,39 @@ def translator(request):
         #Retrieve data from AJAX request
         input_text = request.GET.get("input_text")
         is_flashcard = request.GET.get("is_flashcard")
+        print(is_flashcard)
         if is_flashcard == "true":
             is_flashcard = True
         else:
             is_flashcard = False
-        decks = ["superdeck", "talja"] #request.GET.get("decks")
+        decks_string = request.GET.get("decks")
+        decks = json.loads(decks_string)
+        # decks = ["superdeck","kolejna taliua"]
+        print(type(decks))
         from_language = Language.objects.get(name=request.GET.get("from_language"))
         from_language_symbol = from_language.symbol
         to_language = Language.objects.get(name=request.GET.get("to_language"))
         to_language_symbol = to_language.symbol
-        print(input_text)
-        print(is_flashcard)
-        print(decks)
-        print(from_language_symbol)
-        print(to_language_symbol)
-        #Translate text and create Translation object
+        # #Translate text and create Translation object
         output_text = ts.translate_text(query_text=input_text, translator="google",from_language=from_language_symbol, to_language=to_language_symbol)
         translation = Translation(input_text=input_text, output_text=output_text,is_flashcard=is_flashcard, user=request.user, from_language=from_language, to_language=to_language)
         translation.save()
         # Create Flashcard objects and manage all selected decks
         if is_flashcard:
             for deck_name in decks:
-                deck = Deck.objects.get(name=deck_name)
+                print(f"Deck name{deck_name}")
+                deck = get_object_or_404(Deck, user=request.user, name=deck_name)
+                print(f"Deck {deck}")
                 flashcard = Flashcard(front=input_text, back=output_text,  user=request.user, deck=deck)
                 flashcard.save()
-        print(output_text)
         return JsonResponse({"output_text":output_text})         
     else:
-        print("get")
+        print("not ajax")
         translator_form = TranslatorForm(request.user)
         input_text = ""
         output_text = ""
 
-    return render(request, "mainapp/translator.html", {"translator_form":translator_form, "input_text":input_text, "output_text":output_text})
+        return render(request, "mainapp/translator.html", {"translator_form":translator_form, "input_text":input_text, "output_text":output_text})
 
 
 @login_required
@@ -73,7 +73,6 @@ def review(request):
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
         # Update reviewed card based on selected quality
         end_time = int(time.time() * 1000)
-        print(end_time)
         start_time = int(request.GET.get("start_time"))
         quality = int(request.GET.get("quality"))
         previous_card_id = int(request.GET.get("id"))
@@ -113,7 +112,6 @@ def review(request):
         start_time = int(time.time() * 1000) 
         random.shuffle(flashcards_list)
 
-    print(start_time)
 
     return render(request, "mainapp/review.html", {"deck_name":deck_name,"flashcards_list":flashcards_list,"start_time":start_time})
 
