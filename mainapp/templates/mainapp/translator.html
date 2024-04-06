@@ -27,13 +27,13 @@
             <div class="textarea-container">
                 <textarea id="output-textarea" class="output-box"
                     placeholder="Translated text will appear here. Flashcard will be created automatically."
-                    readonly>{{ translated_text }}</textarea>
+                    readonly>{{ output_text }}</textarea>
                 <div class="to-languages-container">
                     {{translator_form.to_language|attr:"id:to-language-selectbox"|add_class:"language-selectbox"}}
                 </div>
             </div>
         </div>
-        <button class="translate-button" type="submit">Translate</button>
+        <button class="translate-button">Translate</button>
     </form>
 </main>
 
@@ -42,23 +42,18 @@
 
 <script>
 
-    // Retrieve input data
-    var isFlashcard = document.getElementById("is-flashcard-switch2").checked;
-    var fromLanguage = document.getElementById("from-language-selectbox").selectedOptions[0];
-    var toLanguage = document.getElementById("to-language-selectbox").selectedOptions[0];
-
-    var selectedDecks = document.getElementById("decks-list-selectbox").selectedOptions;
-
-
-
     var outputTextarea = document.getElementById("output-textarea");
-
 
 
     // AJAX request
     $(document).ready(function () {
-        $('.translate-button').click(function (event) {
-            event.preventDefault(); // Prevent default form submission
+        $('.translate-button').click(function () {
+            // Retrieve input data
+            var fromLanguage = document.getElementById("from-language-selectbox").selectedOptions[0];
+            var toLanguage = document.getElementById("to-language-selectbox").selectedOptions[0];
+            var isFlashcard = document.getElementById("is-flashcard-switch2").checked;
+            var selectedDecks = document.getElementById("decks-list-selectbox").selectedOptions;
+            console.log(selectedDecks)
             var selectedDeckValues = [];
             var inputText = document.getElementById("input-textarea").value;
             console.log(inputText);
@@ -73,14 +68,17 @@
                     'input_text': inputText,
                     'is_flashcard': isFlashcard,
                     'decks': selectedDeckValues,
-                    'from_language_symbol': fromLanguage.textContent,
-                    'to_language_symbol': toLanguage.textContent,
+                    'from_language': fromLanguage.textContent,
+                    'to_language': toLanguage.textContent,
                 },
                 dataType: 'json',
                 success: function (data) {
                     console.log("success");
                     outputText = data.output_text;
                     outputTextarea.textContent = outputText;
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error occurred: " + error);
                 }
             });
         });
