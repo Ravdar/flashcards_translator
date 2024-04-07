@@ -26,6 +26,24 @@
     }
 }
 
+@keyframes showPopup {
+    0% {
+        top: -50px;
+    }
+
+    20% {
+        top: 10px;
+    }
+
+    80% {
+        top: 10px;
+    }
+
+    100% {
+        top: -50px
+    }
+}
+
 /* VARIABLES */
 
 :root {
@@ -40,7 +58,7 @@
     --DECK-RED: #FEA3A3;
     --DECK-YELLOW: #FEE5A3;
     --DECK-YELLOW-2: #FEFBA3;
-    --DECK-GREEN: #79AC78;
+    --DECK-GREEN: #1a9f17;
     --DECK-GREEN-2: #A3FEA3;
     --DECK-ORANGE: #FEC7A3;
     --DECK-PURPLE: #BAA3FE;
@@ -815,9 +833,24 @@ footer p {
     width: 100%;
 }
 
+.flashcard-switch-container {
+    display: flex;
+    gap: 5px;
+}
+
 .decks-list {
     display: none;
     flex-grow: 1;
+}
+
+.flashcard-created-popup {
+    background-color: var(--DECK-GREEN-2);
+    position: absolute;
+    top: -50px;
+    padding: 10px;
+    border-radius: 5px;
+    color: var(--DECK-GREEN);
+    border: 2px solid var(--DECK-GREEN);
 }
 
 /* Django-select2-styling */

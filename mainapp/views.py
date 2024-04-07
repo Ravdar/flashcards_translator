@@ -25,23 +25,21 @@ def landing_page(request):
 def translator(request):
     """View for translatation and adding flashcards."""
 
+    # Handling AJAX request
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
-        print("ajax")
-        #Retrieve data from AJAX request
+        # Retrieve data from AJAX request
         input_text = request.GET.get("input_text")
         is_flashcard = request.GET.get("is_flashcard")
-        print(is_flashcard)
+        decks_string = request.GET.get("decks")
+        from_language = Language.objects.get(name=request.GET.get("from_language"))
+        to_language = Language.objects.get(name=request.GET.get("to_language"))
+        # Transform retrieved data
         if is_flashcard == "true":
             is_flashcard = True
         else:
             is_flashcard = False
-        decks_string = request.GET.get("decks")
         decks = json.loads(decks_string)
-        # decks = ["superdeck","kolejna taliua"]
-        print(type(decks))
-        from_language = Language.objects.get(name=request.GET.get("from_language"))
         from_language_symbol = from_language.symbol
-        to_language = Language.objects.get(name=request.GET.get("to_language"))
         to_language_symbol = to_language.symbol
         # #Translate text and create Translation object
         output_text = ts.translate_text(query_text=input_text, translator="google",from_language=from_language_symbol, to_language=to_language_symbol)
@@ -50,13 +48,12 @@ def translator(request):
         # Create Flashcard objects and manage all selected decks
         if is_flashcard:
             for deck_name in decks:
-                print(f"Deck name{deck_name}")
                 deck = get_object_or_404(Deck, user=request.user, name=deck_name)
-                print(f"Deck {deck}")
                 flashcard = Flashcard(front=input_text, back=output_text,  user=request.user, deck=deck)
                 flashcard.save()
         return JsonResponse({"output_text":output_text})         
     else:
+        # Handling GET request
         print("not ajax")
         translator_form = TranslatorForm(request.user)
         input_text = ""

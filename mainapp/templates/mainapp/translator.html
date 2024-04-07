@@ -10,8 +10,10 @@
         {{ translator_form.media.css }}
         {% csrf_token %}
         <div class="is-flashcard-container">
-            <label for="is-flashcard-switch2">Flashcard</label>
-            {{ translator_form.is_flashcard|attr:"id:is-flashcard-switch2"}}
+            <div class="flashcard-switch-container">
+                <label for="is-flashcard-switch2">Flashcard</label>
+                {{ translator_form.is_flashcard|attr:"id:is-flashcard-switch2"}}
+            </div>
             <div class="decks-list">
                 {{translator_form.decks|attr:" id:decks-list-selectbox"}}</div>
         </div>
@@ -35,6 +37,9 @@
         </div>
         <button type="button" class="translate-button">Translate</button>
     </form>
+
+    <!-- Flashcard created popup -->
+    <div class="flashcard-created-popup">Flashcard created!</div>
 </main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -43,6 +48,7 @@
 <script>
 
     var outputTextarea = document.getElementById("output-textarea");
+    var flashcardPopup = document.querySelector(".flashcard-created-popup");
 
 
     // AJAX request
@@ -53,14 +59,15 @@
             var toLanguage = document.getElementById("to-language-selectbox").selectedOptions[0];
             var isFlashcard = document.getElementById("is-flashcard-switch2").checked;
             var selectedDecks = document.getElementById("decks-list-selectbox").selectedOptions;
-            console.log(selectedDecks)
             var selectedDeckValues = [];
             var inputText = document.getElementById("input-textarea").value;
-            console.log(inputText);
+            //Reset animation property
+            flashcardPopup.style.animation = '';
+            // Transform retrieved data
             for (var i = 0; i < selectedDecks.length; i++) {
                 selectedDeckValues.push(selectedDecks[i].textContent);
             }
-            console.log(selectedDeckValues);
+            // AJAX
             $.ajax({
                 url: '{% url "mainapp:translator" %}',
                 data: {
@@ -72,9 +79,12 @@
                 },
                 dataType: 'json',
                 success: function (data) {
-                    console.log("success");
-                    console.log("data");
                     outputTextarea.textContent = data.output_text;
+                    console.log(isFlashcard)
+                    if (isFlashcard == true) {
+                        console.log("this is true")
+                        flashcardPopup.style.animation = 'showPopup 2s ease-in-out'
+                    };
                 },
                 error: function (xhr, status, error) {
                     console.log("Error occurred: " + error);
