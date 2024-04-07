@@ -7,7 +7,7 @@ from .forms import TranslatorForm, NewDeck, SearchDecks
 from .models import Translation, Flashcard,Deck,Language
 from users.models import Profile
 
-from contributions_django.graphs import generate_contributors_graph
+# from contributions_django.graphs import generate_contributors_graph
 import translators as ts
 import json
 import random
@@ -142,7 +142,8 @@ def user_profile(request, user_username):
     today = timezone.now()
     last_week = today - timedelta(days=7)
     contributions = []
-    calendar = generate_contributors_graph(contributions, title="Decks reviews")
+    calendar =""
+    # calendar = generate_contributors_graph(contributions, title="Decks reviews")
         
     return render(request, "mainapp/user_profile.html", {"user":user,"decks_data":decks_data,"total_decks_reviewed_today":total_decks_reviewed_today,"total_cards_reviewed_today":total_cards_reviewed_today, "total_cards_to_review_today":total_cards_to_review_today, "total_decks_to_review_today":total_decks_to_review_today,"calendar":calendar, "activity_streak":activity_streak}, )
 
