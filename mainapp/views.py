@@ -14,6 +14,7 @@ import random
 import time
 from datetime import timedelta
 from django.utils import timezone
+from contributions_django.graphs import generate_contributors_graph
 
 def landing_page(request):
      """View for landing page."""
@@ -141,9 +142,8 @@ def user_profile(request, user_username):
     # Contributions calendar
     today = timezone.now()
     last_week = today - timedelta(days=7)
-    contributions = []
-    calendar =""
-    # calendar = generate_contributors_graph(contributions, title="Decks reviews")
+    contributions = [last_week, today]
+    calendar = generate_contributors_graph(contributions, title="Decks reviews")
         
     return render(request, "mainapp/user_profile.html", {"user":user,"decks_data":decks_data,"total_decks_reviewed_today":total_decks_reviewed_today,"total_cards_reviewed_today":total_cards_reviewed_today, "total_cards_to_review_today":total_cards_to_review_today, "total_decks_to_review_today":total_decks_to_review_today,"calendar":calendar, "activity_streak":activity_streak}, )
 

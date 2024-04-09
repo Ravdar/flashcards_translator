@@ -8,7 +8,7 @@
 
 <main class="decks-main center">
     <h1>Your decks</h1>
-    <form>
+    <form id="deck-searchbar">
         {{ decks_searchbar.media.css }}
         {% csrf_token %}
         {{decks_searchbar.name}}</form>

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "widget_tweaks",
     "django_select2",
     "django_toggle_switch_widget",
+    "contributions_django",
 ]
 
 MIDDLEWARE = [

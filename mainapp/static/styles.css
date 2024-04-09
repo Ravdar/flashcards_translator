@@ -748,6 +748,10 @@ footer p {
     min-width: 300px;
 }
 
+.decks-main form span {
+    width: auto !important;
+}
+
 .decks-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
