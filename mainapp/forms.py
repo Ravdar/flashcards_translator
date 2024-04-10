@@ -30,16 +30,17 @@ class TranslatorForm(forms.ModelForm):
 class SearchDecks(forms.ModelForm):
     """Form for searching specific deck."""
 
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["name"].queryset = Deck.objects.filter(user=user)
+        self.fields["name"].required = False
+        # self.fields['name'].widget = s2forms.Select2MultipleWidget(attrs={'data-placeholder': 'Search for decks'})
+        
+    name = forms.ModelMultipleChoiceField(queryset=Deck.objects.none(),widget=s2forms.Select2MultipleWidget(attrs={'data-placeholder': 'Select decks'}))
+
     class Meta:
         model=Deck
         fields=["name"]
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        # self.fields["name"].queryset = Deck.objects.filter(user=user)
-        # self.fields["name"].required = False
-        self.fields['name'].widget = s2forms.Select2MultipleWidget(attrs={'data-placeholder': 'Search for decks'})
-
 
 class NewDeck(forms.ModelForm):
     """Form for creating a new deck."""

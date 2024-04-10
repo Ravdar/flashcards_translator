@@ -156,17 +156,30 @@ def decks(request):
     user = request.user
     if request.method == "POST":
         # Handling form for adding new deck
-        new_deck_form = NewDeck(request.POST)
-        decks_searchbar = SearchDecks(request.POST)
-        if new_deck_form.is_valid():
-            new_deck = new_deck_form.save(commit=False)
-            new_deck.created_by = request.user
-            new_deck.save()
-            new_deck.user.add(request.user)
-            new_deck.save()
-            new_deck_form= NewDeck()
+            new_deck_form = NewDeck(request.POST)
+            decks_searchbar = SearchDecks()
+            if new_deck_form.is_valid():
+                new_deck = new_deck_form.save(commit=False)
+                new_deck.created_by = request.user
+                new_deck.save()
+                new_deck.user.add(request.user)
+                new_deck.save()
+                new_deck_form= NewDeck()
     else:
-        # GET request 
-        new_deck_form= NewDeck()
-        decks_searchbar = SearchDecks()
+    # AJAX request - decks filtering/search
+        if request.headers.get("x-requested-with") == "XMLHttpRequest":
+            print("ajax")
+            search_text = request.GET.get("search_text")
+            print(f"searched text: {search_text}")
+            filtered_decks = Deck.objects.filter(name__icontains=search_text)
+            print(f"filtered decks: {filtered_decks}")
+            # Retrieving only names, so it can be passed in JsonResponse
+            filtered_decks_names = []
+            for deck in filtered_decks:
+                filtered_decks_names.append(deck.name)
+            return JsonResponse({"filtered_decks":filtered_decks_names})
+        else:
+        # Regular GET request
+            new_deck_form= NewDeck()
+            decks_searchbar = SearchDecks(request.user)
     return render(request, "mainapp/decks.html", {"user":user, "new_deck_form":new_deck_form,"decks_searchbar":decks_searchbar})

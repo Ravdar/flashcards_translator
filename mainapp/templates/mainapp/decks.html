@@ -11,7 +11,14 @@
     <form id="deck-searchbar">
         {{ decks_searchbar.media.css }}
         {% csrf_token %}
-        {{decks_searchbar.name}}</form>
+        <input type="text" id="decks-searchbar">
+        <!-- {{decks_searchbar.name|attr:"id:decks-searchbar"}} -->
+        <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.0" stroke="#5299ff"
+            class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+        </svg> -->
+    </form>
     <div class="decks-container">
         <button id="add-deck-button" class="deck center">+</button>
         {% for deck in user.decks.all %}
@@ -39,5 +46,50 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {{ decks_searchbar.media.js }}
+
+<script>
+
+    var decksSearchbar = document.getElementById("decks-searchbar")
+
+    $(document).ready(function () {
+        $(decksSearchbar).keyup(function () {
+            console.log("ajax");
+            var searchText = $(this).val();
+            var decksContainer = document.querySelector(".decks-container");
+
+            // Send AJAX request with searchText
+            $.ajax({
+                url: '{% url "mainapp:decks" %}',
+                data: { 'search_text': searchText },
+                dataType: 'html',
+                success: function (data) {
+                    decksContainer.innerHTML = '';
+                    console.log(data);
+                    data = JSON.parse(data);
+                    console.log(data["filtered_decks"]);
+                    // Construct the desired HTML structure
+                    var newContent = '<button id="add-deck-button" class="deck center">+</button>';
+                    // Loop through user decks and add deck links (if provided)
+                    if (data.filtered_decks) {
+                        console.log("condition fulfilled")
+                        for (var i = 0; i < data.filtered_decks.length; i++) {
+                            var deck = data.filtered_decks[i];
+
+                            // Escaped curly braces for variable interpolation within template literal
+                            newContent += '<a class="deck center">' + deck + '</a>';
+                        }
+                    }
+                    console.log(newContent)
+
+                    // Update decksContainer with the constructed HTML
+                    decksContainer.innerHTML = newContent;
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
+</script>
 
 {% endblock content %}
