@@ -748,8 +748,16 @@ footer p {
     min-width: 300px;
 }
 
-.decks-main form span {
-    width: auto !important;
+#decks-searchbar {
+    border-radius: 5px;
+    font-size: 1.2em;
+    padding: 5px;
+    border: 1px solid gray;
+}
+
+#decks-searchbar:focus {
+    border: 2px solid var(--MAIN-BLUE) !important;
+    outline: none;
 }
 
 .decks-container {

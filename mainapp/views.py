@@ -143,7 +143,7 @@ def user_profile(request, user_username):
     today = timezone.now()
     last_week = today - timedelta(days=7)
     contributions = [last_week, today]
-    calendar = generate_contributors_graph(contributions, title="Decks reviews")
+    calendar = generate_contributors_graph(contributions, title="")
         
     return render(request, "mainapp/user_profile.html", {"user":user,"decks_data":decks_data,"total_decks_reviewed_today":total_decks_reviewed_today,"total_cards_reviewed_today":total_cards_reviewed_today, "total_cards_to_review_today":total_cards_to_review_today, "total_decks_to_review_today":total_decks_to_review_today,"calendar":calendar, "activity_streak":activity_streak}, )
 
