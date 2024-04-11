@@ -51,7 +51,7 @@
             var searchText = $(this).val();
             var decksContainer = document.querySelector(".decks-container");
 
-            // Send AJAX request with searchText
+            // AJAX request
             $.ajax({
                 url: '{% url "mainapp:decks" %}',
                 data: { 'search_text': searchText },
@@ -59,22 +59,18 @@
                 success: function (data) {
                     decksContainer.innerHTML = '';
                     console.log(data);
+                    // Convert string to directory and list
                     data = JSON.parse(data);
-                    console.log(data["filtered_decks"]);
-                    // Construct the desired HTML structure
+                    // Construct start of HTML structure
                     var newContent = '<button id="add-deck-button" class="deck center">+</button>';
                     // Loop through user decks and add deck links (if provided)
                     if (data.filtered_decks) {
                         console.log("condition fulfilled")
                         for (var i = 0; i < data.filtered_decks.length; i++) {
                             var deck = data.filtered_decks[i];
-
-                            // Escaped curly braces for variable interpolation within template literal
                             newContent += '<a class="deck center">' + deck + '</a>';
                         }
                     }
-                    console.log(newContent)
-
                     // Update decksContainer with the constructed HTML
                     decksContainer.innerHTML = newContent;
                 },
