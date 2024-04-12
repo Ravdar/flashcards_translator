@@ -129,9 +129,9 @@
             <h1>STUDY</h1>
             <div class="decks-container">
                 {% for deck_data in decks_data %}
-                <div class="deck-container light">
+                <div class="deck-container">
                     <a href="{% url 'mainapp:review' %}?deck_name={{ deck_data.deck.name }}"
-                        class=" deck center">{{deck_data.deck.name}}</a>
+                        class="light-deck center">{{deck_data.deck.name}}</a>
                     <div class="number-reviewed">{{deck_data.number_of_flashcards_reviewed_today}}</div>
                     <div class="number-to-review">{{deck_data.number_of_flashcards_to_review}}</div>
 
