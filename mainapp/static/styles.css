@@ -647,15 +647,13 @@ footer p {
 
 .main-user-profile {
     min-height: 100vh;
-    margin-left: 80px;
     align-self: normal;
-    /* Screen width minus navbar */
-    max-width: calc(100vw - 80px);
     padding: 20px;
     min-width: auto;
-    display: grid;
+    display: flex;
     gap: 20px;
-    grid-template-columns: 2fr 1fr;
+    /* Margin for navbar */
+    margin-bottom: 80px;
 }
 
 .today-stats {
@@ -667,11 +665,12 @@ footer p {
     align-items: center;
     border: 3px solid black;
     overflow: auto;
+    flex-direction: column;
 }
 
 .today-stats:first-child,
 .today-stats:nth-child(3) {
-    gap: 40px;
+    gap: 20px;
 }
 
 .today-stats:nth-child(2) {
@@ -701,7 +700,7 @@ footer p {
 }
 
 .today-stats h3 {
-    font-size: 1.5rem;
+    font-size: 1em;
     font-weight: normal;
     color: var(--LIGHTER-BLACK)
 }
@@ -773,8 +772,9 @@ footer p {
 
 .decks-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+    margin-bottom: 30px;
 }
 
 .decks-container button,
@@ -1183,7 +1183,35 @@ form button:hover {
 
     /* USER PANEL */
 
+    .main-user-profile {
+        margin-left: 80px;
+        margin-bottom: 0px;
+        max-width: calc(100vw - 80px);
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+    }
+
     .decks-main {
+        gap: 40px;
+    }
+
+    .today-stats {
+        flex-direction: row
+    }
+
+    .today-stats h3 {
+        font-size: 1.5em;
+    }
+
+    .decks-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-bottom: 0px;
+    }
+
+    .today-stats:first-child,
+    .today-stats:nth-child(3) {
         gap: 40px;
     }
 
