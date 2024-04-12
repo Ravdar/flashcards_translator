@@ -651,21 +651,27 @@ footer p {
     align-self: normal;
     /* Screen width minus navbar */
     max-width: calc(100vw - 80px);
-    padding: 25px;
+    padding: 20px;
     min-width: auto;
     display: grid;
-    gap: 25px;
+    gap: 20px;
     grid-template-columns: 2fr 1fr;
 }
 
 .today-stats {
     background-color: white;
     border-radius: 1rem;
-    padding: 20px;
+    padding: 15px 30px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     border: 3px solid black;
+    overflow: auto;
+}
+
+.today-stats:first-child,
+.today-stats:nth-child(3) {
+    gap: 40px;
 }
 
 .today-stats:nth-child(2) {
@@ -674,11 +680,14 @@ footer p {
     flex-direction: column;
     background-color: var(--MAIN-BLUE);
     color: white;
+    justify-content: space-around;
 }
+
+
 
 .streak {
     color: white;
-    font-size: 20em;
+    font-size: 14em;
 }
 
 
@@ -692,49 +701,51 @@ footer p {
 }
 
 .today-stats h3 {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: normal;
     color: var(--LIGHTER-BLACK)
 }
 
-
-
 .today-studied,
 .today-left {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: bold;
 
 }
 
 .today-studied {
-    color: var(--MAIN-GREEN)
+    color: var(--LIGHT-BLUE);
 }
 
 .today-left {
-    color: var(--MAIN-RED);
+    color: var(--MAIN-BLUE);
 }
 
 .number-to-review,
 .number-reviewed {
     font-size: 1.5rem;
     font-weight: bold;
-    margin-top: 10px;
+    bottom: 5px;
     position: absolute;
 }
 
 .number-reviewed {
-    color: var(--MAIN-GREEN);
+    color: var(--LIGHT-BLUE);
     left: 5px;
 }
 
 .number-to-review {
-    color: var(--MAIN-RED);
-    ;
-    right: 0px;
+    color: var(--MAIN-BLUE);
+    right: 5px;
 }
 
 .deck-container {
     position: relative;
+}
+
+.deck {
+    background-color: white !important;
+    color: var(--MAIN-BLUE) !important;
 }
 
 /* Decks section */
@@ -1067,14 +1078,14 @@ form button:hover {
 .form-control {
     text-align: center;
     border: 1px solid grey;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 10px;
     margin-bottom: 20px;
 }
 
 .form-control:focus,
 .new-article-inputs:focus {
-    border: 0.5px solid var(--MAIN-BLUE);
+    border: 2px solid var(--MAIN-BLUE);
     box-shadow: 0 0 0 0.5px var(--MAIN-BLUE);
     outline: none;
 }
