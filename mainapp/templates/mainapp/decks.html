@@ -17,7 +17,7 @@
     <div class="decks-container">
         <button id="add-deck-button" class="deck center">+</button>
         {% for deck in user.decks.all %}
-        <a href="{% url 'mainapp:review' %}?deck_name={{ deck.name }}" class="dark-deck center">{{deck.name}}</a>
+        <a href="{% url 'mainapp:deck_details' deck.name %}" class="dark-deck center">{{deck.name}}</a>
         {% endfor %}
     </div>
 </main>

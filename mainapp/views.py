@@ -157,7 +157,6 @@ def decks(request):
     if request.method == "POST":
         # Handling form for adding new deck
             new_deck_form = NewDeck(request.POST)
-            decks_searchbar = SearchDecks()
             if new_deck_form.is_valid():
                 new_deck = new_deck_form.save(commit=False)
                 new_deck.created_by = request.user
@@ -181,5 +180,13 @@ def decks(request):
         else:
         # Regular GET request
             new_deck_form= NewDeck()
-            decks_searchbar = SearchDecks(request.user)
     return render(request, "mainapp/decks.html", {"user":user, "new_deck_form":new_deck_form,"decks_searchbar":decks_searchbar})
+
+def deck_details(request, deck_name):
+    user = request.user
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+        search_text = request.GET.get("search_text")
+        filtered_cards = Flashcard.objects.filter(front__icontains=search_text)
+    else:
+        card = get_object_or_404(Deck,user=user,name=deck_name)
+    return render(request, "mainapp/deck_details.html", {"deck":deck})

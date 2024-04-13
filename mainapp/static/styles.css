@@ -847,6 +847,30 @@ footer p {
     right: 20px;
 }
 
+/* DECK DETAILS  */
+
+.cards-container {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(8, 1fr);
+}
+
+.cards-container button {
+    background-color: var(--LIGHT-BLUE);
+    color: white;
+    font-size: 75px;
+}
+
+.card {
+    width: 100px;
+    height: 140px;
+    background-color: white;
+    border: 2px solid var(--MAIN-BLUE);
+    color: var(--MAIN-BLUE);
+    border-radius: 5px;
+    padding: 5px;
+}
+
 /* TRANSLATOR */
 
 .translator-main {
