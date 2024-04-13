@@ -27,11 +27,13 @@
             </nav>
             <div class="signs">
                 {% if request.user.is_authenticated %}
-                <a class="nav-button mr" href="{% url 'mainapp:translator' %}">Create flashcards+</a>
-                <a href="{% url 'users:logout' %}">Log out</a>
+                <a href="{% url 'users:logout' %}"><button class="border-button">Log out</button></a>
                 <a href="{% url 'mainapp:user_profile' user.username %}">
-                    {% if user.profile.profile_picture.url %}
-                    <img src="{{ user.profile.profile_picture.url }}" id="profile-picture" alt="Profile picture">
+                    {% if user.profile.profile_picture %}
+                    <div class="profile-picture-container">
+                        <img src="{{ user.profile.profile_picture.url }}" id="profile-picture" alt="Profile picture"
+                            width="40" height="40">
+                    </div>
                     {% else %}
                     <p>{{user.username}}</p>
                     {% endif %}
@@ -118,9 +120,21 @@
                     <p>Get started with essentials. Try our solutions and find out if it suits you.</p>
                     <br>
                     <ul>
-                        <li>One deck</li>
-                        <li>Up to 200 cards</li>
-                        <li>35 languages</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="20px"
+                                height="20px" stroke-width="2" stroke="#09D997" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>One deck</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="20px"
+                                height="20px" stroke-width="2" stroke="#09D997" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>Up to 200 cards</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="20px"
+                                height="20px" stroke-width="2" stroke="#09D997" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>35 languages</li>
                     </ul>
                     <br>
                     <button class="blue-button">Get started now</button>
@@ -132,9 +146,21 @@
                     <p>Gain full, unlimited acces to our tools. Resign whenever you want.</p>
                     <br>
                     <ul>
-                        <li>Unlimited number of decks</li>
-                        <li>Unlimited cards</li>
-                        <li>35 languages</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="20px"
+                                height="20px" stroke-width="2" stroke="#09D997" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>Unlimited number of decks</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="20px"
+                                height="20px" stroke-width="2" stroke="#09D997" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>Unlimited cards</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="20px"
+                                height="20px" stroke-width="2" stroke="#09D997" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>35 languages</li>
                     </ul>
                     <br>
 
@@ -147,9 +173,21 @@
                     <p>Gain full, unlimited acces to our tools. One time payment. No subscription.</p>
                     <br>
                     <ul>
-                        <li>Unlimited number of decks</li>
-                        <li>Unlimited cards</li>
-                        <li>35 languages</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="20px"
+                                height="20px" stroke-width="2" stroke="#09D997" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>Unlimited number of decks</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="20px"
+                                height="20px" stroke-width="2" stroke="#09D997" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>Unlimited cards</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="20px"
+                                height="20px" stroke-width="2" stroke="#09D997" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>35 languages</li>
                     </ul>
                     <br>
                     <button class="blue-button">Get started now</button>

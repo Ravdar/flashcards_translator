@@ -5,9 +5,16 @@ from django.http import JsonResponse
 
 from .forms import TranslatorForm, NewDeck, SearchDecks
 from .models import Translation, Flashcard,Deck,Language
+from users.models import Profile
 
+# from contributions_django.graphs import generate_contributors_graph
 import translators as ts
+import json
 import random
+import time
+from datetime import timedelta
+from django.utils import timezone
+from contributions_django.graphs import generate_contributors_graph
 
 def landing_page(request):
      """View for landing page."""
@@ -19,35 +26,49 @@ def landing_page(request):
 def translator(request):
     """View for translatation and adding flashcards."""
 
-    if request.method == "POST":
-        translator_form = TranslatorForm(request.user,request.POST)
-        if translator_form.is_valid():
-            # Retrieve data from the form
-            input_text = translator_form.cleaned_data["input_text"]
-            from_language=Language.objects.get(name=translator_form.cleaned_data["from_language"])
-            from_language_symbol = from_language.symbol
-            to_language = Language.objects.get(name=translator_form.cleaned_data["to_language"])
-            to_language_symbol = to_language.symbol            
-            is_flashcard = translator_form.cleaned_data["is_flashcard"]
-            decks = translator_form.cleaned_data["decks"]
-            #Translate text and create Translation object
-            translated_text = ts.translate_text(query_text=input_text, translator="google",from_language=from_language_symbol, to_language=to_language_symbol)
-            translation = Translation(input_text=input_text, output_text=translated_text,is_flashcard=is_flashcard, user=request.user, from_language=from_language, to_language=to_language)
-            translation.save()
-            # Create Flashcard objects and manage all selected decks
-            if is_flashcard:
-                for deck in decks:
-                    flashcard = Flashcard(front=input_text, back=translated_text,  user=request.user, deck=deck)
-                    flashcard.save()
+    # Handling AJAX request
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+        # Retrieve data from AJAX request
+        input_text = request.GET.get("input_text")
+        is_flashcard = request.GET.get("is_flashcard")
+        decks_string = request.GET.get("decks")
+        from_language = Language.objects.get(name=request.GET.get("from_language"))
+        to_language = Language.objects.get(name=request.GET.get("to_language"))
+        # Transform retrieved data
+        if is_flashcard == "true":
+            is_flashcard = True
         else:
-            print("invalid")            
-    # GET request               
+            is_flashcard = False
+        decks = json.loads(decks_string)
+        from_language_symbol = from_language.symbol
+        to_language_symbol = to_language.symbol
+        # #Translate text and create Translation object
+        output_text = ts.translate_text(query_text=input_text, translator="google",from_language=from_language_symbol, to_language=to_language_symbol)
+        translation = Translation(input_text=input_text, output_text=output_text,is_flashcard=is_flashcard, user=request.user, from_language=from_language, to_language=to_language)
+        translation.save()
+        # Create Flashcard objects and manage all selected decks
+        if is_flashcard:
+            for deck_name in decks:
+                deck = get_object_or_404(Deck, user=request.user, name=deck_name)
+                flashcard = Flashcard(front=input_text, back=output_text,  user=request.user, deck=deck)
+                flashcard.save()
+        return JsonResponse({"output_text":output_text})         
     else:
-        translator_form = TranslatorForm(request.user)
-        input_text = ""
-        translated_text = ""
+        print(request.GET.get("requested_from"))
+        if request.GET.get("requested_from") == "deck_details":
+            print("it worked")
+            deck_name = request.GET.get("deck_name")
+            deck = get_object_or_404(Deck,user=request.user, name=deck_name)
+            translator_form = TranslatorForm(request.user, initial={"is_flashcard":True, "decks":deck})
+            input_text = ""
+            output_text = ""
+        else:
+            # Handling initial GET request
+            translator_form = TranslatorForm(request.user, initial={"is_flashcard":True})
+            input_text = ""
+            output_text = ""
 
-    return render(request, "mainapp/translator.html", {"translator_form":translator_form, "input_text":input_text, "translated_text":translated_text})
+        return render(request, "mainapp/translator.html", {"translator_form":translator_form, "input_text":input_text, "output_text":output_text})
 
 
 @login_required
@@ -57,21 +78,34 @@ def review(request):
     # Displaying next card, handled by AJAX request
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
         # Update reviewed card based on selected quality
+        end_time = int(time.time() * 1000)
+        start_time = int(request.GET.get("start_time"))
         quality = int(request.GET.get("quality"))
         previous_card_id = int(request.GET.get("id"))
         previous_card = get_object_or_404(Flashcard, pk=previous_card_id)
+        previous_card.total_time += (end_time-start_time)/1000
         previous_card.review_flashcard(quality)
+        if quality == 3:
+            previous_card.number_of_easy += 1
+        elif quality == 2:
+            previous_card.number_of_good += 1
+        elif quality == 1:
+            previous_card.number_of_hard +=1
+        elif quality == 0:
+            previous_card.number_of_agains +=1
+        
         previous_card.save()
         # Retrieve deck, cards for review and shuffle it
         deck_name = request.GET.get("deck_name")
         deck = get_object_or_404(Deck, name=deck_name, user=request.user)
         flashcards_for_review = deck.flashcards_to_review()
         flashcards_list = list(flashcards_for_review)
+        start_time = int(time.time() * 1000) 
         # Send next card for review if there are any
         if flashcards_list != []:
             random.shuffle(flashcards_list)
             next_card = flashcards_list[0]
-            return JsonResponse({"front":next_card.front, "back":next_card.back, "id":next_card.id})
+            return JsonResponse({"front":next_card.front, "back":next_card.back, "id":next_card.id, "start_time":start_time})
         else:
             return JsonResponse({"id":"no more cards"})
     
@@ -81,9 +115,11 @@ def review(request):
         deck = get_object_or_404(Deck, name=deck_name, user=request.user)
         flashcards_for_review = deck.flashcards_to_review()
         flashcards_list = list(flashcards_for_review)
+        start_time = int(time.time() * 1000) 
         random.shuffle(flashcards_list)
 
-    return render(request, "mainapp/review.html", {"deck_name":deck_name,"flashcards_list":flashcards_list})
+
+    return render(request, "mainapp/review.html", {"deck_name":deck_name,"flashcards_list":flashcards_list,"start_time":start_time})
 
 
 @login_required
@@ -92,7 +128,32 @@ def user_profile(request, user_username):
 
     # Assign user
     user = get_object_or_404(User, username=user_username)
-    return render(request, "mainapp/user_profile.html", {"user":user,})
+    all_user_decks = Deck.objects.filter(user=user)
+    user_profile = get_object_or_404(Profile, user=user)
+
+    # Overall stats
+    decks_to_review = [deck for deck in all_user_decks if deck.has_flashcards_to_review]
+    total_decks_reviewed_today = user_profile.total_decks_reviewed_today
+    total_cards_reviewed_today = user_profile.total_flashcards_reviewed_today
+    total_decks_to_review_today = len(decks_to_review)
+    total_cards_to_review_today = user_profile.total_flashcards_to_review_today
+    activity_streak = user_profile.activity_streak
+
+    # Stats for specific deck
+    decks_data =[]
+    for deck in decks_to_review:
+        number_of_flashcards_to_review = deck.flashcards_to_review().count()
+        number_of_flashcards_reviewed_today = deck.number_of_flashcards_reviewed_today
+        decks_data.append({
+            "deck":deck,"number_of_flashcards_to_review":number_of_flashcards_to_review, "number_of_flashcards_reviewed_today":number_of_flashcards_reviewed_today})
+        
+    # Contributions calendar
+    today = timezone.now()
+    last_week = today - timedelta(days=7)
+    contributions = [last_week, today]
+    calendar = generate_contributors_graph(contributions, title="")
+        
+    return render(request, "mainapp/user_profile.html", {"user":user,"decks_data":decks_data,"total_decks_reviewed_today":total_decks_reviewed_today,"total_cards_reviewed_today":total_cards_reviewed_today, "total_cards_to_review_today":total_cards_to_review_today, "total_decks_to_review_today":total_decks_to_review_today,"calendar":calendar, "activity_streak":activity_streak}, )
 
 
 @login_required
@@ -103,17 +164,44 @@ def decks(request):
     user = request.user
     if request.method == "POST":
         # Handling form for adding new deck
-        new_deck_form = NewDeck(request.POST)
-        decks_searchbar = SearchDecks(request.POST)
-        if new_deck_form.is_valid():
-            new_deck = new_deck_form.save(commit=False)
-            new_deck.created_by = request.user
-            new_deck.save()
-            new_deck.user.add(request.user)
-            new_deck.save()
-            new_deck_form= NewDeck()
+            new_deck_form = NewDeck(request.POST)
+            if new_deck_form.is_valid():
+                new_deck = new_deck_form.save(commit=False)
+                new_deck.created_by = request.user
+                new_deck.save()
+                new_deck.user.add(request.user)
+                new_deck.save()
+                new_deck_form= NewDeck()
     else:
-        # GET request 
-        new_deck_form= NewDeck()
-        decks_searchbar = SearchDecks()
-    return render(request, "mainapp/decks.html", {"user":user, "new_deck_form":new_deck_form,"decks_searchbar":decks_searchbar})
+    # AJAX request - decks filtering/search
+        if request.headers.get("x-requested-with") == "XMLHttpRequest":
+            print("ajax")
+            search_text = request.GET.get("search_text")
+            print(f"searched text: {search_text}")
+            filtered_decks = Deck.objects.filter(name__icontains=search_text)
+            print(f"filtered decks: {filtered_decks}")
+            # Retrieving only names, so it can be passed in JsonResponse
+            filtered_decks_names = []
+            for deck in filtered_decks:
+                filtered_decks_names.append(deck.name)
+            return JsonResponse({"filtered_decks":filtered_decks_names})
+        else:
+        # Regular GET request
+            new_deck_form= NewDeck()
+    return render(request, "mainapp/decks.html", {"user":user, "new_deck_form":new_deck_form,})
+
+@login_required
+def deck_details(request):
+    user = request.user
+    deck_name = request.GET.get("deck_name")
+    deck = get_object_or_404(Deck,user=user,name=deck_name)
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+        search_text = request.GET.get("search_text")
+        print(search_text)
+        filtered_cards = Flashcard.objects.filter(user=user, front__icontains=search_text)
+        filtered_cards_fronts = []
+        for card in filtered_cards:
+            filtered_cards_fronts.append(card.front)
+        print(filtered_cards)
+        return JsonResponse({"filtered_cards":filtered_cards_fronts})
+    return render(request, "mainapp/deck_details.html", {"deck":deck})

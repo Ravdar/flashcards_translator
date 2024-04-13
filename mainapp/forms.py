@@ -14,10 +14,17 @@ class TranslatorForm(forms.ModelForm):
         self.fields["decks"].queryset = Deck.objects.filter(user=user)
         self.fields["decks"].required = False
 
+        # Handle potential keyword arguments for pre-filling fields
+        # is_flashcard = kwargs.get('is_flashcard', False)
+        # decks = kwargs.get('decks', None)
+        # self.initial['is_flashcard'] = is_flashcard
+        # if decks:
+        #     self.initial['decks'] = decks
 
-        default_from_language = Language.objects.get(name="auto")
-        default_to_language = Language.objects.get(name="english")
-        self.fields["from_language"] = forms.ModelChoiceField(queryset=Language.objects.all(),initial=default_from_language)
+
+        default_from_language = Language.objects.get(name="english")
+        default_to_language = Language.objects.get(name="french")
+        self.fields["from_language"] = forms.ModelChoiceField(queryset=Language.objects.exclude(name="auto"),initial=default_from_language)
         self.fields["to_language"] = forms.ModelChoiceField(queryset=Language.objects.exclude(name="auto"),initial=default_to_language)
         self.fields["is_flashcard"].widget = DjangoToggleSwitchWidget(round=True, klass="django-toggle-switch-success")
 
@@ -30,16 +37,17 @@ class TranslatorForm(forms.ModelForm):
 class SearchDecks(forms.ModelForm):
     """Form for searching specific deck."""
 
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["name"].queryset = Deck.objects.filter(user=user)
+        self.fields["name"].required = False
+        # self.fields['name'].widget = s2forms.Select2MultipleWidget(attrs={'data-placeholder': 'Search for decks'})
+        
+    name = forms.ModelMultipleChoiceField(queryset=Deck.objects.none(),widget=s2forms.Select2MultipleWidget(attrs={'data-placeholder': 'Select decks'}))
+
     class Meta:
         model=Deck
         fields=["name"]
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        # self.fields["name"].queryset = Deck.objects.filter(user=user)
-        # self.fields["name"].required = False
-        self.fields['name'].widget = s2forms.Select2MultipleWidget(attrs={'data-placeholder': 'Search for decks'})
-
 
 class NewDeck(forms.ModelForm):
     """Form for creating a new deck."""

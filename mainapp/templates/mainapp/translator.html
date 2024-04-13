@@ -10,31 +10,92 @@
         {{ translator_form.media.css }}
         {% csrf_token %}
         <div class="is-flashcard-container">
-            <label for="is-flashcard-switch">Flashcard</label>
-            {{ translator_form.is_flashcard|attr:"id:is-flashcard-switch2"}}
-            <div class="decks-list">{{translator_form.decks}}</div>
+            <div class="flashcard-switch-container">
+                <label for="is-flashcard-switch2">Flashcard</label>
+                {{ translator_form.is_flashcard|attr:"id:is-flashcard-switch2"}}
+            </div>
+            <div class="decks-list">
+                {{translator_form.decks|attr:" id:decks-list-selectbox"}}</div>
         </div>
         <input type="hidden" name="form_type" value="translator_form">
         <div class="textareas">
             <div class="textarea-container">
-                <textarea name="input_text" class="input-box"
-                    placeholder="Write the text that you want to translate.">{{ input_text}}</textarea>
+                <textarea id="input-textarea" name="input_text" class="input-box"
+                    placeholder="Write the text that you want to translate.">{{input_text}}</textarea>
                 <div class="from-languages-container">
-                    {{translator_form.from_language|add_class:"language-selectbox"}}
+                    {{translator_form.from_language|attr:"id:from-language-selectbox"|add_class:"language-selectbox"}}
                 </div>
             </div>
             <div class="textarea-container">
-                <textarea class="output-box"
+                <textarea id="output-textarea" class="output-box"
                     placeholder="Translated text will appear here. Flashcard will be created automatically."
-                    readonly>{{ translated_text }}</textarea>
-                <div class="to-languages-container">{{translator_form.to_language|add_class:"language-selectbox"}}
+                    readonly>{{ output_text }}</textarea>
+                <div class="to-languages-container">
+                    {{translator_form.to_language|attr:"id:to-language-selectbox"|add_class:"language-selectbox"}}
                 </div>
             </div>
         </div>
-        <button class="translate-button" type="submit">Translate</button>
+        <button type="button" class="translate-button">Translate</button>
     </form>
+
+    <!-- Flashcard created popup -->
+    <div class="flashcard-created-popup">Flashcard created!</div>
 </main>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {{ translator_form.media.js }}
+
+<script>
+
+    var outputTextarea = document.getElementById("output-textarea");
+    var flashcardPopup = document.querySelector(".flashcard-created-popup");
+
+
+    // AJAX request
+    $(document).ready(function () {
+        $('.translate-button').click(function () {
+            // Retrieve input data
+            var fromLanguage = document.getElementById("from-language-selectbox").selectedOptions[0];
+            var toLanguage = document.getElementById("to-language-selectbox").selectedOptions[0];
+            var isFlashcard = document.getElementById("is-flashcard-switch2").checked;
+            var selectedDecks = document.getElementById("decks-list-selectbox").selectedOptions;
+            var selectedDeckValues = [];
+            var inputText = document.getElementById("input-textarea").value;
+            //Reset animation property
+            flashcardPopup.style.animation = '';
+            // Transform retrieved data
+            for (var i = 0; i < selectedDecks.length; i++) {
+                selectedDeckValues.push(selectedDecks[i].textContent);
+            }
+            // AJAX
+            $.ajax({
+                url: '{% url "mainapp:translator" %}',
+                data: {
+                    'input_text': inputText,
+                    'is_flashcard': isFlashcard,
+                    'decks': JSON.stringify(selectedDeckValues),
+                    'from_language': fromLanguage.textContent,
+                    'to_language': toLanguage.textContent,
+                },
+                dataType: 'json',
+                success: function (data) {
+                    outputTextarea.textContent = data.output_text;
+                    console.log(isFlashcard)
+                    if (isFlashcard == true) {
+                        console.log("this is true")
+                        flashcardPopup.style.animation = 'showPopup 2s ease-in-out'
+                    };
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error occurred: " + error);
+                }
+            });
+        });
+    });
+
+
+</script>
+
+
 
 {% endblock content %}

@@ -43,7 +43,6 @@ faqs.forEach((faq) => {
 // Fliping section cards animation on scroll
 function flipCard() {
     var cards = document.querySelectorAll(".section-card");
-    console.log("scrolled");
 
     for (var i = 0; i < cards.length; i++) {
         var windowHeight = window.innerHeight;
@@ -110,7 +109,7 @@ var deckList = document.querySelector(".decks-list");
 if (isFlashcardSwitch) {
     isFlashcardSwitch.addEventListener("change", function () {
         if (isFlashcardSwitch.checked) {
-            deckList.style.display = "block";
+            deckList.style.display = "flex";
         } else {
             deckList.style.display = "none";
         }
@@ -119,28 +118,23 @@ if (isFlashcardSwitch) {
 
 // DECKS PAGE SCRIPTS
 
-// Function to show add deck form on button click
-function showAddDeckForm() {
-    const button = document.getElementById("add-deck-button");
-    const addDeckContainer = document.querySelector(".add-deck-container");
+const addDeckButton = document.getElementById("add-deck-button");
+const addDeckContainer = document.querySelector(".add-deck-container");
+const closeDialButton = document.querySelector(".close-dial");
 
-    button.addEventListener("click", function () {
+if (addDeckButton) {
+    // Function to show add deck form on button click
+    addDeckButton.addEventListener("click", function () {
         addDeckContainer.style.transform = "translate(-50%, -50%) scale(1)";
     })
-}
 
-// Function to hide add deck form on button click
-function hideAddDeckForm() {
-    const button = document.querySelector(".close-dial");
-    const addDeckContainer = document.querySelector(".add-deck-container");
-
-    button.addEventListener("click", function () {
+    // Function to hide add deck form on button click
+    closeDialButton.addEventListener("click", function () {
         addDeckContainer.style.transform = " translate(-50%, -50%) scale(0)";
     })
 }
 
-// Call the functions to show and hide full streaming info
-showAddDeckForm();
-hideAddDeckForm();
+
+
 
 

@@ -8,14 +8,18 @@
 
 <main class="decks-main center">
     <h1>Your decks</h1>
-    <form>
+    <p class="subtext">You have 18 decks with 1013 flashcards inside.</p>
+    <form id="deck-searchbar">
         {{ decks_searchbar.media.css }}
         {% csrf_token %}
-        {{decks_searchbar.name}}</form>
+        <input type="text" id="decks-searchbar" placeholder="Type to search decks">
+    </form>
     <div class="decks-container">
         <button id="add-deck-button" class="deck center">+</button>
         {% for deck in user.decks.all %}
-        <a href="{% url 'mainapp:review' %}?deck_name={{ deck.name }}" class=" deck center">{{deck.name}}</a>
+        {% if deck.name %}
+        <a href="{% url 'mainapp:deck_details'%}?deck_name={{deck.name}}" class="dark-deck center">{{deck.name}}</a>
+        {% endif %}
         {% endfor %}
     </div>
 </main>
@@ -39,5 +43,46 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {{ decks_searchbar.media.js }}
+
+<script>
+
+    var decksSearchbar = document.getElementById("decks-searchbar")
+
+    $(document).ready(function () {
+        $(decksSearchbar).keyup(function () {
+            console.log("ajax");
+            var searchText = $(this).val();
+            var decksContainer = document.querySelector(".decks-container");
+
+            // AJAX request
+            $.ajax({
+                url: '{% url "mainapp:decks" %}',
+                data: { 'search_text': searchText },
+                dataType: 'html',
+                success: function (data) {
+                    decksContainer.innerHTML = '';
+                    console.log(data);
+                    // Convert string to dictionary and list
+                    data = JSON.parse(data);
+                    // Construct start of HTML structure
+                    var newContent = '<button id="add-deck-button" class="dark-deck center">+</button>';
+                    // Loop through user decks and add deck links (if provided)
+                    if (data.filtered_decks) {
+                        console.log("condition fulfilled")
+                        for (var i = 0; i < data.filtered_decks.length; i++) {
+                            var deck = data.filtered_decks[i];
+                            newContent += '<a class="dark-deck center">' + deck + '</a>';
+                        }
+                    }
+                    // Update decksContainer with the constructed HTML
+                    decksContainer.innerHTML = newContent;
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
+</script>
 
 {% endblock content %}

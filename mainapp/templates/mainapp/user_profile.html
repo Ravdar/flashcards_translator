@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -105,8 +106,56 @@
     <main class="main-user-profile">
         <div class="today-stats">
             <h1>TODAY</h1>
-            <h3> studied <span class="today-studied">0</span> cards from <span class="today-studied">0</span> decks</h3>
-            <h3><span class="today-left">146</span> cards from <span class="today-left">4</span> decks left</h3>
+            <h3> studied <span class="today-studied">{{total_cards_reviewed_today}}</span> cards from <span
+                    class="today-studied">{{total_decks_reviewed_today}}</span> decks</h3>
+            <h3><span class="today-left">{{total_cards_to_review_today}}</span> cards from <span
+                    class="today-left">{{total_decks_to_review_today}}</span> decks left</h3>
+        </div>
+        <div class="today-stats">
+            <div class="center">
+                <h1>ACTIVITY STREAK</h1>
+                <svg width="50px" height="50px" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="white" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z" />
+                </svg>
+            </div>
+
+            <div class="streak">{{activity_streak}}</div>
+        </div>
+        <div class="today-stats">
+            <h1>STUDY</h1>
+            <div class="decks-container">
+                {% for deck_data in decks_data %}
+                <div class="deck-container">
+                    <a href="{% url 'mainapp:review' %}?deck_name={{ deck_data.deck.name }}"
+                        class="light-deck center">{{deck_data.deck.name}}</a>
+                    <div class="number-reviewed">{{deck_data.number_of_flashcards_reviewed_today}}</div>
+                    <div class="number-to-review">{{deck_data.number_of_flashcards_to_review}}</div>
+
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+        <!--Perfect streak is not working yet, but I keep it in html for styling reasons -->
+        <!-- <div class="today-stats">
+            <h1>PERFECT STREAK</h1>
+            <svg width="100px" height="100px" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke-width="1.5" stroke="#5299ff" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z" />
+            </svg>
+
+            <div class="today-studied">4</div>
+        </div> -->
+        <div class="today-stats">
+            <h1>ACTIVTY</h1>
+            {% include "contributions_django/graph.html" %}
         </div>
     </main>
 
