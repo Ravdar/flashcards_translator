@@ -62,7 +62,7 @@
                 success: function (data) {
                     decksContainer.innerHTML = '';
                     console.log(data);
-                    // Convert string to directory and list
+                    // Convert string to dictionary and list
                     data = JSON.parse(data);
                     // Construct start of HTML structure
                     var newContent = '<button id="add-deck-button" class="dark-deck center">+</button>';

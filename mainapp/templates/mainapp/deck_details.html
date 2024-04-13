@@ -1,0 +1,67 @@
+{% extends "mainapp/user_profile.html" %}
+{% load static %}
+
+
+
+{% block content %}
+<main class="decks-main center">
+    <h1 id="deck-name">{{deck.name}}</h1>
+    <p class="subtext">There is {{deck.flashcards.all.count}} flashcards in this deck.</p>
+    <form id="card-searchbar">
+        {{ cards_searchbar.media.css }}
+        {% csrf_token %}
+        <input type="text" id="cards-searchbar" placeholder="Type to search cards">
+    </form>
+    <div class="cards-container">
+        <a href="{% url 'mainapp:translator' %}"><button id="add-card-button" class="card center">+</button></a>
+        {% for card in deck.flashcards.all %}
+        <div class="card center">{{card.front}}</div>
+        {% endfor %}
+    </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{{ cards_searchbar.media.js }}
+
+<script>
+
+    var cardsSearchbar = document.getElementById("cards-searchbar");
+    var deckName = document.getElementById("deck-name").textContent;
+
+    $(document).ready(function () {
+        $(cardsSearchbar).keyup(function () {
+            console.log("ajax");
+            var searchText = $(this).val();
+            var cardsContainer = document.querySelector(".cards-container");
+
+            // AJAX request
+            $.ajax({
+                url: '{% url "mainapp:deck_details" %}',
+                data: { 'search_text': searchText, "deck_name": deckName },
+                dataType: 'html',
+                success: function (data) {
+                    cardsContainer.innerHTML = '';
+                    console.log(data);
+                    // Convert string to directory and list
+                    data = JSON.parse(data);
+                    console.log(data)
+                    // Construct start of HTML structure
+                    var newContent = '<button id="add-card-button" class="card center">+</button>';
+                    // Loop through user cards and add card links (if provided)
+                    if (data.filtered_cards) {
+                        for (var i = 0; i < data.filtered_cards.length; i++) {
+                            var card = data.filtered_cards[i];
+                            newContent += '<div class="card center">' + card + '</div>';
+                        }
+                    }
+                    // Update cardsContainer with the constructed HTML
+                    cardsContainer.innerHTML = newContent;
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
+</script>
+{% endblock content %}
