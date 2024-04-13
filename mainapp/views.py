@@ -180,13 +180,19 @@ def decks(request):
         else:
         # Regular GET request
             new_deck_form= NewDeck()
-    return render(request, "mainapp/decks.html", {"user":user, "new_deck_form":new_deck_form,"decks_searchbar":decks_searchbar})
+    return render(request, "mainapp/decks.html", {"user":user, "new_deck_form":new_deck_form,})
 
-def deck_details(request, deck_name):
+def deck_details(request):
     user = request.user
+    deck_name = request.GET.get("deck_name")
+    deck = get_object_or_404(Deck,user=user,name=deck_name)
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
         search_text = request.GET.get("search_text")
-        filtered_cards = Flashcard.objects.filter(front__icontains=search_text)
-    else:
-        card = get_object_or_404(Deck,user=user,name=deck_name)
+        print(search_text)
+        filtered_cards = Flashcard.objects.filter(user=user, front__icontains=search_text)
+        filtered_cards_fronts = []
+        for card in filtered_cards:
+            filtered_cards_fronts.append(card.front)
+        print(filtered_cards)
+        return JsonResponse({"filtered_cards":filtered_cards_fronts})
     return render(request, "mainapp/deck_details.html", {"deck":deck})

@@ -17,7 +17,9 @@
     <div class="decks-container">
         <button id="add-deck-button" class="deck center">+</button>
         {% for deck in user.decks.all %}
-        <a href="{% url 'mainapp:deck_details' deck.name %}" class="dark-deck center">{{deck.name}}</a>
+        {% if deck.name %}
+        <a href="{% url 'mainapp:deck_details'%}?deck_name={{deck.name}}" class="dark-deck center">{{deck.name}}</a>
+        {% endif %}
         {% endfor %}
     </div>
 </main>
@@ -63,13 +65,13 @@
                     // Convert string to directory and list
                     data = JSON.parse(data);
                     // Construct start of HTML structure
-                    var newContent = '<button id="add-deck-button" class="big-deck center">+</button>';
+                    var newContent = '<button id="add-deck-button" class="dark-deck center">+</button>';
                     // Loop through user decks and add deck links (if provided)
                     if (data.filtered_decks) {
                         console.log("condition fulfilled")
                         for (var i = 0; i < data.filtered_decks.length; i++) {
                             var deck = data.filtered_decks[i];
-                            newContent += '<a class="big-deck center">' + deck + '</a>';
+                            newContent += '<a class="dark-deck center">' + deck + '</a>';
                         }
                     }
                     // Update decksContainer with the constructed HTML
