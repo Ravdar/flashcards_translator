@@ -54,11 +54,19 @@ def translator(request):
                 flashcard.save()
         return JsonResponse({"output_text":output_text})         
     else:
-        # Handling GET request
-        print("not ajax")
-        translator_form = TranslatorForm(request.user)
-        input_text = ""
-        output_text = ""
+        print(request.GET.get("requested_from"))
+        if request.GET.get("requested_from") == "deck_details":
+            print("it worked")
+            deck_name = request.GET.get("deck_name")
+            deck = get_object_or_404(Deck,user=request.user, name=deck_name)
+            translator_form = TranslatorForm(request.user, initial={"is_flashcard":True, "decks":deck})
+            input_text = ""
+            output_text = ""
+        else:
+            # Handling initial GET request
+            translator_form = TranslatorForm(request.user, initial={"is_flashcard":True})
+            input_text = ""
+            output_text = ""
 
         return render(request, "mainapp/translator.html", {"translator_form":translator_form, "input_text":input_text, "output_text":output_text})
 
@@ -182,6 +190,7 @@ def decks(request):
             new_deck_form= NewDeck()
     return render(request, "mainapp/decks.html", {"user":user, "new_deck_form":new_deck_form,})
 
+@login_required
 def deck_details(request):
     user = request.user
     deck_name = request.GET.get("deck_name")

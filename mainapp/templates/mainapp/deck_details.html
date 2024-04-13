@@ -13,7 +13,8 @@
         <input type="text" id="cards-searchbar" placeholder="Type to search cards">
     </form>
     <div class="cards-container">
-        <a href="{% url 'mainapp:translator' %}"><button id="add-card-button" class="card center">+</button></a>
+        <a href="{% url 'mainapp:translator' %}?requested_from=deck_details&deck_name={{ deck.name }}"><button
+                id="add-card-button" class="card center">+</button></a>
         {% for card in deck.flashcards.all %}
         <div class="card center">{{card.front}}</div>
         {% endfor %}
