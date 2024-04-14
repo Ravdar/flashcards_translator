@@ -80,10 +80,9 @@ def edit_flashcard(request):
     card_back = card.back
     from_language = card.from_language
     to_language = card.to_language
-    editing = True
     translator_form = TranslatorForm(request.user, initial={"is_flashcard":True, "decks":deck,"from_language":from_language, "to_language":to_language})
 
-    return render(request, "mainapp/translator.html",{"translator_form":translator_form, "input_text":card_front, "output_text":card_back, "editing":editing})
+    return render(request, "mainapp/edit_flashcard.html",{"translator_form":translator_form, "input_text":card_front, "output_text":card_back})
 
 
 

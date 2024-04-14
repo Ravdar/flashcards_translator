@@ -6,15 +6,12 @@
 
 {% block content %}
 <main class="translator-main center">
+    <h2>Edit flashcard</h2>
     <form method="post">
         {{ translator_form.media.css }}
         {% csrf_token %}
         <div class="is-flashcard-container">
-            <div class="flashcard-switch-container">
-                <label for="is-flashcard-switch2">Flashcard</label>
-                {{ translator_form.is_flashcard|attr:"id:is-flashcard-switch2"}}
-            </div>
-            <div class="decks-list">
+            <div class="decks-list" style="display:flex">
                 {{translator_form.decks|attr:" id:decks-list-selectbox"}}</div>
         </div>
         <input type="hidden" name="form_type" value="translator_form">
@@ -27,9 +24,8 @@
                 </div>
             </div>
             <div class="textarea-container">
-                <textarea id="output-textarea" class="output-box"
-                    placeholder="Translated text will appear here. Flashcard will be created automatically."
-                    readonly>{{ output_text }}</textarea>
+                <textarea id="output-textarea" class="output-box" style="cursor: auto;"
+                    placeholder="Translated text will appear here. Flashcard will be created automatically.">{{ output_text }}</textarea>
                 <div class="to-languages-container">
                     {{translator_form.to_language|attr:"id:to-language-selectbox"|add_class:"language-selectbox"}}
                 </div>
