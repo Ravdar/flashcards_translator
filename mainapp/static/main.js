@@ -92,30 +92,6 @@ if (instantlyCard) {
     setInterval(flipInstantlyCard, 4000);
 }
 
-
-// TRANSLATOR PAGE SCRIPTS
-
-// Function to hide and show decks on is_flashcard checkbox
-
-// Function for clearing output_box when input-box is selected
-
-
-// Displaying and hiding decks selectbox based on checkbox state
-
-var isFlashcardSwitch = document.getElementById("is-flashcard-switch2");
-var deckList = document.querySelector(".decks-list");
-
-
-if (isFlashcardSwitch) {
-    isFlashcardSwitch.addEventListener("change", function () {
-        if (isFlashcardSwitch.checked) {
-            deckList.style.display = "flex";
-        } else {
-            deckList.style.display = "none";
-        }
-    });
-}
-
 // DECKS PAGE SCRIPTS
 
 const addDeckButton = document.getElementById("add-deck-button");
@@ -132,6 +108,33 @@ if (addDeckButton) {
     closeDialButton.addEventListener("click", function () {
         addDeckContainer.style.transform = " translate(-50%, -50%) scale(0)";
     })
+}
+
+// TRANSLATOR PAGE SCRIPTS
+
+// Function to hide and show decks on is_flashcard checkbox
+
+// Function for clearing output_box when input-box is selected
+
+
+// Displaying and hiding decks selectbox based on checkbox state
+
+var isFlashcardSwitch = document.getElementById("is-flashcard-switch2");
+var deckList = document.querySelector(".decks-list");
+
+function showOrHideDecksList() {
+    var isFlashcardSwitch = document.getElementById("is-flashcard-switch2");
+    console.log("function worked");
+    if (isFlashcardSwitch.checked) {
+        deckList.style.display = "flex";
+    } else {
+        deckList.style.display = "none";
+    }
+}
+
+if (isFlashcardSwitch) {
+    isFlashcardSwitch.addEventListener("change", function () { showOrHideDecksList() });
+    showOrHideDecksList();
 }
 
 

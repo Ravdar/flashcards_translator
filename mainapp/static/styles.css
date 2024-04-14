@@ -922,8 +922,8 @@ footer p {
 }
 
 .decks-list {
-    display: none;
     flex-grow: 1;
+    display: none;
 }
 
 .flashcard-created-popup {

@@ -58,13 +58,13 @@ def translator(request):
         if request.GET.get("requested_from") == "deck_details":
             print("it worked")
             deck_name = request.GET.get("deck_name")
-            deck = get_object_or_404(Deck,user=request.user, name=deck_name)
+            deck = Deck.objects.filter(user=request.user, name=deck_name)
             translator_form = TranslatorForm(request.user, initial={"is_flashcard":True, "decks":deck})
             input_text = ""
             output_text = ""
         else:
             # Handling initial GET request
-            translator_form = TranslatorForm(request.user, initial={"is_flashcard":True})
+            translator_form = TranslatorForm(request.user)
             input_text = ""
             output_text = ""
 
