@@ -58,6 +58,8 @@ class Flashcard(models.Model):
     back = models.CharField(max_length=500)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     deck = models.ForeignKey(Deck, related_name="flashcards",on_delete=models.CASCADE)
+    from_language = models.ForeignKey(Language, related_name="flashcard_from_language", on_delete=models.PROTECT, blank=True, null=True, default=None)
+    to_language = models.ForeignKey(Language, related_name="flashcard_to_language", on_delete=models.PROTECT, blank=True, null=True, default=None)
 
     # Review algorithm fields
     winning_streak = models.IntegerField(default=0)

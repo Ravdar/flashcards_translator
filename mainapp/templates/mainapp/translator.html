@@ -27,9 +27,13 @@
                 </div>
             </div>
             <div class="textarea-container">
+                {% if editing %}
+                <textarea id="output-textarea" class="output-box"
+                    placeholder="Translated text will appear here. Flashcard will be created automatically.">{{ output_text }}</textarea>
+                {% else %}
                 <textarea id="output-textarea" class="output-box"
                     placeholder="Translated text will appear here. Flashcard will be created automatically."
-                    readonly>{{ output_text }}</textarea>
+                    readonly>{{ output_text }}</textarea>{% endif %}
                 <div class="to-languages-container">
                     {{translator_form.to_language|attr:"id:to-language-selectbox"|add_class:"language-selectbox"}}
                 </div>
@@ -80,9 +84,7 @@
                 dataType: 'json',
                 success: function (data) {
                     outputTextarea.textContent = data.output_text;
-                    console.log(isFlashcard)
                     if (isFlashcard == true) {
-                        console.log("this is true")
                         flashcardPopup.style.animation = 'showPopup 2s ease-in-out'
                     };
                 },

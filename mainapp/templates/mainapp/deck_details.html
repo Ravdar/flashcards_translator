@@ -16,7 +16,7 @@
         <a href="{% url 'mainapp:translator' %}?requested_from=deck_details&deck_name={{ deck.name }}"><button
                 id="add-card-button" class="card center">+</button></a>
         {% for card in deck.flashcards.all %}
-        <div class="card center">{{card.front}}</div>
+        <a href="{% url 'mainapp:edit_flashcard' %}?card_id={{ card.id }}" class="card center">{{card.front}}</a>
         {% endfor %}
     </div>
 </main>

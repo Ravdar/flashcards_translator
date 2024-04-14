@@ -50,13 +50,11 @@ def translator(request):
         if is_flashcard:
             for deck_name in decks:
                 deck = get_object_or_404(Deck, user=request.user, name=deck_name)
-                flashcard = Flashcard(front=input_text, back=output_text,  user=request.user, deck=deck)
+                flashcard = Flashcard(front=input_text, back=output_text,  user=request.user, deck=deck, from_language=from_language, to_language=to_language)
                 flashcard.save()
         return JsonResponse({"output_text":output_text})         
     else:
-        print(request.GET.get("requested_from"))
         if request.GET.get("requested_from") == "deck_details":
-            print("it worked")
             deck_name = request.GET.get("deck_name")
             deck = Deck.objects.filter(user=request.user, name=deck_name)
             translator_form = TranslatorForm(request.user, initial={"is_flashcard":True, "decks":deck})
@@ -69,6 +67,25 @@ def translator(request):
             output_text = ""
 
         return render(request, "mainapp/translator.html", {"translator_form":translator_form, "input_text":input_text, "output_text":output_text})
+    
+@login_required
+def edit_flashcard(request):
+    """Editing flashcard in translator view"""
+
+    # Initial request
+    card_id = request.GET.get("card_id")
+    card = get_object_or_404(Flashcard, pk = card_id)
+    deck = card.deck
+    card_front = card.front
+    card_back = card.back
+    from_language = card.from_language
+    to_language = card.to_language
+    editing = True
+    translator_form = TranslatorForm(request.user, initial={"is_flashcard":True, "decks":deck,"from_language":from_language, "to_language":to_language})
+
+    return render(request, "mainapp/translator.html",{"translator_form":translator_form, "input_text":card_front, "output_text":card_back, "editing":editing})
+
+
 
 
 @login_required
