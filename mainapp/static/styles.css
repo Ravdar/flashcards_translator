@@ -821,6 +821,7 @@ footer p {
     transform: translate(-50%, -50%) scale(0);
     font-size: 1.5rem;
     transition: all 0.5s ease-in-out;
+    z-index: 1;
 }
 
 .add-deck-container form {
@@ -929,6 +930,16 @@ footer p {
 .decks-list {
     flex-grow: 1;
     display: none;
+    transition: all 0.5s ease-in-out;
+}
+
+.add-deck-button {
+    min-height: 33px;
+    min-width: 33px;
+    border-radius: 5px;
+    margin-left: 5px;
+    font-size: 1.5rem;
+    background-color: var(--LIGHT-BLUE);
 }
 
 .flashcard-created-popup {

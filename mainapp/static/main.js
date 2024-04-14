@@ -99,6 +99,7 @@ const addDeckContainer = document.querySelector(".add-deck-container");
 const closeDialButton = document.querySelector(".close-dial");
 
 if (addDeckButton) {
+    console.log("button found")
     // Function to show add deck form on button click
     addDeckButton.addEventListener("click", function () {
         addDeckContainer.style.transform = "translate(-50%, -50%) scale(1)";
@@ -112,28 +113,31 @@ if (addDeckButton) {
 
 // TRANSLATOR PAGE SCRIPTS
 
-// Function to hide and show decks on is_flashcard checkbox
+var isFlashcardSwitch = document.getElementById("is-flashcard-switch2");
 
 // Function for clearing output_box when input-box is selected
 
+// Displaying and hiding decks selectbox and changing output box placeholder based on is_flashcard checkbox state
 
-// Displaying and hiding decks selectbox based on checkbox state
-
-var isFlashcardSwitch = document.getElementById("is-flashcard-switch2");
 var deckList = document.querySelector(".decks-list");
+var outputBox = document.getElementById("output-textarea")
+
+console.log(outputBox.placeholder)
 
 function showOrHideDecksList() {
     var isFlashcardSwitch = document.getElementById("is-flashcard-switch2");
-    console.log("function worked");
     if (isFlashcardSwitch.checked) {
         deckList.style.display = "flex";
+        outputBox.placeholder = "Translated text will appear here. Flashcard will be created automatically."
     } else {
         deckList.style.display = "none";
+        outputBox.placeholder = "Translated text will appear here."
     }
 }
 
 if (isFlashcardSwitch) {
     isFlashcardSwitch.addEventListener("change", function () { showOrHideDecksList() });
+    // Initial run
     showOrHideDecksList();
 }
 

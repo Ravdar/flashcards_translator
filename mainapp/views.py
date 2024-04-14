@@ -26,48 +26,58 @@ def landing_page(request):
 def translator(request):
     """View for translatation and adding flashcards."""
 
-    # Handling AJAX request
-    if request.headers.get("x-requested-with") == "XMLHttpRequest":
-        # Retrieve data from AJAX request
-        input_text = request.GET.get("input_text")
-        is_flashcard = request.GET.get("is_flashcard")
-        decks_string = request.GET.get("decks")
-        from_language = Language.objects.get(name=request.GET.get("from_language"))
-        to_language = Language.objects.get(name=request.GET.get("to_language"))
-        # Transform retrieved data
-        if is_flashcard == "true":
-            is_flashcard = True
+    # Passing initial parameters (needed for all requests)
+    new_deck_form= NewDeck()
+    translator_form = TranslatorForm(request.user)
+    input_text = ""
+    output_text = ""
+    if request.method == "GET":
+        # Handling AJAX request
+        if request.headers.get("x-requested-with") == "XMLHttpRequest":
+            # Retrieve data from AJAX request
+            input_text = request.GET.get("input_text")
+            is_flashcard = request.GET.get("is_flashcard")
+            decks_string = request.GET.get("decks")
+            from_language = Language.objects.get(name=request.GET.get("from_language"))
+            to_language = Language.objects.get(name=request.GET.get("to_language"))
+            # Transform retrieved data
+            if is_flashcard == "true":
+                is_flashcard = True
+            else:
+                is_flashcard = False
+            decks = json.loads(decks_string)
+            from_language_symbol = from_language.symbol
+            to_language_symbol = to_language.symbol
+            # #Translate text and create Translation object
+            output_text = ts.translate_text(query_text=input_text, translator="google",from_language=from_language_symbol, to_language=to_language_symbol)
+            translation = Translation(input_text=input_text, output_text=output_text,is_flashcard=is_flashcard, user=request.user, from_language=from_language, to_language=to_language)
+            translation.save()
+            # Create Flashcard objects and manage all selected decks
+            if is_flashcard:
+                for deck_name in decks:
+                    deck = get_object_or_404(Deck, user=request.user, name=deck_name)
+                    flashcard = Flashcard(front=input_text, back=output_text,  user=request.user, deck=deck, from_language=from_language, to_language=to_language)
+                    flashcard.save()
+            return JsonResponse({"output_text":output_text})         
         else:
-            is_flashcard = False
-        decks = json.loads(decks_string)
-        from_language_symbol = from_language.symbol
-        to_language_symbol = to_language.symbol
-        # #Translate text and create Translation object
-        output_text = ts.translate_text(query_text=input_text, translator="google",from_language=from_language_symbol, to_language=to_language_symbol)
-        translation = Translation(input_text=input_text, output_text=output_text,is_flashcard=is_flashcard, user=request.user, from_language=from_language, to_language=to_language)
-        translation.save()
-        # Create Flashcard objects and manage all selected decks
-        if is_flashcard:
-            for deck_name in decks:
-                deck = get_object_or_404(Deck, user=request.user, name=deck_name)
-                flashcard = Flashcard(front=input_text, back=output_text,  user=request.user, deck=deck, from_language=from_language, to_language=to_language)
-                flashcard.save()
-        return JsonResponse({"output_text":output_text})         
+            # If it is requested from 'Add flashcard' button in deck_details view
+            if request.GET.get("requested_from") == "deck_details":
+                deck_name = request.GET.get("deck_name")
+                deck = Deck.objects.filter(user=request.user, name=deck_name)
+                translator_form = TranslatorForm(request.user, initial={"is_flashcard":True, "decks":deck})
+                input_text = ""
+                output_text = ""
     else:
-        # If it is requested from 'Add flashcard' button in deck_details view
-        if request.GET.get("requested_from") == "deck_details":
-            deck_name = request.GET.get("deck_name")
-            deck = Deck.objects.filter(user=request.user, name=deck_name)
-            translator_form = TranslatorForm(request.user, initial={"is_flashcard":True, "decks":deck})
-            input_text = ""
-            output_text = ""
-        else:
-            # Handling initial GET request
-            translator_form = TranslatorForm(request.user)
-            input_text = ""
-            output_text = ""
+        # POST request
+        # Handling form for adding new deck
+            new_deck_form = NewDeck(request.POST)
+            if new_deck_form.is_valid():
+                new_deck = new_deck_form.save(commit=False)
+                new_deck.created_by = request.user
+                new_deck.user.add(request.user)
+                new_deck.save()
 
-        return render(request, "mainapp/translator.html", {"translator_form":translator_form, "input_text":input_text, "output_text":output_text})
+    return render(request, "mainapp/translator.html", {"translator_form":translator_form, "input_text":input_text, "output_text":output_text, "new_deck_form":new_deck_form})
     
 
 @login_required

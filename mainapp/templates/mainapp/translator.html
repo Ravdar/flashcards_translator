@@ -15,7 +15,9 @@
                 {{ translator_form.is_flashcard|attr:"id:is-flashcard-switch2"}}
             </div>
             <div class="decks-list">
-                {{translator_form.decks|attr:" id:decks-list-selectbox disabled"}}</div>
+                {{translator_form.decks|attr:" id:decks-list-selectbox disabled"}}
+                <button type="button" id="add-deck-button" class="add-deck-button">+</button>
+            </div>
         </div>
         <input type="hidden" name="form_type" value="translator_form">
         <div class="textareas">
@@ -41,6 +43,21 @@
     <!-- Flashcard created popup -->
     <div class="flashcard-created-popup">Flashcard created!</div>
 </main>
+
+<!-- Modal window for adding a deck -->
+<div class="add-deck-container">
+    <button><img class="close-dial" src="{% static 'close_dial.png' %}" alt="Close" loading="lazy" width="25"
+            height="25"></button>
+    <h2>Add new deck</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="new_deck_form_name">Name:</label>
+        {{new_deck_form.name}}
+        <label for="new_deck_form_description">Description:</label>
+        {{new_deck_form.description}}
+        <button class="blue-button" type="submit">Add</button>
+    </form>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {{ translator_form.media.js }}
