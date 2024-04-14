@@ -6,13 +6,13 @@
 
 {% block content %}
 <main class="translator-main center">
-    <h2>Edit flashcard</h2>
+    <h1 id="{{ card_id}}" class="edit-flashcard-title">Edit flashcard</h1>
     <form method="post">
         {{ translator_form.media.css }}
         {% csrf_token %}
         <div class="is-flashcard-container">
             <div class="decks-list" style="display:flex">
-                {{translator_form.decks|attr:" id:decks-list-selectbox"}}</div>
+                {{translator_form.decks|attr:" id:decks-list-selectbox"|attr:"disabled:True" }}</div>
         </div>
         <input type="hidden" name="form_type" value="translator_form">
         <div class="textareas">
@@ -31,11 +31,11 @@
                 </div>
             </div>
         </div>
-        <button type="button" class="translate-button">Translate</button>
+        <button type="button" class="translate-button">Edit</button>
     </form>
 
     <!-- Flashcard created popup -->
-    <div class="flashcard-created-popup">Flashcard created!</div>
+    <div class="flashcard-created-popup">Flashcard edited!</div>
 </main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -43,9 +43,9 @@
 
 <script>
 
+    var cardID = {{ card_id }};
     var outputTextarea = document.getElementById("output-textarea");
     var flashcardPopup = document.querySelector(".flashcard-created-popup");
-
 
     // AJAX request
     $(document).ready(function () {
@@ -53,32 +53,23 @@
             // Retrieve input data
             var fromLanguage = document.getElementById("from-language-selectbox").selectedOptions[0];
             var toLanguage = document.getElementById("to-language-selectbox").selectedOptions[0];
-            var isFlashcard = document.getElementById("is-flashcard-switch2").checked;
-            var selectedDecks = document.getElementById("decks-list-selectbox").selectedOptions;
-            var selectedDeckValues = [];
             var inputText = document.getElementById("input-textarea").value;
+            var outputText = document.getElementById("output-textarea").value;
             //Reset animation property
             flashcardPopup.style.animation = '';
-            // Transform retrieved data
-            for (var i = 0; i < selectedDecks.length; i++) {
-                selectedDeckValues.push(selectedDecks[i].textContent);
-            }
             // AJAX
             $.ajax({
-                url: '{% url "mainapp:translator" %}',
+                url: '{% url "mainapp:edit_flashcard" %}',
                 data: {
+                    'card_id': cardID,
                     'input_text': inputText,
-                    'is_flashcard': isFlashcard,
-                    'decks': JSON.stringify(selectedDeckValues),
+                    'output_text': outputText,
                     'from_language': fromLanguage.textContent,
                     'to_language': toLanguage.textContent,
                 },
                 dataType: 'json',
                 success: function (data) {
-                    outputTextarea.textContent = data.output_text;
-                    if (isFlashcard == true) {
-                        flashcardPopup.style.animation = 'showPopup 2s ease-in-out'
-                    };
+                    flashcardPopup.style.animation = 'showPopup 2s ease-in-out';
                 },
                 error: function (xhr, status, error) {
                     console.log("Error occurred: " + error);

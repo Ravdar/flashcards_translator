@@ -54,6 +54,7 @@ def translator(request):
                 flashcard.save()
         return JsonResponse({"output_text":output_text})         
     else:
+        # If it is requested from 'Add flashcard' button in deck_details view
         if request.GET.get("requested_from") == "deck_details":
             deck_name = request.GET.get("deck_name")
             deck = Deck.objects.filter(user=request.user, name=deck_name)
@@ -68,23 +69,39 @@ def translator(request):
 
         return render(request, "mainapp/translator.html", {"translator_form":translator_form, "input_text":input_text, "output_text":output_text})
     
+
 @login_required
 def edit_flashcard(request):
     """Editing flashcard in translator view"""
 
-    # Initial request
-    card_id = request.GET.get("card_id")
-    card = get_object_or_404(Flashcard, pk = card_id)
-    deck = card.deck
-    card_front = card.front
-    card_back = card.back
-    from_language = card.from_language
-    to_language = card.to_language
-    translator_form = TranslatorForm(request.user, initial={"is_flashcard":True, "decks":deck,"from_language":from_language, "to_language":to_language})
+    #AJAX request
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+        # Retrieve data from AJAX request
+        card_id = request.GET.get("card_id")
+        input_text = request.GET.get("input_text")
+        output_text = request.GET.get("output_text")
+        from_language = Language.objects.get(name=request.GET.get("from_language"))
+        to_language = Language.objects.get(name=request.GET.get("to_language"))
+        # Update flashcard object
+        flashcard = get_object_or_404(Flashcard, pk=card_id)
+        flashcard.front = input_text
+        flashcard.back = output_text
+        flashcard.from_language = from_language
+        flashcard.to_language = to_language
+        flashcard.save()
+        return JsonResponse({})         
+    else:
+        # Initial request
+        card_id = request.GET.get("card_id")
+        card = get_object_or_404(Flashcard, pk = card_id)
+        deck = card.deck
+        card_front = card.front
+        card_back = card.back
+        from_language = card.from_language
+        to_language = card.to_language
+        translator_form = TranslatorForm(request.user, initial={"is_flashcard":True, "decks":deck,"from_language":from_language, "to_language":to_language})
 
-    return render(request, "mainapp/edit_flashcard.html",{"translator_form":translator_form, "input_text":card_front, "output_text":card_back})
-
-
+    return render(request, "mainapp/edit_flashcard.html",{"card_id":card_id,"translator_form":translator_form, "input_text":card_front, "output_text":card_back})
 
 
 @login_required

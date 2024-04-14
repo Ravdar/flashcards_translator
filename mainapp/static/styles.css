@@ -873,7 +873,7 @@ footer p {
     padding: 5px;
 }
 
-/* TRANSLATOR */
+/* TRANSLATOR & EDITING FLASHCARD PAGES */
 
 .translator-main {
     padding: 0px 10px;
@@ -914,6 +914,11 @@ footer p {
     font-size: 1.2em;
     min-height: 34px;
     width: 100%;
+}
+
+.edit-flashcard-title {
+    font-size: 2rem;
+    margin-bottom: 10px;
 }
 
 .flashcard-switch-container {
@@ -1308,7 +1313,7 @@ form button:hover {
         font-size: 8em;
     }
 
-    /* TRANSLATOR PAGE */
+    /* TRANSLATOR & EDITING FLASHCARDS PAGES */
 
     .translator-main {
         margin-top: -75px;
@@ -1322,6 +1327,10 @@ form button:hover {
 
     .textareas {
         flex-direction: row;
+    }
+
+    .edit-flashcard-title {
+        margin-bottom: 75px;
     }
 
     /* REVIEW PAGE */
