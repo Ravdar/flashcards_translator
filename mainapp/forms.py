@@ -14,14 +14,6 @@ class TranslatorForm(forms.ModelForm):
         self.fields["decks"].queryset = Deck.objects.filter(user=user)
         self.fields["decks"].required = False
 
-        # Handle potential keyword arguments for pre-filling fields
-        # is_flashcard = kwargs.get('is_flashcard', False)
-        # decks = kwargs.get('decks', None)
-        # self.initial['is_flashcard'] = is_flashcard
-        # if decks:
-        #     self.initial['decks'] = decks
-
-
         default_from_language = Language.objects.get(name="english")
         default_to_language = Language.objects.get(name="french")
         self.fields["from_language"] = forms.ModelChoiceField(queryset=Language.objects.exclude(name="auto"),initial=default_from_language)

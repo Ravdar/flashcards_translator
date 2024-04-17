@@ -1052,8 +1052,9 @@ textarea {
     position: absolute;
     z-index: 1;
     top: 10px;
-    left: 10px;
+    left: 50px;
     border: none;
+    font-family: var(--MAIN-FONT);
 }
 
 select:focus {
@@ -1071,6 +1072,15 @@ select:focus {
 .language-selectbox option:checked {
     background-color: var(--MAIN-BLUE);
     color: white;
+}
+
+.country-flag {
+    position: absolute;
+    z-index: 2;
+    top: 7px;
+    height: 25px;
+    width: 25px;
+    left: 15px;
 }
 
 /* REVIEW */

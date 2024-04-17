@@ -15,7 +15,7 @@
                 {{ translator_form.is_flashcard|attr:"id:is-flashcard-switch2"}}
             </div>
             <div class="decks-list">
-                {{translator_form.decks|attr:" id:decks-list-selectbox disabled"}}
+                {{translator_form.decks|attr:" id:decks-list-selectbox"}}
                 <button type="button" id="add-deck-button" class="add-deck-button">+</button>
             </div>
         </div>
@@ -25,6 +25,9 @@
                 <textarea id="input-textarea" name="input_text" class="input-box"
                     placeholder="Write the text that you want to translate.">{{input_text}}</textarea>
                 <div class="from-languages-container">
+                    <img id="from-country-flag" class="country-flag"
+                        src="https://flagsapi.com/{{language_from.alpha2_code}}/flat/64.png" alt="{{language_from}}"
+                        width="25px" height="25px">
                     {{translator_form.from_language|attr:"id:from-language-selectbox"|add_class:"language-selectbox"}}
                 </div>
             </div>
@@ -33,6 +36,9 @@
                     placeholder="Translated text will appear here. Flashcard will be created automatically."
                     readonly>{{ output_text }}</textarea>
                 <div class="to-languages-container">
+                    <img id="to-country-flag" class="country-flag"
+                        src="https://flagsapi.com/{{language_to.alpha2_code}}/flat/64.png" alt="{{language_to}}"
+                        width="25px" height="25px">
                     {{translator_form.to_language|attr:"id:to-language-selectbox"|add_class:"language-selectbox"}}
                 </div>
             </div>
@@ -40,9 +46,12 @@
         <button type="button" class="translate-button">Translate</button>
     </form>
 
-    <!-- Flashcard created popup -->
-    <div class="flashcard-created-popup">Flashcard created!</div>
 </main>
+
+
+
+<!-- Flashcard created popup -->
+<div class="flashcard-created-popup">Flashcard created!</div>
 
 <!-- Modal window for adding a deck -->
 <div class="add-deck-container">
@@ -64,11 +73,12 @@
 
 <script>
 
+
+    // Translation AJAX request
+
     var outputTextarea = document.getElementById("output-textarea");
     var flashcardPopup = document.querySelector(".flashcard-created-popup");
 
-
-    // AJAX request
     $(document).ready(function () {
         $('.translate-button').click(function () {
             // Retrieve input data
@@ -88,6 +98,7 @@
             $.ajax({
                 url: '{% url "mainapp:translator" %}',
                 data: {
+                    'action': "translate",
                     'input_text': inputText,
                     'is_flashcard': isFlashcard,
                     'decks': JSON.stringify(selectedDeckValues),
@@ -103,6 +114,39 @@
                 },
                 error: function (xhr, status, error) {
                     console.log("Error occurred: " + error);
+                }
+            });
+        });
+    });
+
+    // Change country flag AJAX request
+
+    var fromLanguageSelectbox = document.getElementById("from-language-selectbox");
+    var toLanguageSelectbox = document.getElementById("to-language-selectbox");
+    var languageSelectboxes = document.querySelectorAll(".language-selectbox");
+    var fromCountryFlag = document.getElementById("from-country-flag");
+    var toCountryFlag = document.getElementById("to-country-flag");
+
+
+
+    languageSelectboxes.forEach(selectbox => {
+        selectbox.addEventListener("change", function () {
+            console.log("changed");
+            var fromLanguage = fromLanguageSelectbox.textContent;
+            var toLanguage = toLanguageSelectbox.textContent;
+            $.ajax({
+                url: '{% url "mainapp:translator" %}',
+                data: {
+                    'action': "change_flag",
+                    'from_language_string': fromLanguage,
+                    'to_language_string': toLanguage,
+                },
+                success: function (data) {
+                    fromCountryFlag.src = "https://flagsapi.com/" + data.language_from_alpha2_code + "/flat/64.png";
+                    toCountryFlag.src = "https://flagsapi.com/" + data.language_to_alpha2_code + "/flat/64.png"
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
                 }
             });
         });

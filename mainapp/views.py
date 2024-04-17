@@ -31,34 +31,49 @@ def translator(request):
     translator_form = TranslatorForm(request.user)
     input_text = ""
     output_text = ""
+    # Default set languages needed for displaying flags
+    language_from = get_object_or_404(Language, name="english")
+    language_to = get_object_or_404(Language, name="french")
     if request.method == "GET":
         # Handling AJAX request
         if request.headers.get("x-requested-with") == "XMLHttpRequest":
-            # Retrieve data from AJAX request
-            input_text = request.GET.get("input_text")
-            is_flashcard = request.GET.get("is_flashcard")
-            decks_string = request.GET.get("decks")
-            from_language = Language.objects.get(name=request.GET.get("from_language"))
-            to_language = Language.objects.get(name=request.GET.get("to_language"))
-            # Transform retrieved data
-            if is_flashcard == "true":
-                is_flashcard = True
+            action = request.GET.get("action")
+            # Recognise what kind of AJAX request is it
+            if action == "translation":
+                # Retrieve data from AJAX request
+                input_text = request.GET.get("input_text")
+                is_flashcard = request.GET.get("is_flashcard")
+                decks_string = request.GET.get("decks")
+                from_language = Language.objects.get(name=request.GET.get("from_language"))
+                to_language = Language.objects.get(name=request.GET.get("to_language"))
+                # Transform retrieved data
+                if is_flashcard == "true":
+                    is_flashcard = True
+                else:
+                    is_flashcard = False
+                decks = json.loads(decks_string)
+                from_language_symbol = from_language.symbol
+                to_language_symbol = to_language.symbol
+                # #Translate text and create Translation object
+                output_text = ts.translate_text(query_text=input_text, translator="google",from_language=from_language_symbol, to_language=to_language_symbol)
+                translation = Translation(input_text=input_text, output_text=output_text,is_flashcard=is_flashcard, user=request.user, from_language=from_language, to_language=to_language)
+                translation.save()
+                # Create Flashcard objects and manage all selected decks
+                if is_flashcard:
+                    for deck_name in decks:
+                        deck = get_object_or_404(Deck, user=request.user, name=deck_name)
+                        flashcard = Flashcard(front=input_text, back=output_text,  user=request.user, deck=deck, from_language=from_language, to_language=to_language)
+                        flashcard.save()
+                return JsonResponse({"output_text":output_text})
             else:
-                is_flashcard = False
-            decks = json.loads(decks_string)
-            from_language_symbol = from_language.symbol
-            to_language_symbol = to_language.symbol
-            # #Translate text and create Translation object
-            output_text = ts.translate_text(query_text=input_text, translator="google",from_language=from_language_symbol, to_language=to_language_symbol)
-            translation = Translation(input_text=input_text, output_text=output_text,is_flashcard=is_flashcard, user=request.user, from_language=from_language, to_language=to_language)
-            translation.save()
-            # Create Flashcard objects and manage all selected decks
-            if is_flashcard:
-                for deck_name in decks:
-                    deck = get_object_or_404(Deck, user=request.user, name=deck_name)
-                    flashcard = Flashcard(front=input_text, back=output_text,  user=request.user, deck=deck, from_language=from_language, to_language=to_language)
-                    flashcard.save()
-            return JsonResponse({"output_text":output_text})         
+                # Change country flag
+                language_from_string = request.GET.get("language_from")
+                language_to_string = request.GET.get("language_to")
+                language_from = get_object_or_404(Language, name=language_from_string)
+                language_to = get_object_or_404(Language, name=language_to_string)
+                language_from_alpha2_code = language_from.alpha2_code
+                language_to_alpha2_code = language_to.alpha2_code
+                return JsonResponse({"language_from_alpha2_code":language_from_alpha2_code, "language_to_alpha2_code":language_to_alpha2_code})
         else:
             # If it is requested from 'Add flashcard' button in deck_details view
             if request.GET.get("requested_from") == "deck_details":
@@ -77,7 +92,7 @@ def translator(request):
                 new_deck.user.add(request.user)
                 new_deck.save()
 
-    return render(request, "mainapp/translator.html", {"translator_form":translator_form, "input_text":input_text, "output_text":output_text, "new_deck_form":new_deck_form})
+    return render(request, "mainapp/translator.html", {"translator_form":translator_form, "input_text":input_text, "output_text":output_text, "new_deck_form":new_deck_form, "language_from":language_from, "language_to":language_to} )
     
 
 @login_required
