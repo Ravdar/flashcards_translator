@@ -37,9 +37,10 @@ def translator(request):
     if request.method == "GET":
         # Handling AJAX request
         if request.headers.get("x-requested-with") == "XMLHttpRequest":
+            print("ajax")
             action = request.GET.get("action")
             # Recognise what kind of AJAX request is it
-            if action == "translation":
+            if action == "translate":
                 # Retrieve data from AJAX request
                 input_text = request.GET.get("input_text")
                 is_flashcard = request.GET.get("is_flashcard")
@@ -67,12 +68,18 @@ def translator(request):
                 return JsonResponse({"output_text":output_text})
             else:
                 # Change country flag
-                language_from_string = request.GET.get("language_from")
-                language_to_string = request.GET.get("language_to")
+                print("flag change")
+                print("heelo")
+                language_from_string = request.GET.get("from_language_string")
+                print(f"Language from: {language_from_string}")
+                language_to_string = request.GET.get("to_language_string")
                 language_from = get_object_or_404(Language, name=language_from_string)
                 language_to = get_object_or_404(Language, name=language_to_string)
+                print(language_from)
                 language_from_alpha2_code = language_from.alpha2_code
+                print(language_from_alpha2_code)
                 language_to_alpha2_code = language_to.alpha2_code
+                print(language_to_alpha2_code)
                 return JsonResponse({"language_from_alpha2_code":language_from_alpha2_code, "language_to_alpha2_code":language_to_alpha2_code})
         else:
             # If it is requested from 'Add flashcard' button in deck_details view

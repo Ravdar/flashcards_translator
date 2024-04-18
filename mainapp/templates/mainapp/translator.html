@@ -131,9 +131,8 @@
 
     languageSelectboxes.forEach(selectbox => {
         selectbox.addEventListener("change", function () {
-            console.log("changed");
-            var fromLanguage = fromLanguageSelectbox.textContent;
-            var toLanguage = toLanguageSelectbox.textContent;
+            var fromLanguage = fromLanguageSelectbox.selectedOptions[0].textContent;
+            var toLanguage = toLanguageSelectbox.selectedOptions[0].textContent;
             $.ajax({
                 url: '{% url "mainapp:translator" %}',
                 data: {
@@ -146,7 +145,8 @@
                     toCountryFlag.src = "https://flagsapi.com/" + data.language_to_alpha2_code + "/flat/64.png"
 
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function (xhr, status, error) {
+                    console.log("Error occurred: " + error);
                 }
             });
         });
