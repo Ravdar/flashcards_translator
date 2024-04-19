@@ -642,7 +642,7 @@ footer p {
 }
 
 .nav-link svg {
-    margin: 0 20px;
+    margin: 0 15px;
     width: 40px;
     min-width: 40px;
 }
@@ -1142,6 +1142,7 @@ form button:hover {
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 20px;
+    max-width: 175px;
 }
 
 .form-control:focus,
@@ -1243,6 +1244,10 @@ form button:hover {
     }
 
     /* USER PANEL */
+
+    .nav-link svg {
+        margin: 0 20px;
+    }
 
     .main-user-profile {
         margin-left: 80px;

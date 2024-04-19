@@ -18,15 +18,27 @@
         <div class="textareas">
             <div class="textarea-container">
                 <textarea id="input-textarea" name="input_text" class="input-box"
-                    placeholder="Write the text that you want to translate.">{{input_text}}</textarea>
+                    placeholder="Write the text that you want to translate."
+                    spellcheck="false">{{input_text}}</textarea>
                 <div class="from-languages-container">
+                    {% if language_from %}
+                    <img id="from-country-flag" class="country-flag"
+                        src="https://flagsapi.com/{{language_from.alpha2_code}}/flat/64.png" alt="{{language_from}}"
+                        width="25px" height="25px">
+                    {% endif %}
                     {{translator_form.from_language|attr:"id:from-language-selectbox"|add_class:"language-selectbox"}}
                 </div>
             </div>
             <div class="textarea-container">
                 <textarea id="output-textarea" class="output-box" style="cursor: auto;"
-                    placeholder="Translated text will appear here. Flashcard will be created automatically.">{{ output_text }}</textarea>
+                    placeholder="Translated text will appear here. Flashcard will be created automatically."
+                    spellcheck="false">{{ output_text }}</textarea>
                 <div class="to-languages-container">
+                    {% if language_from %}
+                    <img id="to-country-flag" class="country-flag"
+                        src="https://flagsapi.com/{{language_to.alpha2_code}}/flat/64.png" alt="{{language_to}}"
+                        width="25px" height="25px">
+                    {% endif %}
                     {{translator_form.to_language|attr:"id:to-language-selectbox"|add_class:"language-selectbox"}}
                 </div>
             </div>
@@ -70,6 +82,39 @@
                 dataType: 'json',
                 success: function (data) {
                     flashcardPopup.style.animation = 'showPopup 2s ease-in-out';
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error occurred: " + error);
+                }
+            });
+        });
+    });
+
+    // Change country flag AJAX request
+
+    var fromLanguageSelectbox = document.getElementById("from-language-selectbox");
+    var toLanguageSelectbox = document.getElementById("to-language-selectbox");
+    var languageSelectboxes = document.querySelectorAll(".language-selectbox");
+    var fromCountryFlag = document.getElementById("from-country-flag");
+    var toCountryFlag = document.getElementById("to-country-flag");
+
+
+
+    languageSelectboxes.forEach(selectbox => {
+        selectbox.addEventListener("change", function () {
+            var fromLanguage = fromLanguageSelectbox.selectedOptions[0].textContent;
+            var toLanguage = toLanguageSelectbox.selectedOptions[0].textContent;
+            $.ajax({
+                url: '{% url "mainapp:translator" %}',
+                data: {
+                    'action': "change_flag",
+                    'from_language_string': fromLanguage,
+                    'to_language_string': toLanguage,
+                },
+                success: function (data) {
+                    fromCountryFlag.src = "https://flagsapi.com/" + data.language_from_alpha2_code + "/flat/64.png";
+                    toCountryFlag.src = "https://flagsapi.com/" + data.language_to_alpha2_code + "/flat/64.png"
+
                 },
                 error: function (xhr, status, error) {
                     console.log("Error occurred: " + error);

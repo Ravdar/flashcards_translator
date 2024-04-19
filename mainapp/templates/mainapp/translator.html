@@ -23,7 +23,8 @@
         <div class="textareas">
             <div class="textarea-container">
                 <textarea id="input-textarea" name="input_text" class="input-box"
-                    placeholder="Write the text that you want to translate.">{{input_text}}</textarea>
+                    placeholder="Write the text that you want to translate."
+                    spellcheck="false">{{input_text}}</textarea>
                 <div class="from-languages-container">
                     <img id="from-country-flag" class="country-flag"
                         src="https://flagsapi.com/{{language_from.alpha2_code}}/flat/64.png" alt="{{language_from}}"
@@ -33,8 +34,8 @@
             </div>
             <div class="textarea-container">
                 <textarea id="output-textarea" class="output-box"
-                    placeholder="Translated text will appear here. Flashcard will be created automatically."
-                    readonly>{{ output_text }}</textarea>
+                    placeholder="Translated text will appear here. Flashcard will be created automatically." readonly
+                    spellcheck="false">{{ output_text }}</textarea>
                 <div class="to-languages-container">
                     <img id="to-country-flag" class="country-flag"
                         src="https://flagsapi.com/{{language_to.alpha2_code}}/flat/64.png" alt="{{language_to}}"

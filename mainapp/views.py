@@ -106,6 +106,7 @@ def translator(request):
 def edit_flashcard(request):
     """Editing flashcard in translator view"""
 
+    
     #AJAX request
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
         # Retrieve data from AJAX request
@@ -124,6 +125,7 @@ def edit_flashcard(request):
         return JsonResponse({})         
     else:
         # Initial request
+        
         card_id = request.GET.get("card_id")
         card = get_object_or_404(Flashcard, pk = card_id)
         deck = card.deck
@@ -233,8 +235,7 @@ def decks(request):
             if new_deck_form.is_valid():
                 new_deck = new_deck_form.save(commit=False)
                 new_deck.created_by = request.user
-                new_deck.save()
-                new_deck.user.add(request.user)
+                new_deck.user = request.user
                 new_deck.save()
                 new_deck_form= NewDeck()
     else:
