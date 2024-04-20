@@ -218,10 +218,6 @@ header {
     border-radius: 5px;
 }
 
-profile-picture-container a {
-    display: flex;
-}
-
 .profile-picture-container img {
     width: 100%;
     height: auto;
@@ -387,6 +383,11 @@ main section {
 
 /* How it works section */
 
+/* fit-content doesn't work for some reason, so it have to be fixed value */
+/* #how-it-works {
+    height: 1500px;
+} */
+
 .section-card,
 .section-front,
 .section-back {
@@ -425,6 +426,20 @@ main section {
     transform: rotateY(180deg);
     flex-direction: column;
     padding: 1rem;
+}
+
+.functions-container {
+    display: grid;
+    gap: 75px;
+    margin-top: 75px;
+}
+
+video {
+    border-radius: 1rem;
+    border: 15px solid var(--LIGHT-BLUE);
+    box-sizing: content-box;
+    width: 250px;
+    height: 448px;
 }
 
 /* Pricing section */
@@ -601,8 +616,8 @@ footer p {
     bottom: 0;
     left: 0;
     background-color: var(--MAIN-BLUE);
-    z-index: 2;
-    transition: width 300ms linear;
+    z-index: 3;
+    transition: all 300ms linear;
 }
 
 .navbar ul {
@@ -616,7 +631,11 @@ footer p {
 .navbar ul li {
     width: 100%;
     /* padding: 20px; */
-    transition: all 200ms ease-in-out;
+    transition: width 200ms ease-in-out;
+}
+
+.navbar ul li:hover {
+    background-color: var(--LIGHT-BLUE);
 }
 
 .logo {
@@ -1317,6 +1336,8 @@ form button:hover {
         margin-bottom: 20px;
     }
 
+
+    */
     /* DECKS PAGE */
 
     .decks-container {

@@ -96,7 +96,7 @@ def translator(request):
             if new_deck_form.is_valid():
                 new_deck = new_deck_form.save(commit=False)
                 new_deck.created_by = request.user
-                new_deck.user.add(request.user)
+                new_deck.user = request.user
                 new_deck.save()
 
     return render(request, "mainapp/translator.html", {"translator_form":translator_form, "input_text":input_text, "output_text":output_text, "new_deck_form":new_deck_form, "language_from":language_from, "language_to":language_to} )
