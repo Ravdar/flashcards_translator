@@ -384,9 +384,9 @@ main section {
 /* How it works section */
 
 /* fit-content doesn't work for some reason, so it have to be fixed value */
-/* #how-it-works {
-    height: 1500px;
-} */
+#how-it-works {
+    height: 2000px;
+}
 
 .section-card,
 .section-front,
@@ -429,14 +429,33 @@ main section {
 }
 
 .functions-container {
-    display: grid;
     gap: 75px;
     margin-top: 75px;
+    display: grid;
+}
+
+.function-description {
+    display: flex;
+    gap: 75px;
+}
+
+.function-description div {
+    flex-direction: column;
+    max-width: 600px;
+    gap: 50px;
+}
+
+.function-description div h1 {
+    font-size: 4rem;
+}
+
+.function-description div p {
+    font-size: 1.5rem;
 }
 
 video {
-    border-radius: 1rem;
-    border: 15px solid var(--LIGHT-BLUE);
+    border-radius: 4rem;
+    border: 40px solid var(--LIGHT-BLUE);
     box-sizing: content-box;
     width: 250px;
     height: 448px;
