@@ -8,14 +8,14 @@
 
 <main class="decks-main center">
     <h1>Your decks</h1>
-    <p class="subtext">You have 18 decks with 1013 flashcards inside.</p>
+    <p class="subtext">You have {{user.decks.all.count}} with {{user.flashcards.all.count}} flashcards inside.</p>
     <form id="deck-searchbar">
         {{ decks_searchbar.media.css }}
         {% csrf_token %}
         <input type="text" id="decks-searchbar" placeholder="Type to search decks">
     </form>
-    <div class="decks-container">
-        <button id="add-deck-button" class="deck center">+</button>
+    <div class="big-decks-container">
+        <button id="add-deck-button" class="dark-deck center">+</button>
         {% for deck in user.decks.all %}
         {% if deck.name %}
         <a href="{% url 'mainapp:deck_details'%}?deck_name={{deck.name}}" class="dark-deck center">{{deck.name}}</a>

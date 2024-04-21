@@ -3,17 +3,15 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
-from .forms import TranslatorForm, NewDeck, SearchDecks
+from .forms import TranslatorForm, NewDeck
 from .models import Translation, Flashcard,Deck,Language
 from users.models import Profile
 
-# from contributions_django.graphs import generate_contributors_graph
 import translators as ts
 import json
 import random
 import time
-from datetime import timedelta
-from django.utils import timezone
+from datetime import datetime
 from contributions_django.graphs import generate_contributors_graph
 
 def landing_page(request):
@@ -215,10 +213,11 @@ def user_profile(request, user_username):
             "deck":deck,"number_of_flashcards_to_review":number_of_flashcards_to_review, "number_of_flashcards_reviewed_today":number_of_flashcards_reviewed_today})
         
     # Contributions calendar
-    today = timezone.now()
-    last_week = today - timedelta(days=7)
-    contributions = [last_week, today]
-    calendar = generate_contributors_graph(contributions, title="")
+    user_profile = get_object_or_404(Profile, user=user)
+    activity_string = list(user_profile.activity)
+    activity = [datetime.strptime(date, "%Y-%m-%d") for date in activity_string]
+    print(activity)
+    calendar = generate_contributors_graph(activity, title="")
         
     return render(request, "mainapp/user_profile.html", {"user":user,"decks_data":decks_data,"total_decks_reviewed_today":total_decks_reviewed_today,"total_cards_reviewed_today":total_cards_reviewed_today, "total_cards_to_review_today":total_cards_to_review_today, "total_decks_to_review_today":total_decks_to_review_today,"calendar":calendar, "activity_streak":activity_streak}, )
 
@@ -241,11 +240,8 @@ def decks(request):
     else:
     # AJAX request - decks filtering/search
         if request.headers.get("x-requested-with") == "XMLHttpRequest":
-            print("ajax")
             search_text = request.GET.get("search_text")
-            print(f"searched text: {search_text}")
-            filtered_decks = Deck.objects.filter(name__icontains=search_text)
-            print(f"filtered decks: {filtered_decks}")
+            filtered_decks = Deck.objects.filter(user=user, name__icontains=search_text)
             # Retrieving only names, so it can be passed in JsonResponse
             filtered_decks_names = []
             for deck in filtered_decks:
@@ -258,16 +254,16 @@ def decks(request):
 
 @login_required
 def deck_details(request):
+    """Browsing all flashcards inside a specific deck and other deck details."""
+    
     user = request.user
     deck_name = request.GET.get("deck_name")
     deck = get_object_or_404(Deck,user=user,name=deck_name)
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
         search_text = request.GET.get("search_text")
-        print(search_text)
         filtered_cards = Flashcard.objects.filter(user=user, front__icontains=search_text)
         filtered_cards_fronts = []
         for card in filtered_cards:
             filtered_cards_fronts.append(card.front)
-        print(filtered_cards)
         return JsonResponse({"filtered_cards":filtered_cards_fronts})
     return render(request, "mainapp/deck_details.html", {"deck":deck})
