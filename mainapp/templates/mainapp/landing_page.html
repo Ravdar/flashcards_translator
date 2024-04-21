@@ -23,7 +23,6 @@
                 <a href="#how-it-works">How it works</a>
                 <a href="#pricing">Pricing</a>
                 <a href="#faq">FAQ</a>
-                <a href="#examples">Examples</a>
             </nav>
             <div class="signs">
                 {% if request.user.is_authenticated %}
@@ -50,7 +49,6 @@
                     <a href="#how-it-works">How it works</a>
                     <a href="#pricing">Pricing</a>
                     <a href="#faq">FAQ</a>
-                    <a href="#examples">Examples</a>
                     <br>
                     <a href="{% url 'users:register_view' %}">Sign up</a>
                     <a href="{% url 'users:login' %}">Sign in</a>
@@ -91,8 +89,8 @@
                                 d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
                         Review your progress through extensive statistics</li>
-                </ul><button class="blue-button">Get
-                    Started</button>
+                </ul><a href="{% url 'mainapp:hello_visitor' %}"><button class="blue-button">Get
+                        Started</button></a>
             </div>
             <img class="hero-image" src="{% static 'hero_image.jpg' %}" alt="Hero image" with="585" height="450">
         </section>
@@ -112,7 +110,8 @@
                                 <p>Constantly switching between the translator and your flashcards app can be tedious.
                                     However, you don't have to do it anymore! With the AnkiTranslator app, you do it
                                     <span> all
-                                        at once,</span> thus saving your precious time.</p>
+                                        at once,</span> thus saving your precious time.
+                                </p>
                             </div>
                         </div>
                         <div class="function-description">
@@ -173,7 +172,7 @@
                             </svg>35 languages</li>
                     </ul>
                     <br>
-                    <button class="blue-button">Get started now</button>
+                    <a href="{% url 'mainapp:hello_visitor' %}"><button class="blue-button">Get started now</button></a>
 
                 </div>
                 <div class="pricing-deck">
@@ -200,7 +199,7 @@
                     </ul>
                     <br>
 
-                    <button class="blue-button">Get started now</button>
+                    <a href="{% url 'mainapp:hello_visitor' %}"><button class="blue-button">Get started now</button></a>
                     <div class="pricing-tag">Most popular</div>
                 </div>
                 <div class="pricing-deck">
@@ -226,7 +225,7 @@
                             </svg>35 languages</li>
                     </ul>
                     <br>
-                    <button class="blue-button">Get started now</button>
+                    <a href="{% url 'mainapp:hello_visitor' %}"><button class="blue-button">Get started now</button></a>
                 </div>
             </div>
         </section>
@@ -346,11 +345,12 @@
         </div>
         <div class="legal-container">
             <h4>LEGAL</h4>
-            <a href="">Terms of services</a>
-            <a href="">Privacy Policy</a>
+            <a href="{% url 'mainapp:hello_visitor' %}">Terms of services</a>
+            <a href="{% url 'mainapp:hello_visitor' %}">Privacy Policy</a>
         </div>
         <div class="more-container">
-            <h4>MORE</h4><a href="">movvie</a><a href="">bloggin</a>
+            <h4>MORE</h4><a href="{% url 'mainapp:hello_visitor' %}">movvie</a><a
+                href="{% url 'mainapp:hello_visitor' %}">bloggin</a>
         </div>
     </footer>
 

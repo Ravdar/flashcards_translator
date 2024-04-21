@@ -267,3 +267,9 @@ def deck_details(request):
             filtered_cards_fronts.append(card.front)
         return JsonResponse({"filtered_cards":filtered_cards_fronts})
     return render(request, "mainapp/deck_details.html", {"deck":deck})
+
+
+def hello_visitor(request):
+    """View for no exisitng/upcoming functionalities and buttons."""
+
+    return render(request,"mainapp/hello_visitor.html", {})
