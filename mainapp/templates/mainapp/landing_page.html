@@ -89,7 +89,7 @@
                                 d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
                         Review your progress through extensive statistics</li>
-                </ul><a href="{% url 'mainapp:hello_visitor' %}"><button class="blue-button">Get
+                </ul><a href="{% url 'users:register_view' %}"><button class="blue-button">Get
                         Started</button></a>
             </div>
             <img class="hero-image" src="{% static 'hero_image.jpg' %}" alt="Hero image" with="585" height="450">
@@ -101,7 +101,7 @@
                 </div>
                 <div class="section-back">
                     <div class="functions-container center">
-                        <div class="function-description">
+                        <div class="function-description center">
                             <video width="372px" height="666px" autoplay muted loop>
                                 <source src="{% static 'translating.mkv' %}">
                             </video>
@@ -114,7 +114,7 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="function-description">
+                        <div class="function-description center">
                             <div class="center">
                                 <h1>Review material</h1>
                                 <p>Repeat the material as efficiently as possible, thanks to an advanced algorithm that
@@ -125,7 +125,7 @@
                                 <source src="{% static 'reviewing.mkv' %}">
                             </video>
                         </div>
-                        <div class="function-description">
+                        <div class="function-description center">
                             <video width="372px" height="666px" autoplay muted loop>
                                 <source src="{% static 'translating.mkv' %}">
                             </video>
@@ -240,75 +240,61 @@
                     <div class="faqs">
                         <div class="faq">
                             <div class="question">
-                                <h3>What is movvie?</h3><button class="faq-button">+</button>
+                                <h3>What is AnkiTranslator?</h3><button class="faq-button">+</button>
                             </div><br>
                             <div class="answer">
-                                <p>movvie is minimalistic movie recommender fueled with AI. You just have to write
-                                    prompt in the
-                                    inputbox at the bottom of a page and movvie will recommend you five movies based on
-                                    your
-                                    prompt. You can also draw random movies by clicking a dice button. It provides
-                                    poster,
-                                    title, info about year of production, TMDB rating, length, available streaming
-                                    platforms
-                                    and
-                                    short desciption.</p><br>
+                                <p>AnkiTranslator is flashcard application. What distinguishes it from other such
+                                    applications is the function of automatic card creation when translating text.</p>
+                                <br>
                             </div>
                             <hr><br>
                         </div>
                         <div class="faq">
                             <div class="question">
-                                <h3>How does it work?</h3><button class="faq-button">+</button>
+                                <h3>What features does it have?</h3><button class="faq-button">+</button>
                             </div><br>
                             <div class="answer">
-                                <p>movvie is an AI tool and it uses OpenAI gpt-3.5-turbo-1106 model. Movies data comes
-                                    from TMDB
-                                    API and streaming services info is provided by JustWatch.com</p><br>
+                                <p>It can create flashcards while translating, translate text without creating
+                                    flashcards, add, edit and delete decks and flashcards. Then you can also study your
+                                    flashcards using an advanced algorithm designed to optimize learning. For now, basic
+                                    statistics are also available for viewing, an option that will be much more
+                                    extensive in the future.</p><br>
                             </div>
                             <hr><br>
                         </div>
 
                         <div class="faq">
                             <div class="question">
-                                <h3>Is it free?</h3><button class="faq-button">+</button>
+                                <h3>Is there a mobile app?</h3><button class="faq-button">+</button>
                             </div><br>
                             <div class="answer">
-                                <p>Yes, movvie is fully free for now. It generates costs tought: OpenAI API is paid, so
-                                    every
-                                    movvie recommendation is new cost. There are also other costs like hosting a
-                                    website.
-                                    For
-                                    the best user experience our platform is ad free, so we do not make any money on it.
-                                    Due to
-                                    that fact, if you enjoy it, please consider buying us a coffee. </p><br>
+                                <p>A mobile application is planned, but it is not yet available. Instead, you can use
+                                    the browser version on your phone at the moment, because the AnkiFlashcards website
+                                    is fully responsive!</p><br>
                             </div>
                             <hr><br>
                         </div>
                         <div class="faq">
                             <div class="question">
-                                <h3>Does moovie recommend latest movies?</h3><button class="faq-button">+</button>
+                                <h3>Are there any new features planned?</h3><button class="faq-button">+</button>
                             </div><br>
                             <div class="answer">
-                                <p>movvie is running og OpenAI gpt-3.5-turbo-1106 model which is trained on a data up
-                                    to
-                                    September 2021. Despite that it has acces to movies released after the date. It
-                                    might
-                                    not
-                                    recommend postions from latest two or three moinths, but it will easily recommend
-                                    movies
-                                    from the last year.</p><br>
+                                <p>Yes, there are many upcoming features, including: much more advanced learning
+                                    statistics, the ability to create decks and non-language cards, the ability to add
+                                    images to cards, importing decks from other applications such as Anki, different
+                                    types of flashcards (such as gap) and much more!</p><br>
                             </div>
                             <hr><br>
                         </div>
                         <div class="faq">
                             <div class="question">
-                                <h3>Does moovie also work for TV series?</h3><button class="faq-button">+</button>
+                                <h3>What kind of algorithm do you use for material review?</h3><button
+                                    class="faq-button">+</button>
                             </div><br>
-
                             <div class="answer">
-                                <p>Our tool is designed to recommend movies, so results of asking it about TV Series
-                                    might be a
-                                    little bit messy. But go ahead and give it a try!</p><br>
+                                <p>AnkiFlashcards uses improved SM-2 algorithm. It is based on research into long-term
+                                    memory, and is a practical application of the spaced repetition learning method that
+                                    has been proposed for efficient learning.</p><br>
                             </div>
                             <hr><br>
                         </div>

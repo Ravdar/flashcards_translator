@@ -399,7 +399,7 @@ main section {
 
 /* fit-content doesn't work for some reason, so it have to be fixed value */
 #how-it-works {
-    height: 2000px;
+    height: 3800px;
 }
 
 .section-card,
@@ -443,14 +443,14 @@ main section {
 }
 
 .functions-container {
-    gap: 75px;
+    gap: 10rem;
     margin-top: 75px;
     display: grid;
 }
 
 .function-description {
-    display: flex;
     gap: 75px;
+    flex-direction: column;
 }
 
 .function-description div {
@@ -465,6 +465,7 @@ main section {
 
 .function-description div p {
     font-size: 1.5rem;
+    line-height: 2.5rem;
 }
 
 video {
@@ -667,12 +668,12 @@ footer p {
     transition: width 200ms ease-in-out;
 }
 
-.navbar ul li:hover {
-    background-color: var(--LIGHT-BLUE);
-}
-
 .logo {
     display: none;
+}
+
+.logo a:hover {
+    background-color: var(--MAIN-BLUE);
 }
 
 .navbar a {
@@ -683,7 +684,7 @@ footer p {
     color: white;
 }
 
-.navbar a:hover {
+.nav-link:hover {
     background-color: var(--LIGHT-BLUE);
 }
 
@@ -693,7 +694,8 @@ footer p {
     margin-left: 1rem;
 }
 
-.nav-link svg {
+.nav-link svg,
+.nav-link1 svg {
     margin: 0 15px;
     width: 40px;
     min-width: 40px;
@@ -878,7 +880,7 @@ footer p {
     max-width: 700px;
     transform: translate(-50%, -50%) scale(0);
     font-size: 1.5rem;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.3s ease-in-out;
     z-index: 1;
 }
 
@@ -1292,6 +1294,17 @@ form button:hover {
         height: 35%
     }
 
+    /* How it works section */
+
+    #how-it-works {
+        height: 2100px;
+    }
+
+    .function-description {
+        flex-direction: row;
+    }
+
+
     /* Pricing section */
 
 
@@ -1324,7 +1337,8 @@ form button:hover {
 
     /* USER PANEL */
 
-    .nav-link svg {
+    .nav-link svg,
+    .nav-link1 svg {
         margin: 0 20px;
     }
 
@@ -1434,6 +1448,7 @@ form button:hover {
 
     .translator-main {
         margin-top: -75px;
+        padding: 0 80px;
     }
 
     .translator-main form {
