@@ -163,12 +163,6 @@ h1 {
     font-size: 3rem;
 }
 
-.center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 /* Header styling */
 
 header {
@@ -204,7 +198,8 @@ header {
 
 .landing-nav a:hover,
 .signs a:hover {
-    color: var(--LIGHT-BLUE)
+    color: var(--LIGHT-BLUE);
+    font-weight: bold;
 }
 
 .small-blue-button,
@@ -223,6 +218,11 @@ header {
     background-color: whitesmoke;
     color: var(--MAIN-BLUE);
     border: 2px solid var(--MAIN-BLUE)
+}
+
+.border-button:hover {
+    transform: rotate(5deg);
+    transition: all 0.2s ease-in-out;
 }
 
 .profile-picture-container {
@@ -434,6 +434,10 @@ main section {
 
 .section-front h1 {
     font-size: 4rem;
+}
+
+.section-h1-margin {
+    margin-top: 40vh;
 }
 
 .section-back {
@@ -684,7 +688,9 @@ footer p {
     color: white;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.blue-button:hover,
+.small-blue-button:hover {
     background-color: var(--LIGHT-BLUE);
 }
 
