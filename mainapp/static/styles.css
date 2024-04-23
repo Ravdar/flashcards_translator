@@ -65,6 +65,7 @@
     --MAIN-BLUE: #5299ff;
     --LIGHT-BLUE: #8fbeff;
     --MAIN-RED: #ff5252;
+    --SECOND-RED: #c30000;
     --MAIN-GREEN: #3ad949;
     --LIGHTER-BLACK: #575757;
     --DECK-BLUE: #A3F6FE;
@@ -1018,6 +1019,21 @@ footer p {
     border: 2px solid var(--DECK-GREEN);
 }
 
+.delete-button {
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    padding: 3px;
+    background-color: var(--MAIN-RED);
+    color: #c30000;
+}
+
+.delete-button:hover {
+    transform: rotate(360deg);
+    transition: all 0.2s ease-in-out;
+    background-color: var(--MAIN-RED);
+}
+
 /* Django-select2-styling */
 
 .select2-container {
@@ -1237,6 +1253,56 @@ form button:hover {
 
 .hello-visitor p {
     line-height: 40px;
+}
+
+/* TOOLTIP STYLING */
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    font-size: 0.75rem;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+    transition: all 0.7s ease-in-out;
 }
 
 

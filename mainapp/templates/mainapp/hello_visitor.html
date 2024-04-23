@@ -1,0 +1,30 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnkiFlashcards</title>
+    <meta name="author" content="ravdar">
+    <meta name="description" content="Template for upcoming/not exisitng functionalities.">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+
+<body class="center">
+    <div class="hello-visitor center">
+        <h1>Hello, visitor!</h1>
+        <p>Since this project is mainly for my portfolio right now, some features like pricing are just for show. You
+            might
+            have clicked on one of those. If you'd like to explore the actual application, click the button below.
+            Enjoy!
+        </p>
+        <a href="{% url 'mainapp:landing_page' %}"><button class="blue-button">Go to the main page</button></a>
+    </div>
+
+    <script>console.log("Hire me, please")</script>
+
+</body>
+
+</html>

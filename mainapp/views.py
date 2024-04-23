@@ -66,18 +66,12 @@ def translator(request):
                 return JsonResponse({"output_text":output_text})
             else:
                 # Change country flag
-                print("flag change")
-                print("heelo")
                 language_from_string = request.GET.get("from_language_string")
-                print(f"Language from: {language_from_string}")
                 language_to_string = request.GET.get("to_language_string")
                 language_from = get_object_or_404(Language, name=language_from_string)
                 language_to = get_object_or_404(Language, name=language_to_string)
-                print(language_from)
                 language_from_alpha2_code = language_from.alpha2_code
-                print(language_from_alpha2_code)
                 language_to_alpha2_code = language_to.alpha2_code
-                print(language_to_alpha2_code)
                 return JsonResponse({"language_from_alpha2_code":language_from_alpha2_code, "language_to_alpha2_code":language_to_alpha2_code})
         else:
             # If it is requested from 'Add flashcard' button in deck_details view
@@ -105,25 +99,38 @@ def edit_flashcard(request):
     """Editing flashcard in translator view"""
 
     
-    #AJAX request
-    if request.headers.get("x-requested-with") == "XMLHttpRequest":
-        # Retrieve data from AJAX request
-        card_id = request.GET.get("card_id")
-        input_text = request.GET.get("input_text")
-        output_text = request.GET.get("output_text")
-        from_language = Language.objects.get(name=request.GET.get("from_language"))
-        to_language = Language.objects.get(name=request.GET.get("to_language"))
-        # Update flashcard object
-        flashcard = get_object_or_404(Flashcard, pk=card_id)
-        flashcard.front = input_text
-        flashcard.back = output_text
-        flashcard.from_language = from_language
-        flashcard.to_language = to_language
-        flashcard.save()
-        return JsonResponse({})         
+    if request.method == "GET":
+        # Handling AJAX request
+        if request.headers.get("x-requested-with") == "XMLHttpRequest":
+            print("ajax")
+            action = request.GET.get("action")
+            # Recognise what kind of AJAX request is it
+            if action == "edit":
+                # Retrieve data from AJAX request
+                card_id = request.GET.get("card_id")
+                input_text = request.GET.get("input_text")
+                output_text = request.GET.get("output_text")
+                from_language = Language.objects.get(name=request.GET.get("from_language"))
+                to_language = Language.objects.get(name=request.GET.get("to_language"))
+                # Update flashcard object
+                flashcard = get_object_or_404(Flashcard, pk=card_id)
+                flashcard.front = input_text
+                flashcard.back = output_text
+                flashcard.from_language = from_language
+                flashcard.to_language = to_language
+                flashcard.save()
+                return JsonResponse({})    
+            else:
+                # Change country flag
+                language_from_string = request.GET.get("from_language_string")
+                language_to_string = request.GET.get("to_language_string")
+                language_from = get_object_or_404(Language, name=language_from_string)
+                language_to = get_object_or_404(Language, name=language_to_string)
+                language_from_alpha2_code = language_from.alpha2_code
+                language_to_alpha2_code = language_to.alpha2_code
+                return JsonResponse({"language_from_alpha2_code":language_from_alpha2_code, "language_to_alpha2_code":language_to_alpha2_code})                     
     else:
         # Initial request
-        
         card_id = request.GET.get("card_id")
         card = get_object_or_404(Flashcard, pk = card_id)
         deck = card.deck
