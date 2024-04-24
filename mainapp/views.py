@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.urls import reverse
 
 from .forms import TranslatorForm, NewDeck
 from .models import Translation, Flashcard,Deck,Language
@@ -98,11 +99,17 @@ def translator(request):
 def edit_flashcard(request):
     """Editing flashcard in translator view"""
 
-    
-    if request.method == "GET":
+    if request.method == "POST":
+        # Delete flashcard
+        card_id = request.POST.get("card_id")
+        card = get_object_or_404(Flashcard, pk=card_id)
+        card.delete()
+        url = reverse("mainapp:user_profile", kwargs={"user_username": request.user.username})
+        # Redirect to the generated URL using HttpResponseRedirect
+        return redirect(url)
+    else:
         # Handling AJAX request
         if request.headers.get("x-requested-with") == "XMLHttpRequest":
-            print("ajax")
             action = request.GET.get("action")
             # Recognise what kind of AJAX request is it
             if action == "edit":
@@ -129,18 +136,18 @@ def edit_flashcard(request):
                 language_from_alpha2_code = language_from.alpha2_code
                 language_to_alpha2_code = language_to.alpha2_code
                 return JsonResponse({"language_from_alpha2_code":language_from_alpha2_code, "language_to_alpha2_code":language_to_alpha2_code})                     
-    else:
-        # Initial request
-        card_id = request.GET.get("card_id")
-        card = get_object_or_404(Flashcard, pk = card_id)
-        deck = card.deck
-        card_front = card.front
-        card_back = card.back
-        from_language = card.from_language
-        to_language = card.to_language
-        translator_form = TranslatorForm(request.user, initial={"is_flashcard":True, "decks":deck,"from_language":from_language, "to_language":to_language})
+        else:
+            # Initial GET request
+            card_id = request.GET.get("card_id")
+            card = get_object_or_404(Flashcard, pk = card_id)
+            deck = card.deck
+            card_front = card.front
+            card_back = card.back
+            from_language = card.from_language
+            to_language = card.to_language
+            translator_form = TranslatorForm(request.user, initial={"is_flashcard":True, "decks":deck,"from_language":from_language, "to_language":to_language})
 
-    return render(request, "mainapp/edit_flashcard.html",{"card_id":card_id,"translator_form":translator_form, "input_text":card_front, "output_text":card_back})
+        return render(request, "mainapp/edit_flashcard.html",{"card_id":card_id,"translator_form":translator_form, "input_text":card_front, "output_text":card_back})
 
 
 @login_required
@@ -264,15 +271,24 @@ def deck_details(request):
     """Browsing all flashcards inside a specific deck and other deck details."""
     
     user = request.user
-    deck_name = request.GET.get("deck_name")
+    if request.method == "POST":
+        deck_id = request.POST.get("deck_id")
+        deck = get_object_or_404(Deck, pk=deck_id)
+        deck.delete()
+        url = reverse("mainapp:user_profile", kwargs={"user_username": request.user.username})
+        # Redirect to the generated URL using HttpResponseRedirect
+        return redirect(url)
+
+    else:    
+        deck_name = request.GET.get("deck_name")
+        if request.headers.get("x-requested-with") == "XMLHttpRequest":
+            search_text = request.GET.get("search_text")
+            filtered_cards = Flashcard.objects.filter(user=user, front__icontains=search_text)
+            filtered_cards_fronts = []
+            for card in filtered_cards:
+                filtered_cards_fronts.append(card.front)
+            return JsonResponse({"filtered_cards":filtered_cards_fronts})
     deck = get_object_or_404(Deck,user=user,name=deck_name)
-    if request.headers.get("x-requested-with") == "XMLHttpRequest":
-        search_text = request.GET.get("search_text")
-        filtered_cards = Flashcard.objects.filter(user=user, front__icontains=search_text)
-        filtered_cards_fronts = []
-        for card in filtered_cards:
-            filtered_cards_fronts.append(card.front)
-        return JsonResponse({"filtered_cards":filtered_cards_fronts})
     return render(request, "mainapp/deck_details.html", {"deck":deck})
 
 

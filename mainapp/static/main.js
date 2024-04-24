@@ -95,8 +95,8 @@ if (instantlyCard) {
 // DECKS PAGE SCRIPTS
 
 const addDeckButton = document.getElementById("add-deck-button");
-const addDeckContainer = document.querySelector(".add-deck-container");
-const closeDialButton = document.querySelector(".close-dial");
+var addDeckContainer = document.querySelector(".add-deck-container");
+var closeDialButton = document.querySelector(".close-dial");
 
 if (addDeckButton) {
     console.log("button found")
@@ -111,7 +111,7 @@ if (addDeckButton) {
     })
 }
 
-// TRANSLATOR PAGE SCRIPTS
+// TRANSLATOR AND EDIT FLASHCARD PAGE SCRIPTS
 
 var isFlashcardSwitch = document.getElementById("is-flashcard-switch2");
 
@@ -121,8 +121,6 @@ var isFlashcardSwitch = document.getElementById("is-flashcard-switch2");
 
 var deckList = document.querySelector(".decks-list");
 var outputBox = document.getElementById("output-textarea")
-
-console.log(outputBox.placeholder)
 
 function showOrHideDecksList() {
     var isFlashcardSwitch = document.getElementById("is-flashcard-switch2");
@@ -140,6 +138,27 @@ if (isFlashcardSwitch) {
     // Initial run
     showOrHideDecksList();
 }
+
+
+// Showing delete flashcard modal
+
+var deleteButton = document.querySelector(".delete-button");
+var deleteModal = document.querySelector(".add-deck-container");
+var closeDialButton = document.querySelector(".close-dial");
+
+deleteButton.addEventListener("click", function () {
+    deleteModal.style.transform = " translate(-50%, -50%) scale(1)";
+
+    // Function to hide add deck form on button click
+    closeDialButton.addEventListener("click", function () {
+        deleteModal.style.transform = " translate(-50%, -50%) scale(0)";
+    })
+})
+
+
+
+
+
 
 
 
