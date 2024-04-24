@@ -222,7 +222,7 @@ header {
 }
 
 .border-button:hover {
-    transform: rotate(5deg);
+    transform: rotate(-5deg);
     transition: all 0.2s ease-in-out;
 }
 
@@ -728,7 +728,7 @@ footer p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 3px solid black;
+    border: 1px solid black;
     overflow: auto;
     flex-direction: column;
 }
@@ -1248,8 +1248,17 @@ form button:hover {
 .form-control:focus,
 .new-article-inputs:focus {
     border: 2px solid var(--MAIN-BLUE);
-    box-shadow: 0 0 0 0.5px var(--MAIN-BLUE);
     outline: none;
+}
+
+.guest-account-container {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: var(--LIGHTER-BLACK);
+    font-weight: normal;
 }
 
 /* HELLO VISITOR PAGE */

@@ -68,7 +68,6 @@
     <form method="post">
         {% csrf_token %}
         <input type="hidden" name="card_id" value="{{ card_id }}">
-        <input type="hidden" name="deck" value="{{ deck }}">
         <button class="delete-button-text" type="submit">Delete</button>
     </form>
 </div>
