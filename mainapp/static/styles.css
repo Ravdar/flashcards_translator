@@ -218,7 +218,8 @@ header {
 .border-button {
     background-color: whitesmoke;
     color: var(--MAIN-BLUE);
-    border: 2px solid var(--MAIN-BLUE)
+    border: 2px solid var(--MAIN-BLUE);
+    transition: all 0.2s ease-in-out;
 }
 
 .border-button:hover {
@@ -1259,6 +1260,10 @@ form button:hover {
     gap: 20px;
     color: var(--LIGHTER-BLACK);
     font-weight: normal;
+}
+
+.hidden {
+    display: none;
 }
 
 /* HELLO VISITOR PAGE */

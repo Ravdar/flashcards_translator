@@ -146,14 +146,36 @@ var deleteButton = document.querySelector(".delete-button");
 var deleteModal = document.querySelector(".add-deck-container");
 var closeDialButton = document.querySelector(".close-dial");
 
-deleteButton.addEventListener("click", function () {
-    deleteModal.style.transform = " translate(-50%, -50%) scale(1)";
+if (deleteButton) {
+    deleteButton.addEventListener("click", function () {
+        deleteModal.style.transform = " translate(-50%, -50%) scale(1)";
 
-    // Function to hide add deck form on button click
-    closeDialButton.addEventListener("click", function () {
-        deleteModal.style.transform = " translate(-50%, -50%) scale(0)";
+        // Function to hide add deck form on button click
+        closeDialButton.addEventListener("click", function () {
+            deleteModal.style.transform = " translate(-50%, -50%) scale(0)";
+        })
     })
-})
+}
+
+
+// LOGIN PAGE SCRIPTS
+
+
+// Log into guest account
+
+var guestAccountButton = document.getElementById("guest-account-button");
+var usernameInput = document.getElementById("username-input");
+var passwordInput = document.getElementById("password-input");
+var loginForm = document.getElementById("login-form");
+
+if (guestAccountButton) {
+    guestAccountButton.addEventListener("click", function () {
+        console.log("clicked");
+        usernameInput.value = "Guest";
+        passwordInput.value = "ripazhaaezakmi"
+        loginForm.submit()
+    })
+}
 
 
 

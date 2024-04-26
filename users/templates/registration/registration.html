@@ -12,4 +12,17 @@
     {{form.password2|add_class:"form-control"|attr:"placeholder:Confirm password"}}
     <button class="small-blue-button" type="submit">Register</button>
 </form>
+
+<!-- Log into guest account -->
+<form id="login-form" class="hidden" method="post">
+    {% csrf_token %}
+    {{login_form.username|add_class:"form-control"|attr:"id:username-input"|attr:"placeholder:Username"}}
+    {{login_form.password|add_class:"form-control"|attr:"id:password-input"|attr:"placeholder:Password"}}
+    <input type="hidden" name="next" value="{% url 'mainapp:translator' %}" />
+</form>
+<div class="guest-account-container">
+    Don't have an account yet?
+    <button id="guest-account-button" type="button" class="border-button">Try guest account</button>
+</div>
+
 {% endblock content %}

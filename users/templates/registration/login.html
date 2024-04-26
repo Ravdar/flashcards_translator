@@ -11,6 +11,7 @@
     <meta name="description" content="Log in and registration template form for 'AnkiTranslator' website.">
     <title>AnkiTranslator</title>
     <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <script defer src="{% static 'main.js' %}"></script>
 </head>
 
 <body class="center">
@@ -19,18 +20,21 @@
     {% block content %}
     <h3>Please log in</h3>
     &nbsp;
-    <form method="post">
+    <form id="login-form" method="post">
         {% csrf_token %}
-        {{form.username|add_class:"form-control"|attr:"placeholder:Username"}}
-        {{form.password|add_class:"form-control"|attr:"placeholder:Password"}}
+        {{form.username|add_class:"form-control"|attr:"id:username-input"|attr:"placeholder:Username"}}
+        {{form.password|add_class:"form-control"|attr:"id:password-input"|attr:"placeholder:Password"}}
         <button type="submit" class="small-blue-button">Login</button>
         <input type="hidden" name="next" value="{% url 'mainapp:translator' %}" />
     </form>
     <div class="guest-account-container">
         Don't have an account yet?
-        <button type="button" class="border-button">Try guest account</button>
+        <button id="guest-account-button" type="button" class="border-button">Try guest account</button>
     </div>
     {% endblock content %}
+
+
+
 </body>
 
 </html>
