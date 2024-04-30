@@ -482,6 +482,18 @@ video {
     height: 448px;
 }
 
+.step-card {
+    transform: rotate(-4deg);
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 10px 30px;
+    font-size: 1.4rem;
+}
+
+.step2 {
+    transform: rotate(4deg);
+}
+
 /* Pricing section */
 
 #pricing {
@@ -955,6 +967,7 @@ footer p {
     padding: 0px 10px;
     flex-grow: 1;
     margin: 1rem 0px 5rem 0px;
+    overflow: hidden;
 }
 
 .translator-main form,
@@ -1051,6 +1064,14 @@ footer p {
     transform: rotate(360deg);
     transition: all 0.2s ease-in-out;
     background-color: var(--MAIN-RED);
+}
+
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 30px;
+    max-width: 1000px;
 }
 
 /* Django-select2-styling */
@@ -1570,7 +1591,11 @@ form button:hover {
     }
 
     .edit-flashcard-title {
-        margin-bottom: 75px;
+        margin-bottom: 2rem;
+    }
+
+    .stats-container {
+        margin-left: 5rem;
     }
 
     /* REVIEW PAGE */

@@ -6,6 +6,8 @@
 {% block content %}
 <main class="decks-main center">
     <h1 id="deck-name">{{deck.name}}</h1>
+    {% if deck.description %}
+    <p>{{deck.description}}</p>{% endif %}
     <p class="subtext">There is {{deck.flashcards.all.count}} flashcards in this deck.</p>
     <form id="card-searchbar">
         {{ cards_searchbar.media.css }}
@@ -34,6 +36,7 @@
 <div class="add-deck-container">
     <button><img class="close-dial" src="{% static 'close_dial.png' %}" alt="Close" loading="lazy" width="25"
             height="25"></button>
+    <br>
     Are you sure you want to delete this deck?
     <form method="post">
         {% csrf_token %}

@@ -147,7 +147,7 @@ def edit_flashcard(request):
             to_language = card.to_language
             translator_form = TranslatorForm(request.user, initial={"is_flashcard":True, "decks":deck,"from_language":from_language, "to_language":to_language})
 
-        return render(request, "mainapp/edit_flashcard.html",{"card_id":card_id,"translator_form":translator_form, "input_text":card_front, "output_text":card_back})
+        return render(request, "mainapp/edit_flashcard.html",{"card_id":card_id,"translator_form":translator_form, "input_text":card_front, "output_text":card_back, "card":card})
 
 
 @login_required

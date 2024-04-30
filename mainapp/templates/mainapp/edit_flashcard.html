@@ -6,7 +6,22 @@
 
 {% block content %}
 <main class="translator-main center">
-    <h1 id="{{ card_id }}" class="edit-flashcard-title">Edit flashcard</h1>
+    <h1 id="{{ card_id }}" class="edit-flashcard-title">Flashcard details</h1>
+    <div class="stats-container">
+        <div>
+            <h3>Last review:</h3>{{card.last_review}}
+        </div>
+        <div>
+            <h3>Next review:</h3>{{card.next_review}}
+        </div>
+    </div>
+    <!-- {{card.number_of_reviews}}
+    {{card.number_of_agains}}
+    {{card.number_of_hard}}
+    {{card.number_of_good}}
+    {{card.number_of_easy}}
+    {{card.total_time}}
+    {{card.average_time}} -->
     <form method="post">
         {{ translator_form.media.css }}
         {% csrf_token %}
@@ -64,6 +79,7 @@
 <div class="add-deck-container">
     <button><img class="close-dial" src="{% static 'close_dial.png' %}" alt="Close" loading="lazy" width="25"
             height="25"></button>
+    <br>
     Are you sure you want to delete this flashcard?
     <form method="post">
         {% csrf_token %}
