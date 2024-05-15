@@ -902,7 +902,7 @@ footer p {
     transform: translate(-50%, -50%) scale(0);
     font-size: 1.5rem;
     transition: all 0.3s ease-in-out;
-    z-index: 1;
+    z-index: 2;
 }
 
 .add-deck-container form {
@@ -1097,6 +1097,10 @@ footer p {
 
 .select2-container--default .select2-selection--multiple {
     border-radius: 5px !important
+}
+
+django-toggle-switch-success input:checked + .django-toggle-switch-slider, input:checked + .django-toggle-switch-slider {
+    background-color: var(--DECK-BLUE-2) !important;
 }
 
 .select2-hidden-accessible {
@@ -1437,7 +1441,7 @@ form button:hover {
         flex-direction: row;
         margin: 0;
         position: absolute;
-        top: 50%;
+        top: 55%;
         left: 50%;
         transform: translate(-50%, -50%);
         gap: 2rem;

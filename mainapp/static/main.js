@@ -99,7 +99,6 @@ var addDeckContainer = document.querySelector(".add-deck-container");
 var closeDialButton = document.querySelector(".close-dial");
 
 if (addDeckButton) {
-    console.log("button found")
     // Function to show add deck form on button click
     addDeckButton.addEventListener("click", function () {
         addDeckContainer.style.transform = "translate(-50%, -50%) scale(1)";
@@ -170,7 +169,6 @@ var loginForm = document.getElementById("login-form");
 
 if (guestAccountButton) {
     guestAccountButton.addEventListener("click", function () {
-        console.log("clicked");
         usernameInput.value = "Guest";
         passwordInput.value = "ripazhaaezakmi"
         loginForm.submit()

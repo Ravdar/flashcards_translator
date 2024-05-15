@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="ravdar">
-    <meta name="description" content="Landing page for AnkiTranslator website.">
-    <title>AnkiTranslator</title>
+    <meta name="description" content="Landing page for InstantCard website.">
+    <title>InstantCard</title>
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     <script defer src="{% static 'main.js' %}"></script>
 </head>
@@ -18,13 +18,14 @@
     {% block content %}
     <header id="header" class="center">
         <div class="header-container">
-            <h3><a href="{% url 'mainapp:landing_page' %}">AnkiTranslator</a></h3>
+            <h3><a href="{% url 'mainapp:landing_page' %}">InstantCard</a></h3>
             <nav class="landing-nav">
                 <a href="#how-it-works">How it works</a>
                 <a href="#pricing">Pricing</a>
                 <a href="#faq">FAQ</a>
             </nav>
             <div class="signs">
+                <!-- Displaying logout button and profile picture if user is logged in -->
                 {% if request.user.is_authenticated %}
                 <a href="{% url 'users:logout' %}"><button class="border-button">Log out</button></a>
                 <a href="{% url 'mainapp:user_profile' user.username %}">
@@ -38,11 +39,13 @@
                     {% endif %}
                 </a>
                 {% else %}
+                <!-- Displaying sign up and sign in buttons if user is not logged -->
                 <a href="{% url 'users:register_view' %}"><button class="small-blue-button">Sign up</button></a>
                 <a href="{% url 'users:login' %}"><button class="border-button">Sign in</button></a>
                 {% endif %}
             </div>
 
+            <!-- Burger menu for small screens -->
             <button class="hamburger-button center">
                 <div class="hamburger-icon"></div>
                 <div class="hamburger-menu">
@@ -58,9 +61,11 @@
     </header>
 
     <main class="center">
+
         <section class="hero">
             <div class="hero-message">
                 <h1>Create flashcards while translating.</h1>
+                <!-- Rotating text card -->
                 <div class="instantly-card center">
                     <div class="instantly-card-front">
                         Instantly.
@@ -92,8 +97,9 @@
                 </ul><a href="{% url 'users:register_view' %}"><button class="blue-button">Get
                         Started</button></a>
             </div>
-            <img class="hero-image" src="{% static 'hero_image.jpg' %}" alt="Hero image" with="585" height="450">
+            <img class="hero-image" src="{% static 'images/hero_image.jpg' %}" alt="Hero image" with="585" height="450">
         </section>
+
         <section id="how-it-works">
             <div class="section-card">
                 <div class="section-front">
@@ -103,13 +109,13 @@
                     <div class="functions-container center">
                         <div class="function-description center">
                             <video width="372px" height="666px" autoplay muted loop>
-                                <source src="{% static 'translating.mkv' %}">
+                                <source src="{% static 'videos/translating.mkv' %}">
                             </video>
                             <div class="center">
                                 <div class="step-card">Step 1</div>
                                 <h1>Create flashcards</h1>
                                 <p>Constantly switching between the translator and your flashcards app can be tedious.
-                                    However, you don't have to do it anymore! With the AnkiTranslator app, you do it
+                                    However, you don't have to do it anymore! With the InstantCard app, you do it
                                     <span> all
                                         at once,</span> thus saving your precious time.
                                 </p>
@@ -125,12 +131,12 @@
                                     Thanks to it, your learning will be as fast as never before!</p>
                             </div>
                             <video width="372px" height="666px" autoplay muted loop>
-                                <source src="{% static 'reviewing.mkv' %}">
+                                <source src="{% static 'videos/reviewing.mkv' %}">
                             </video>
                         </div>
                         <div class="function-description center">
                             <video width="372px" height="666px" autoplay muted loop>
-                                <source src="{% static 'translating.mkv' %}">
+                                <source src="{% static 'videos/translating.mkv' %}">
                             </video>
                             <div class="center">
                                 <div class="step-card">Step 3</div>
@@ -245,10 +251,10 @@
                     <div class="faqs">
                         <div class="faq">
                             <div class="question">
-                                <h3>What is AnkiTranslator?</h3><button class="faq-button">+</button>
+                                <h3>What is InstantCard?</h3><button class="faq-button">+</button>
                             </div><br>
                             <div class="answer">
-                                <p>AnkiTranslator is flashcard application. What distinguishes it from other such
+                                <p>InstantCard is flashcard application. What distinguishes it from other such
                                     applications is the function of automatic card creation when translating text.</p>
                                 <br>
                             </div>
@@ -305,7 +311,8 @@
                         </div>
                     </div>
         </section>
-        <section id="examples" class="ending-section center">
+
+        <section id="get-started" class="ending-section center">
             <h1>Learn languages fast and effectively</h1>
             <p>Translate. Create flashcards. Study.</p>
             <a href="{% url 'users:register_view' %}"><button class="blue-button">Start now!</button></a></div>
@@ -318,7 +325,7 @@
 
     <footer>
         <div class="footer-container">
-            <h3>AnkiTranslator</h3>
+            <h3>InstantCard</h3>
             <p class="footer-subtext">Create flashcards while translating. Instantly.</p>
             <br>
             <p>Copyright &copy 2024 - All rights reserved</p>
@@ -329,7 +336,7 @@
             <a href="#how-it-works">How it works</a>
             <a href="#pricing">Pricing</a>
             <a href="#faq">FAQ</a>
-            <a href="#examples">Examples</a>
+            <a href="#get-started">Get started</a>
             <br>
             <a href="{% url 'users:register_view' %}">Sign up</a>
             <a href="{% url 'users:login' %}">Sign in</a>

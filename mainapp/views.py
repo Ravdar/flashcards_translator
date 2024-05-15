@@ -36,7 +36,6 @@ def translator(request):
     if request.method == "GET":
         # Handling AJAX request
         if request.headers.get("x-requested-with") == "XMLHttpRequest":
-            print("ajax")
             action = request.GET.get("action")
             # Recognise what kind of AJAX request is it
             if action == "translate":
@@ -230,7 +229,6 @@ def user_profile(request, user_username):
     user_profile = get_object_or_404(Profile, user=user)
     activity_string = list(user_profile.activity)
     activity = [datetime.strptime(date, "%Y-%m-%d") for date in activity_string]
-    print(activity)
     calendar = generate_contributors_graph(activity, title="")
         
     return render(request, "mainapp/user_profile.html", {"user":user,"decks_data":decks_data,"total_decks_reviewed_today":total_decks_reviewed_today,"total_cards_reviewed_today":total_cards_reviewed_today, "total_cards_to_review_today":total_cards_to_review_today, "total_decks_to_review_today":total_decks_to_review_today,"calendar":calendar, "activity_streak":activity_streak}, )
