@@ -197,6 +197,8 @@ header {
     color: grey;
 }
 
+.logotype{color:var(--MAIN-BLUE)}
+
 .landing-nav a:hover,
 .signs a:hover {
     color: var(--LIGHT-BLUE);
@@ -1516,7 +1518,7 @@ form button:hover {
 
     .navbar {
         width: 5rem;
-        height: 100vh;
+        min-height: 100%;
         bottom: none;
         flex-direction: column;
     }

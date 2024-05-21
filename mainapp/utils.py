@@ -8,7 +8,7 @@ def create_language_objects(language_list):
         )
 
 
-#MAIN VIEW REFACTOR
+#MTRANSLATOR REFACTOR
 
 # @login_required
 # def translator(request):
