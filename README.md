@@ -35,17 +35,6 @@ Application gives insight to the user regarding his statistics such as:
 ### 6. Creating, editing and deleting decks&flashcards
 User can organise card into decks, which he can edit or delete
 
-# Screenshots
-![instantcard-landingpage](https://github.com/Ravdar/flashcards_translator/assets/97836782/4311ee87-ee3a-4d80-b257-467eeeed2ef2)
-![instantcard-translator](https://github.com/Ravdar/flashcards_translator/assets/97836782/3387e336-319b-43a5-b0c3-1c231a5ee42f)
-![insatntcard-adddeck](https://github.com/Ravdar/flashcards_translator/assets/97836782/b2a75a24-92da-4046-a980-489ada3a4247)
-![insantcard-userprofile](https://github.com/Ravdar/flashcards_translator/assets/97836782/6dd4e8dc-5153-4706-bd42-fd2a40680e22)
-![insatntcard-review](https://github.com/Ravdar/flashcards_translator/assets/97836782/414d47a7-625b-4928-a6d2-b6020be9b4aa)
-![insatntcard-review2](https://github.com/Ravdar/flashcards_translator/assets/97836782/a980d1cb-8af2-4538-8376-96c28a4675a9)
-![instantcard-decks](https://github.com/Ravdar/flashcards_translator/assets/97836782/2eb4de04-0aa5-48c7-933d-271e74f0481c)
-![instantcard-cards](https://github.com/Ravdar/flashcards_translator/assets/97836782/5e469919-1214-4bfa-934b-668c7f3bf1d8)
-![instantcard-register](https://github.com/Ravdar/flashcards_translator/assets/97836782/8e37e21f-02ec-4475-afb0-0bf91b7be039)
-
 # Techstack
 
 * Django
@@ -56,6 +45,17 @@ User can organise card into decks, which he can edit or delete
 * django_select2
 * django models
 * django forms
+
+# Screenshots
+![instantcard-landingpage](https://github.com/Ravdar/flashcards_translator/assets/97836782/4311ee87-ee3a-4d80-b257-467eeeed2ef2)
+![instantcard-translator](https://github.com/Ravdar/flashcards_translator/assets/97836782/3387e336-319b-43a5-b0c3-1c231a5ee42f)
+![insatntcard-adddeck](https://github.com/Ravdar/flashcards_translator/assets/97836782/b2a75a24-92da-4046-a980-489ada3a4247)
+![insantcard-userprofile](https://github.com/Ravdar/flashcards_translator/assets/97836782/6dd4e8dc-5153-4706-bd42-fd2a40680e22)
+![insatntcard-review](https://github.com/Ravdar/flashcards_translator/assets/97836782/414d47a7-625b-4928-a6d2-b6020be9b4aa)
+![insatntcard-review2](https://github.com/Ravdar/flashcards_translator/assets/97836782/a980d1cb-8af2-4538-8376-96c28a4675a9)
+![instantcard-decks](https://github.com/Ravdar/flashcards_translator/assets/97836782/2eb4de04-0aa5-48c7-933d-271e74f0481c)
+![instantcard-cards](https://github.com/Ravdar/flashcards_translator/assets/97836782/5e469919-1214-4bfa-934b-668c7f3bf1d8)
+![instantcard-register](https://github.com/Ravdar/flashcards_translator/assets/97836782/8e37e21f-02ec-4475-afb0-0bf91b7be039)
 
 # Installation
 1. Clone the repository:
