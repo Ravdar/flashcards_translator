@@ -32,6 +32,7 @@ pipenv==2023.12.1
 platformdirs==4.2.0
 pox==0.3.4
 ppft==1.7.6.8
+psycopg2-binary==2.9.9
 pycparser==2.21
 PyExecJS==1.5.1
 requests==2.31.0
