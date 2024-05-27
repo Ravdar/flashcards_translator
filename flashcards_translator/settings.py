@@ -87,11 +87,11 @@ WSGI_APPLICATION = "flashcards_translator.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('PGDATABASE'),
-        'USER': os.getenv('PGUSER'),
-        'PASSWORD': os.getenv('PGPASSWORD'),
-        'HOST': os.getenv('PGHOST'),
-        'PORT': os.getenv('PGPORT'),
+        'NAME': '/var/lib/postgresql/data/pgdata',
+        'USER': 'postgres',
+        'PASSWORD': 'vNSQPBRRBeBiWOqjoOIFfrNfBaRBstLq',
+        'HOST': 'roundhouse.proxy.rlwy.net',
+        'PORT': '12878',
     }
 }
 
