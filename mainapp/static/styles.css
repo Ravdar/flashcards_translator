@@ -4,15 +4,15 @@
 /* ANIMATIONS */
 @keyframes showMenu {
     0% {
-        transform: scaleY(0) translate(-24px, 100px);
+        transform: scaleY(0) translate(-40px, 150px);
     }
 
-    80% {
-        transform: scaleY(1.2) translate(-24px, 100px);
+    50% {
+        transform: scaleY(1.1) translate(-40px, 150px);
     }
 
     100% {
-        transform: scaleY(1) translate(-24px, 100px)
+        transform: scaleY(1) translate(-40px, 150px)
     }
 }
 
@@ -62,6 +62,7 @@
 
 :root {
     /* Colors */
+    --MAIN-BLACK:#0e2239;
     --MAIN-BLUE: #5299ff;
     --LIGHT-BLUE: #8fbeff;
     --MAIN-RED: #ff5252;
@@ -80,6 +81,7 @@
     --DECK-PINK: #D7A3FE;
     --DECK-PINK-2: #FDA3FE;
     --DECK-AQUA: #A3FEDD;
+    --MAIN-GREY: #8fabb2;
     /* Fonts */
     --MAIN-FONT: Gabarito;
     /* Other */
@@ -104,6 +106,7 @@ html {
 
 body {
     background-color: whitesmoke;
+    color:var(--MAIN-BLACK);
     justify-content: space-between;
     flex-direction: column;
     min-height: 100vh;
@@ -121,7 +124,7 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-    background-color: grey;
+    background-color: var(--MAIN-GREY);
 }
 
 main {
@@ -136,14 +139,14 @@ main {
 }
 
 .subtext {
-    color: grey;
+    color: var(--MAIN-GREY);
 }
 
 /* LANDING PAGE */
 
 a {
     text-decoration: none;
-    color: black;
+    color: var(--MAIN-BLACK);
     transition: all 0.1s ease;
 }
 
@@ -194,7 +197,7 @@ header {
 
 .landing-nav a,
 .signs a {
-    color: grey;
+    color: var(--MAIN-GREY);
 }
 
 .logotype{color:var(--MAIN-BLUE)}
@@ -259,7 +262,7 @@ header {
 .hamburger-icon,
 .hamburger-icon::before,
 .hamburger-icon::after {
-    background-color: black;
+    background-color: var(--MAIN-BLACK);
     width: 32px;
     height: 3px;
     border-radius: 3px;
@@ -282,16 +285,18 @@ header {
 
 .hamburger-menu {
     position: absolute;
-    border: 1px solid grey;
+    border: 2px solid var(--MAIN-BLACK);
+    color:var(--MAIN-BLACK);
     border-radius: 5px;
-    transform: translate(-24px, 100px);
+    transform: translate(-40px, 150px);
     font-size: 1rem;
-    padding: 10px;
+    padding: 30px;
     display: none;
     z-index: 1;
     background-color: whitesmoke;
     transform-origin: top center;
-    animation: showMenu 0.5s ease-in-out;
+    animation: showMenu 0.5s ease;
+    gap:8px;
 }
 
 .active {
@@ -343,13 +348,13 @@ main section {
 }
 
 .hero-message p {
-    color: grey;
+    color: var(--MAIN-GREY);
     margin: 30px 0;
 }
 
 .hero-message ul {
     margin: 30px 0px;
-    color: grey;
+    color: var(--MAIN-GREY);
     list-style-type: none;
     display: grid;
     gap: 10px;
@@ -367,7 +372,7 @@ main section {
     border-radius: 10px;
     border: 2px solid var(--MAIN-BLUE);
     width: 250px;
-    height: 75px;
+    height: 80px;
     transform: rotate(-4deg);
     transition: all 1s ease-in-out;
     transform-style: preserve-3d;
@@ -403,7 +408,7 @@ main section {
 
 /* fit-content doesn't work for some reason, so it have to be fixed value */
 #how-it-works {
-    height: 3800px;
+    height: 4100px;
 }
 
 .section-card,
@@ -505,6 +510,8 @@ video {
     align-items: center;
 }
 
+#pricing h1 {margin-top:1rem;}
+
 #pricing p {
     max-width: 66ch;
 }
@@ -517,7 +524,7 @@ video {
 
 .pricing-deck {
     border-radius: 5px;
-    border: 2px solid black;
+    border: 2px solid var(--MAIN-BLACK);
     max-width: 80vw;
     padding: 25px 25px;
     min-width: 300px;
@@ -539,7 +546,7 @@ video {
 
 .pricing-container li {
     text-align: left;
-    color: gray;
+    color: var(--MAIN-GREY);
     display: flex;
     gap: 10px;
 }
@@ -559,7 +566,7 @@ video {
 
 .bolded {
     font-weight: bold;
-    color: black;
+    color: var(--MAIN-BLACK);
     font-size: 1.5em
 }
 
@@ -602,12 +609,12 @@ video {
     max-height: 0;
     overflow: hidden;
     text-align: left;
-    transition: all 1s ease-in-out;
+    transition: all 1s ease;
     color: whitesmoke
 }
 
 .faq.active-faq .answer {
-    max-height: 1000px;
+    max-height: 300px;
 }
 
 /* Ending section */
@@ -627,7 +634,7 @@ video {
 }
 
 .ending-section p {
-    color: grey;
+    color: var(--MAIN-GREY);
     font-weight: bold;
 }
 
@@ -651,7 +658,7 @@ footer div {
 
 footer a,
 footer p {
-    color: grey;
+    color: var(--MAIN-GREY);
 }
 
 .footer-subtext {
@@ -743,7 +750,7 @@ footer p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid black;
+    border: 1px solid var(--MAIN-BLACK);
     overflow: auto;
     flex-direction: column;
 }
@@ -839,7 +846,7 @@ footer p {
     border-radius: 5px;
     font-size: 1.2em;
     padding: 5px;
-    border: 1px solid gray;
+    border: 1px solid var(--MAIN-GREY);
 }
 
 #decks-searchbar:focus,
@@ -913,7 +920,7 @@ footer p {
 }
 
 .add-deck-container form input {
-    border: 1px solid grey;
+    border: 1px solid var(--MAIN-GREY);
     outline: none;
     padding: 5px;
     border-radius: 5px;
@@ -1160,7 +1167,7 @@ textarea {
 .flashcard-back {
     padding: 10px;
     background-color: white;
-    border: 1px solid grey;
+    border: 1px solid var(--MAIN-GREY);
 }
 
 .input-box:focus {
@@ -1266,7 +1273,7 @@ form button:hover {
 
 .form-control {
     text-align: center;
-    border: 1px solid grey;
+    border: 1px solid var(--MAIN-GREY);
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 20px;
@@ -1381,6 +1388,8 @@ form button:hover {
     .blue-button {
         width: fit-content;
     }
+
+    .logotype svg{width:18px; height:18px}
 
     /* Navbar */
 

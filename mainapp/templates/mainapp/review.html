@@ -25,6 +25,7 @@
     {% else %}
     <p>Congratulations! There are no cards to review in this deck for today!</p>
     {% endif %}
+    {% if flashcards_list %}
     <button id="flip-the-card-button" class="blue-button">Flip the card</button>
     <div class="quality-buttons-container center">
         <button class="blue-button" data-quality="0">Again</button>
@@ -32,6 +33,10 @@
         <button class="blue-button" data-quality="2">Good</button>
         <button class="blue-button" data-quality="3">Easy</button>
     </div>
+    {% else %}
+    <a href="{% url 'mainapp:user_profile' user.username %}"><button class="blue-button">Back to user panel</button></a>
+    {% endif %}
+
 </main>
 
 
