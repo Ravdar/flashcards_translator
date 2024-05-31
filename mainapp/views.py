@@ -13,7 +13,7 @@ import json
 import random
 import time
 from datetime import datetime
-from libs.contributions_django.graphs import generate_contributors_graph
+from contributions_django.graphs import generate_contributors_graph
 
 def landing_page(request):
      """View for landing page."""
