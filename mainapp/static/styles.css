@@ -982,17 +982,21 @@ footer p {
 }
 
 .blue-button,
-.translate-button {
+.translate-button, .green-button {
     font-size: 1.5em;
     font-weight: bold;
     border-radius: 5px;
-    background-color: var(--MAIN-BLUE);
     padding: 10px;
     align-self: center;
-    color: white;
+
     margin: 10px 0px 20px 0px;
     width: 100%;
 }
+.blue-button,
+.translate-button {
+    background-color: var(--MAIN-BLUE); color: white;}
+
+.green-button{display:none;background-color: var(--DECK-GREEN-2);border:1px solid var(--DECK-GREEN);color:var(--DECK-GREEN)};
 
 .translate-button {
     width: fit-content;
