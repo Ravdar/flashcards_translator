@@ -989,7 +989,7 @@ footer p {
 }
 
 .blue-button,
-.translate-button, .green-button {
+.translate-button,.green-button {
     font-size: 1.5em;
     font-weight: bold;
     border-radius: 5px;
@@ -999,11 +999,11 @@ footer p {
     margin: 10px 0px 20px 0px;
     width: 100%;
 }
-.blue-button,
-.translate-button {
-    background-color: var(--MAIN-BLUE); color: white;}
 
-.green-button{display:none;background-color: var(--DECK-GREEN-2);border:1px solid var(--DECK-GREEN);color:var(--DECK-GREEN)};
+.blue-button,
+.translate-button{    background-color: var(--MAIN-BLUE); color: white;}
+
+.green-button{display:none;background-color: var(--DECK-GREEN-2);color:var(--DECK-GREEN);border:1px solid var(--DECK-GREEN);}
 
 .translate-button {
     width: fit-content;

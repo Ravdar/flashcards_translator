@@ -1,3 +1,5 @@
 **/testing.ipynb
 **/.DS_Store
 ft_venv/
+*.pyc
+__pycache__/
