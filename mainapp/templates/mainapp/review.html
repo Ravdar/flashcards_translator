@@ -27,6 +27,7 @@
     {% endif %}
     <div class="all-review-buttons-container">
     <button id="flip-the-card-button" class="blue-button">Flip the card</button>
+    <a href="{% url 'mainapp:user_profile' user.username %}"><button class="green-button">Back to user panel</button></a>
     <div class="quality-buttons-container center">
         <button class="blue-button" data-quality="0">Again</button>
         <button class="blue-button" data-quality="1">Hard</button>
@@ -61,6 +62,16 @@
             });
         });
     }
+    
+    // hide flipCardButton and display greenButton
+     function showEndingButton(){
+        var flipCardButton = document.getElementById("flip-the-card-button");
+        var greenButton = document.querySelector(".green-button");
+
+        flipCardButton.style.display = "none";
+        greenButton.style.display = "flex";
+    }
+    
 
     // Execute Initalization
     initializeReviewElements();
@@ -88,8 +99,8 @@
                 },
                 dataType: 'json',
                 success: function (data) {
-                    if (data.id == "no more cards") { flashcardContainer.html('<br> <p>Congratulations! There are no cards to review in this deck for today!</p><br>')
-                        allButtonsContainer.html('<a href="""><button class="blue-button">Back to user panel</button></a>')
+                    if (data.id == "no more cards") { flashcardContainer.html('<br> <p>Congratulations! There are no cards to review in this deck for today!</p><br>');
+                        showEndingButton();
                     }
                     else {
                         cardId = data.id
