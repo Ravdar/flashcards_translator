@@ -1,5 +1,6 @@
 **/testing.ipynb
 **/.DS_Store
 ft_venv/
-*.pyc
-__pycache__/
+Procfile
+runtime.txt
+db.sqlite3
