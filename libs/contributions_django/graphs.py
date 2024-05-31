@@ -20,8 +20,8 @@ limitations under the License.
 # https://github.com/alexwlchan/contributions-graph which has an MIT license
 
 from collections import defaultdict
-from contributions_django import dateutils
-from contributions_django import settings
+from libs.contributions_django import dateutils
+from libs.contributions_django import settings
 
 from collections import namedtuple
 import datetime
