@@ -12,6 +12,7 @@ Django==4.2.10
 django-appconf==1.0.6
 django-select2==8.1.2
 django-toggle-switch-widget==0.1.3
+contributions-django @ git+https://github.com/vsoch/contributions-django.git@df79923e35ebbe94e1e2776073e77e8f9aea0837
 django-widget-tweaks==1.5.0
 filelock==3.13.3
 gunicorn==22.0.0
