@@ -4,7 +4,6 @@ cffi==1.16.0
 chardet==3.0.4
 charset-normalizer==3.3.2
 colorama==0.4.6
-contributions-django @ git+https://github.com/vsoch/contributions-django.git@df79923e35ebbe94e1e2776073e77e8f9aea0837
 cryptography==42.0.5
 dill==0.3.8
 distlib==0.3.8
