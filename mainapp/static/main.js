@@ -30,7 +30,7 @@ var faqs = document.querySelectorAll(".faq");
 
 faqs.forEach((faq) => {
     faq.addEventListener("click", (event) => {
-        const button = event.target.closest(".faq-button");
+        const button = faq.querySelector(".faq-button");
         faq.classList.toggle("active-faq");
         if (button.textContent === "+") {
             button.textContent = "-";

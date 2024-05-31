@@ -25,6 +25,7 @@
     {% else %}
     <p>Congratulations! There are no cards to review in this deck for today!</p>
     {% endif %}
+    <div class="all-review-buttons-container">
     <button id="flip-the-card-button" class="blue-button">Flip the card</button>
     <a href="{% url 'mainapp:user_profile' user.username %}"><button class="green-button">Back to user panel</button></a>
     <div class="quality-buttons-container center">
@@ -33,6 +34,7 @@
         <button class="blue-button" data-quality="2">Good</button>
         <button class="blue-button" data-quality="3">Easy</button>
     </div>
+</div>
 </main>
 
 
@@ -44,6 +46,7 @@
     // Initialize elements and assign actions to buttons
     function initializeReviewElements() {
         var flashcardBack = document.querySelector(".flashcard-back");
+        var allButtonsContainer = document.querySelector(".all-review-buttons-container")
         var flipCardButton = document.getElementById("flip-the-card-button");
         var qualityButtonsContainer = document.querySelector(".quality-buttons-container");
         var qualityButtons = qualityButtonsContainer.querySelectorAll("button");
@@ -83,6 +86,7 @@
     $(document).ready(function () {
         $('.quality-buttons-container button').click(function () {
             var flashcardContainer = $("#flashcard-container");
+            var allButtonsContainer = document.querySelector(".all-review-buttons-container")
             var quality = $(this).data("quality");
             $.ajax({
                 url: '{% url "mainapp:review" %}',

@@ -1,0 +1,1 @@
+web: gunicorn flashcards_translator.wsgi --log-file -
