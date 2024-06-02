@@ -50,17 +50,21 @@ class Profile(models.Model):
         """Returns the length of the current streak of consecutive days where the user has used the app."""
 
         unique_activity = list(set(self.activity))
-
         unique_activity_dates = [datetime.strptime(date, "%Y-%m-%d") for date in unique_activity]
         unique_activity_dates.sort(reverse=True)
 
-        streak = 0
-         
-        for i in range(1,len(unique_activity_dates)):
-            if unique_activity_dates[i-1]-unique_activity_dates[i] == timedelta(days=1):
-                 streak+=1
-            else:
-                break
+        if len(unique_activity_dates) ==0:
+            streak = 0
+        elif len(unique_activity_dates) == 1:
+            streak = 1 
+        else:
+
+            streak = 1
+            for i in range(1, len(unique_activity_dates)):
+                if unique_activity_dates[i-1] - unique_activity_dates[i] == timedelta(days=1):
+                    streak += 1
+                else:
+                    break
 
         return streak
              
