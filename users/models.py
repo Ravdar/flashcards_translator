@@ -53,12 +53,13 @@ class Profile(models.Model):
         unique_activity_dates = [datetime.strptime(date, "%Y-%m-%d") for date in unique_activity]
         unique_activity_dates.sort(reverse=True)
 
-        if len(unique_activity_dates) ==0:
+        print(len(unique_activity_dates))
+
+        if len(unique_activity_dates) == 0:
             streak = 0
-        if len(unique_activity_dates) == 1:
+        elif len(unique_activity_dates) == 1:
             streak = 1 
         else:
-
             streak = 1
             for i in range(1, len(unique_activity_dates)):
                 if unique_activity_dates[i-1] - unique_activity_dates[i] == timedelta(days=1):
