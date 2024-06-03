@@ -90,7 +90,7 @@ def translator(request):
                 new_deck.created_by = request.user
                 new_deck.user = request.user
                 new_deck.save()
-                 translator_form = TranslatorForm(request.user, initial={"is_flashcard":True, "decks":new_deck})
+                translator_form = TranslatorForm(request.user, initial={"is_flashcard":True, "decks":new_deck})
 
     return render(request, "mainapp/translator.html", {"translator_form":translator_form, "input_text":input_text, "output_text":output_text, "new_deck_form":new_deck_form, "language_from":language_from, "language_to":language_to} )
     
