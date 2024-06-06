@@ -9,7 +9,7 @@ Flashcard application which stands out by automatically generating cards during 
 [InstantCard Intro.webm](https://github.com/Ravdar/flashcards_translator/assets/97836782/1ff99611-d014-4790-8199-74cb314b9697)
 
 
-For a more detailed video with my commentary, click (video no added yet) [here.](https://www.youtube.com/watch?v=VewCNybNQKE)
+For a more detailed video with my commentary, click [here.](https://youtu.be/xNYPZF_Zt5I)
 
 # Features
 
