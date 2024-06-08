@@ -7,22 +7,42 @@
 &nbsp;
 <form method="post">
     {% csrf_token %}
-    {{form.username|add_class:"form-control"|attr:"placeholder:Username"}}
+
+    <!-- Username -->
+    {% if form.username.errors %}
+    <ul>
+        {% for error in form.username.errors %}
+            <li class="small-red-text">{{ error }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {{form.username|add_class:"form-control"|attr:"id:register-username-input"|attr:"placeholder:Username"}}
+
+    <!-- Password 1 -->
+    {% if form.password1.errors %}
+    <ul>
+        {% for error in form.password1.errors %}
+            <li class="small-red-text">{{ error }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     {{form.password1|add_class:"form-control"|attr:"placeholder:Password"}}
-    {{form.password2|add_class:"form-control"|attr:"placeholder:Confirm password"}}
-    <button class="small-blue-button" type="submit">Register</button>
+
+    <!-- Password 2 -->
+    {% if form.password2.errors %}
+    <ul>
+        {% for error in form.password2.errors %}
+            <li class="small-red-text">{{ error}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {{form.password2|add_class:"form-control"|attr:"id:register-password-input"|attr:"placeholder:Confirm password"}}
+    <button class="small-blue-button" type="submit" name="register">Register</button>
 </form>
 
-<!-- Log into guest account -->
-<form id="login-form" class="hidden" method="post">
-    {% csrf_token %}
-    {{login_form.username|add_class:"form-control"|attr:"id:username-input"|attr:"placeholder:Username"}}
-    {{login_form.password|add_class:"form-control"|attr:"id:password-input"|attr:"placeholder:Password"}}
-    <input type="hidden" name="next" value="{% url 'mainapp:translator' %}" />
-</form>
 <div class="guest-account-container">
-    Don't have an account yet?
-    <button id="guest-account-button" type="button" class="border-button">Try guest account</button>
+    Already have an account or want to try guest account?
+    <a href="{% url 'users:login' %}"><button type="button" class="border-button">Go to login page</button></a>
 </div>
 
 {% endblock content %}
