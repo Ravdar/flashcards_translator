@@ -2,5 +2,6 @@
 **/.DS_Store
 ft_venv/
 *.pyc
+mainapp/__pycache__/
 __pycache__/
 db.sqlite3
