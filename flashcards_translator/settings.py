@@ -48,6 +48,15 @@ INSTALLED_APPS = [
     "django_toggle_switch_widget",
     "contributions_django",
     'whitenoise.runserver_nostatic',
+    'tailwind',
+    'theme',
+    'django_browser_reload',
+]
+
+TAILWIND_APP_NAME = 'theme'
+
+INTERNAL_IPS = [
+    "127.0.0.1",
 ]
 
 MIDDLEWARE = [
@@ -59,6 +68,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = "flashcards_translator.urls"

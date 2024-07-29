@@ -1,0 +1,361 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="ravdar">
+    <meta name="description" content="Landing page for InstantCard website.">
+    <title>flangu - Create flashcards while translating</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'icons/instantcard-icon.ico' %}">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <script defer src="{% static 'main.js' %}"></script>
+</head>
+
+
+<body>
+    {% block content %}
+    <header id="header" class="center">
+        <div class="header-container">
+            <h3><a class="logotype" href="{% url 'mainapp:landing_page' %}">flangu</a></h3>
+            <nav class="landing-nav">
+                <a href="#how-it-works">How it works</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
+            </nav>
+            <div class="signs">
+                <!-- Displaying logout button and profile picture if user is logged in -->
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'users:logout' %}"><button class="border-button">Log out</button></a>
+                <a href="{% url 'mainapp:user_profile' user.username %}">
+                    {% if user.profile.profile_picture %}
+                    <div class="profile-picture-container">
+                        <img src="{{ user.profile.profile_picture.url }}" id="profile-picture" alt="Profile picture"
+                            width="40" height="40">
+                    </div>
+                    {% else %}
+                    <p>{{user.username}}</p>
+                    {% endif %}
+                </a>
+                {% else %}
+                <!-- Displaying sign up and sign in buttons if user is not logged -->
+                <a href="{% url 'users:register_view' %}"><button class="small-blue-button">Sign up</button></a>
+                <a href="{% url 'users:login' %}"><button class="border-button">Sign in</button></a>
+                {% endif %}
+            </div>
+
+            <!-- Burger menu for small screens -->
+            <button class="hamburger-button center">
+                <div class="hamburger-icon"></div>
+                <div class="hamburger-menu">
+                    <a href="#how-it-works">How it works</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#faq">FAQ</a>
+                    <br>
+                    <a href="{% url 'users:register_view' %}">Sign up</a>
+                    <a href="{% url 'users:login' %}">Sign in</a>
+                </div>
+            </button>
+        </div>
+    </header>
+
+    <main class="center">
+
+        <section class="hero">
+            <div class="hero-message">
+                <h1>Create flashcards while translating.</h1>
+                <!-- Rotating text card -->
+                <div class="instantly-card center">
+                    <div class="instantly-card-front">
+                        Instantly.
+                    </div>
+                    <div class="instantly-card-back">
+                        Al instante
+                    </div>
+                </div>
+                <p>New way of creating flashcards and learning languages.</p>
+                <ul>
+                    <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24px"
+                            height="24px" stroke-width="2" stroke="#09D997" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                        Create flashcards while translating the text</li>
+                    <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24px"
+                            height="24px" stroke-width="2" stroke="#09D997" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                        Repeat material using advanced algorithm</li>
+                    <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24px"
+                            height="24px" stroke-width="2" stroke="#09D997" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                        Review your progress through extensive statistics</li>
+                </ul><a href="{% url 'users:register_view' %}"><button class="blue-button">Get
+                        Started</button></a>
+            </div>
+            <img class="hero-image" src="{% static 'images/hero_image.jpg' %}" alt="Hero image" with="585" height="450">
+        </section>
+
+        <section id="how-it-works">
+            <div class="section-card">
+                <div class="section-front">
+                    <h1 class="section-h1-margin">So, how it works?</h1>
+                </div>
+                <div class="section-back">
+                    <div class="functions-container center">
+                        <div class="function-description center">
+                            <video width="372px" height="666px" autoplay muted loop>
+                                <source src="{% static 'videos/translating.mkv' %}">
+                            </video>
+                            <div class="center">
+                                <div class="step-card">Step 1</div>
+                                <h1>Create flashcards</h1>
+                                <p>Constantly switching between the translator and your flashcards app can be tedious.
+                                    However, you don't have to do it anymore! With the InstantCard app, you do it
+                                    <span> all
+                                        at once,</span> thus saving your precious time.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="function-description center">
+                            <div class="center">
+                                <div class="step-card step2">Step 2</div>
+                                <h1>Review material</h1>
+                                <p>Repeat the material as efficiently as possible, thanks to an <span>advanced
+                                        algorithm</span> that
+                                    is an improvement of the SM-2 allogrithm known, for example, from the Anki app.
+                                    Thanks to it, your learning will be as fast as never before!</p>
+                            </div>
+                            <video width="372px" height="666px" autoplay muted loop>
+                                <source src="{% static 'videos/reviewing.mkv' %}">
+                            </video>
+                        </div>
+                        <div class="function-description center">
+                            <video width="372px" height="666px" autoplay muted loop>
+                                <source src="{% static 'videos/translating.mkv' %}">
+                            </video>
+                            <div class="center">
+                                <div class="step-card">Step 3</div>
+                                <h1>Track your progress</h1>
+                                <p>With <span>detailed statistics</span>, you are aware of what your on study looks
+                                    like. You can
+                                    easily isolate areas you should focus on, track your progress, and plan for future
+                                    learning.</p>
+                            </div>
+                        </div>
+                        <div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+
+        <section id="pricing">
+            <h1>Pricing</h1>
+            <br>
+            <p>Find clear and flexible pricing options suited for your learning path. Experience value alligned
+                with your goals. Choose you ideal plan and dive into a world on language exploration.</p>
+            <div class="pricing-container center">
+                <div class="pricing-deck">
+                    <p class="bolded">Free</p>
+                    <h1>$0/mth</h1>
+                    <p>Get started with essentials. Try our solutions and find out if it suits you.</p>
+                    <br>
+                    <ul>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="20px"
+                                height="20px" stroke-width="2" stroke="#09D997" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>One deck</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="20px"
+                                height="20px" stroke-width="2" stroke="#09D997" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>Up to 200 cards</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="20px"
+                                height="20px" stroke-width="2" stroke="#09D997" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>35 languages</li>
+                    </ul>
+                    <br>
+                    <a href="{% url 'mainapp:hello_visitor' %}"><button class="blue-button">Get started now</button></a>
+
+                </div>
+                <div class="pricing-deck">
+                    <p class="bolded">Pro</p>
+                    <h1>$5/mth</h1>
+                    <p>Gain full, unlimited acces to our tools. Resign whenever you want.</p>
+                    <br>
+                    <ul>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="20px"
+                                height="20px" stroke-width="2" stroke="#09D997" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>Unlimited number of decks</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="20px"
+                                height="20px" stroke-width="2" stroke="#09D997" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>Unlimited cards</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="20px"
+                                height="20px" stroke-width="2" stroke="#09D997" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>35 languages</li>
+                    </ul>
+                    <br>
+
+                    <a href="{% url 'mainapp:hello_visitor' %}"><button class="blue-button">Get started now</button></a>
+                    <div class="pricing-tag">Most popular</div>
+                </div>
+                <div class="pricing-deck">
+                    <p class="bolded">Permanent</p>
+                    <h1>$50</h1>
+                    <p>Gain full, unlimited acces to our tools. One time payment. No subscription.</p>
+                    <br>
+                    <ul>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="20px"
+                                height="20px" stroke-width="2" stroke="#09D997" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>Unlimited number of decks</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="20px"
+                                height="20px" stroke-width="2" stroke="#09D997" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>Unlimited cards</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="20px"
+                                height="20px" stroke-width="2" stroke="#09D997" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>35 languages</li>
+                    </ul>
+                    <br>
+                    <a href="{% url 'mainapp:hello_visitor' %}"><button class="blue-button">Get started now</button></a>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="center">
+            <div class="section-card">
+                <div class="section-front center">
+                    <h1>Any questions?</h1>
+                </div>
+                <div class="section-back center">
+                    <h1>Frequently asked questions</h1>
+                    <div class="faqs">
+                        <div class="faq">
+                            <div class="question">
+                                <h3>What is InstantCard?</h3><button class="faq-button">+</button>
+                            </div><br>
+                            <div class="answer">
+                                <p>InstantCard is flashcard application. What distinguishes it from other such
+                                    applications is the function of automatic card creation when translating text.</p>
+                                <br>
+                            </div>
+                            <hr><br>
+                        </div>
+                        <div class="faq">
+                            <div class="question">
+                                <h3>What features does it have?</h3><button class="faq-button">+</button>
+                            </div><br>
+                            <div class="answer">
+                                <p>It can create flashcards while translating, translate text without creating
+                                    flashcards, add, edit and delete decks and flashcards. Then you can also study your
+                                    flashcards using an advanced algorithm designed to optimize learning. For now, basic
+                                    statistics are also available for viewing, an option that will be much more
+                                    extensive in the future.</p><br>
+                            </div>
+                            <hr><br>
+                        </div>
+
+                        <div class="faq">
+                            <div class="question">
+                                <h3>Is there a mobile app?</h3><button class="faq-button">+</button>
+                            </div><br>
+                            <div class="answer">
+                                <p>A mobile application is planned, but it is not yet available. Instead, you can use
+                                    the browser version on your phone at the moment, because the AnkiFlashcards website
+                                    is fully responsive!</p><br>
+                            </div>
+                            <hr><br>
+                        </div>
+                        <div class="faq">
+                            <div class="question">
+                                <h3>Are there any new features planned?</h3><button class="faq-button">+</button>
+                            </div><br>
+                            <div class="answer">
+                                <p>Yes, there are many upcoming features, including: much more advanced learning
+                                    statistics, the ability to create non-language decks and cards, the ability to add
+                                    images to cards, importing decks from other applications such as Anki, different
+                                    types of flashcards (such as gap), browser extension and much more!</p><br>
+                            </div>
+                            <hr><br>
+                        </div>
+                        <div class="faq">
+                            <div class="question">
+                                <h3>What kind of algorithm do you use for material review?</h3><button
+                                    class="faq-button">+</button>
+                            </div><br>
+                            <div class="answer">
+                                <p>AnkiFlashcards uses improved SM-2 algorithm. It is based on research into long-term
+                                    memory, and is a practical application of the spaced repetition learning method that
+                                    has been proposed for efficient learning.</p><br>
+                            </div>
+                            <hr><br>
+                        </div>
+                    </div>
+        </section>
+
+        <section id="get-started" class="ending-section center">
+            <h1>Learn languages fast and effectively</h1>
+            <p>Translate. Create flashcards. Study.</p>
+            <a href="{% url 'users:register_view' %}"><button class="blue-button">Start now!</button></a></div>
+            </div>
+        </section>
+
+    </main>
+
+    {% endblock content %}
+
+    <footer>
+        <div class="footer-container">
+            <h3><a class="logotype" href="{% url 'mainapp:landing_page' %}">InstantCard<svg xmlns="http://www.w3.org/2000/svg" width="18px"
+                height="18px" fill="#5299ff" viewBox="0 0 24 24" stroke-width="1.5" stroke="#5299ff" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+</svg>
+</a></h3>
+            <p class="footer-subtext">Create flashcards while translating. Instantly.</p>
+            <br>
+            <p>Copyright &copy 2024 - All rights reserved</p>
+            <p>Build by ravdar</p>
+        </div>
+        <div class="links-container">
+            <h4>LINKS</h4>
+            <a href="#how-it-works">How it works</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#faq">FAQ</a>
+            <a href="#get-started">Get started</a>
+            <br>
+            <a href="{% url 'users:register_view' %}">Sign up</a>
+            <a href="{% url 'users:login' %}">Sign in</a>
+        </div>
+        <div class="legal-container">
+            <h4>LEGAL</h4>
+            <a href="{% url 'mainapp:hello_visitor' %}">Terms of services</a>
+            <a href="{% url 'mainapp:hello_visitor' %}">Privacy Policy</a>
+        </div>
+        <div class="more-container">
+            <h4>MORE</h4><a href="https://movvie.pythonanywhere.com/">movvie</a><a
+                href="https://blooggin.pythonanywhere.com/">bloggin</a>
+        </div>
+    </footer>
+
+</body>
+
+</html>
