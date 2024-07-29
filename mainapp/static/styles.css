@@ -1300,6 +1300,8 @@ form button:hover {
     font-weight: normal;
 }
 
+.small-red-text{color:var(--MAIN-RED);font-size:0.75rem;}
+
 .hidden {
     display: none;
 }
