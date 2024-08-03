@@ -1,5 +1,6 @@
 {% load static %}
 {% load widget_tweaks %}
+{% load static tailwind_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,33 +10,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="ravdar">
     <meta name="description" content="Log in and registration template form for 'AnkiTranslator' website.">
-    <title>InstantCard</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
-    <script defer src="{% static 'main.js' %}"></script>
+    <title>flangi</title>
+    {% tailwind_css %}
 </head>
 
-<body class="center">
-<a class="logotype-login" href="{% url 'mainapp:landing_page' %}">InstantCard<svg xmlns="http://www.w3.org/2000/svg" width="40px"
-        height="40px" fill="#5299ff" viewBox="0 0 24 24" stroke-width="1.5" stroke="#5299ff" class="w-6 h-6">
-<path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
-</svg>
-</a>
-    <br><br>
+<body class="flex font-satoshi bg-white">
+
+    <div class=" w-1/2 h-screen flex justify-center">
+    <div class="justify-center text-[18px] flex flex-col gap-[24px] mw-[240px]">
+    <a href="{% url 'mainapp:landing_page' %}" class="mb-[36px]"><svg width="72" height="26" viewBox="0 0 72 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0.264 7H1.92V6.04C1.92 2.464 3.696 0.904 6.504 0.904C7.008 0.904 7.584 0.951999 8.16 1.048V4.216H7.128C5.856 4.216 5.616 5.008 5.616 6.04V7H10.032V0.904H13.728V19H10.032V10.072H5.616V19H1.92V10.072H0.264V7ZM20.1332 19.312C17.5892 19.312 16.0052 17.824 16.0052 15.472C16.0052 13.264 17.5652 11.896 20.4452 11.68L23.8052 11.416V11.224C23.8052 10.048 23.0852 9.424 21.7652 9.424C20.2052 9.424 19.3652 10.024 19.3652 11.104H16.2932C16.2932 8.392 18.5252 6.616 21.9572 6.616C25.4372 6.616 27.4052 8.56 27.4052 11.992V19H24.1412L23.9012 17.416C23.5172 18.52 21.9332 19.312 20.1332 19.312ZM21.4292 16.576C22.8452 16.576 23.8292 15.88 23.8292 14.512V13.864L21.9572 14.032C20.3492 14.176 19.7732 14.536 19.7732 15.304C19.7732 16.168 20.3012 16.576 21.4292 16.576ZM33.7521 19H30.0561V7H33.5361L33.7761 8.248C34.5201 7.216 35.8881 6.616 37.4481 6.616C40.3041 6.616 41.9601 8.44 41.9601 11.584V19H38.2641V12.472C38.2641 10.96 37.4241 9.976 36.1521 9.976C34.6881 9.976 33.7521 10.936 33.7521 12.424V19ZM44.0107 12.784C44.0107 9.136 46.3867 6.592 49.7708 6.592C51.4028 6.592 52.6988 7.216 53.3468 8.2L53.5388 7H57.0188V18.232C57.0188 22.528 54.5468 25.12 50.4428 25.12C46.7708 25.12 44.2988 23.032 43.9628 19.624H47.7068C47.7788 20.968 48.7868 21.76 50.4188 21.76C52.1948 21.76 53.3228 20.704 53.3228 19V17.44C52.6028 18.304 51.2588 18.856 49.6988 18.856C46.3388 18.856 44.0107 16.384 44.0107 12.784ZM47.7308 12.688C47.7308 14.416 48.8828 15.64 50.5148 15.64C52.1948 15.64 53.3228 14.464 53.3228 12.688C53.3228 10.936 52.1948 9.808 50.4908 9.808C48.8588 9.808 47.7308 10.984 47.7308 12.688ZM67.7663 7H71.4623V19H67.9823L67.7423 17.656C66.9983 18.64 65.5103 19.312 64.0703 19.312C61.3343 19.312 59.6543 17.488 59.6543 14.536V7H63.3503V13.192C63.3503 15.16 64.0223 16.024 65.5343 16.024C67.1183 16.024 67.7663 15.208 67.7663 13.24V7Z" fill="#5687E8"/>
+        </svg></a>
     {% block content %}
-    <h3>Please log in</h3>
-    &nbsp;
-    <form id="login-form" method="post">
+    <h1 class="text-[24px] font-bold">Welcome back!</h1>
+    <div>Do not have an account yet?<a href="{% url 'users:register_view' %}"><span class="font-bold text-mainblue"> Sign in</span></a></div>
+    <a href="google auth" class="rounded-[7px] w-full border-[1px] flex pt-[9px] pb-[9px] border-gray-500 gap-[18px] pl-[18px] items-center justify-center"><svg class="absolute left-[18px]" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_108_1873)">
+        <path d="M6.96721 0.65784C4.9689 1.35107 3.24556 2.66685 2.05032 4.41191C0.855082 6.15696 0.250946 8.23931 0.326651 10.3531C0.402355 12.4669 1.15391 14.5007 2.47092 16.1558C3.78794 17.8108 5.60099 19 7.64377 19.5485C9.2999 19.9758 11.035 19.9946 12.7 19.6032C14.2083 19.2644 15.6028 18.5397 16.7469 17.5C17.9376 16.3849 18.802 14.9664 19.2469 13.3969C19.7305 11.6901 19.8166 9.89524 19.4985 8.15003H10.1985V12.0078H15.5844C15.4768 12.6231 15.2461 13.2104 14.9062 13.7345C14.5663 14.2585 14.1242 14.7086 13.6063 15.0578C12.9486 15.4929 12.2072 15.7856 11.4297 15.9172C10.6499 16.0622 9.85011 16.0622 9.07033 15.9172C8.28 15.7538 7.53236 15.4276 6.87502 14.9594C5.819 14.2119 5.02608 13.1499 4.6094 11.925C4.18567 10.6772 4.18567 9.32441 4.6094 8.07659C4.906 7.20193 5.39632 6.40555 6.04377 5.7469C6.7847 4.97932 7.72273 4.43065 8.75495 4.16108C9.78718 3.89152 10.8737 3.91148 11.8953 4.21878C12.6934 4.46376 13.4232 4.8918 14.0266 5.46878C14.6339 4.86461 15.2401 4.25888 15.8453 3.65159C16.1578 3.32503 16.4985 3.01409 16.8063 2.67971C15.8853 1.82265 14.8042 1.15574 13.625 0.717215C11.4777 -0.0624883 9.12811 -0.0834421 6.96721 0.65784Z" fill="white"/>
+        <path d="M6.96758 0.657806C9.1283 -0.08398 11.4779 -0.0635778 13.6254 0.715618C14.8048 1.15712 15.8854 1.82724 16.8051 2.68749C16.4926 3.02187 16.1629 3.33437 15.8441 3.65937C15.2379 4.26458 14.6322 4.8677 14.027 5.46874C13.4236 4.89177 12.6938 4.46373 11.8957 4.21874C10.8744 3.91037 9.78792 3.88926 8.75542 4.15772C7.72292 4.42618 6.78432 4.97384 6.04258 5.74062C5.39513 6.39927 4.90481 7.19564 4.6082 8.07031L1.36914 5.56249C2.52853 3.26337 4.53594 1.50472 6.96758 0.657806Z" fill="#E33629"/>
+        <path d="M0.509175 8.04688C0.683271 7.18405 0.972306 6.34848 1.36855 5.5625L4.60761 8.07656C4.18389 9.32439 4.18389 10.6772 4.60761 11.925C3.52845 12.7583 2.44876 13.5958 1.36855 14.4375C0.376598 12.463 0.07407 10.2133 0.509175 8.04688Z" fill="#F8BD00"/>
+        <path d="M10.198 8.14844H19.498C19.8161 9.89365 19.73 11.6885 19.2464 13.3953C18.8015 14.9648 17.9371 16.3834 16.7464 17.4984C15.7011 16.6828 14.6511 15.8734 13.6058 15.0578C14.124 14.7082 14.5663 14.2576 14.9063 13.733C15.2462 13.2084 15.4766 12.6205 15.5839 12.0047H10.198C10.1964 10.7203 10.198 9.43437 10.198 8.14844Z" fill="#587DBD"/>
+        <path d="M1.36719 14.4375C2.4474 13.6042 3.52708 12.7667 4.60625 11.925C5.02376 13.1503 5.81782 14.2123 6.875 14.9594C7.53439 15.4254 8.28364 15.7489 9.075 15.9094C9.85478 16.0544 10.6546 16.0544 11.4344 15.9094C12.2119 15.7778 12.9533 15.485 13.6109 15.05C14.6563 15.8656 15.7062 16.675 16.7516 17.4906C15.6076 18.5308 14.2132 19.2561 12.7047 19.5953C11.0397 19.9867 9.30457 19.9679 7.64844 19.5406C6.3386 19.1909 5.11512 18.5744 4.05469 17.7297C2.93228 16.8386 2.01556 15.7156 1.36719 14.4375Z" fill="#319F43"/>
+        </g>
+        <defs>
+        <clipPath id="clip0_108_1873">
+        <rect width="20" height="20" fill="white"/>
+        </clipPath>
+        </defs>
+        </svg><span>Continue with Google</span></a>
+        <div class="flex items-center">
+            <hr class="flex-1 border-t border-gray-300" />
+            <span class="mx-4 text-gray-300">OR</span>
+            <hr class="flex-1 border-t border-gray-300" />
+          </div>
+
+    <form id="login-form" method="post" class="flex flex-col gap-[18px]">
         {% csrf_token %}
-        {{form.username|add_class:"form-control"|attr:"id:username-input"|attr:"placeholder:Username"}}
-        {{form.password|add_class:"form-control"|attr:"id:password-input"|attr:"placeholder:Password"}}
-        <button type="submit" class="small-blue-button">Login</button>
-        <input type="hidden" name="next" value="{% url 'mainapp:translator' %}" />
+        <div class="flex flex-col">
+            <label for="username-input" class=" font-bold text-gray-700">Email<span class="text-red-600">*</span></label>
+            {{ form.username|add_class:"bg-white border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-1 focus-ring-mainblue"|attr:"placeholder:Type your email..."}}
+          </div>
+          <div class="flex flex-col">
+            <label for="password-input" class="text-gray-700 font-bold">Password<span class="text-red-600">*</span></label>
+            {{ form.password|add_class:"bg-white border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-1 focus-ring-mainblue"|attr:"placeholder:Type your password..."}}
+          </div>
+          <div class="flex justify-between text-[14px] text-mainblue"><span>Remember me</span><span>Forget your password?</span></div>
+          <button type="submit" class="bg-mainblue rounded-md px-4 py-2 w-full text-white">Login</button>
+          <input type="hidden" name="next" value="{% url 'mainapp:translator' %}" />          
+        </div>            
     </form>
-    <div class="guest-account-container">
-        Don't have an account yet?
-        <button id="guest-account-button" type="button" class="border-button">Try guest account</button>
-    </div>
-    {% endblock content %}
+    {% endblock content %}</div></div>
+
+    <div class="w-1/2 h-screen p-[18px]"><div class="w-full h-full bg-mainblue rounded-[15px]"></div></div>
 
 
 
