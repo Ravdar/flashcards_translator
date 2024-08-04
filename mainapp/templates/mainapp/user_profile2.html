@@ -1,0 +1,149 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="ravdar">
+    <meta name="description" content="User panel for InstantCard website.">
+    <title>InstantCard - dashboard</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'icons/instantcard-icon.ico' %}">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <script defer src="{% static 'main.js' %}"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <ul>
+            <li class="logo">
+                <a href="{% url 'mainapp:user_profile' user.username %}" class="nav-link1">
+                    <h2 class="link-text logo-text">InstantCard</h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="42px"
+                    height="42px" fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+    </svg>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{% url 'mainapp:user_profile' user.username %}" class="nav-link">
+                    <svg fill="white" width="40px" height="40px" viewBox="0 0 20 20" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="Page-1" stroke="none" stroke-width="1" fill-rule="evenodd">
+                            <g id="Dribbble-Light-Preview" transform="translate(-380.000000, -2199.000000)">
+                                <g id="icons" transform="translate(56.000000, 160.000000)">
+                                    <path
+                                        d="M342,2055.615 C342,2055.722 341.97,2055.821 341.939,2055.918 C341.723,2052.974 339.918,2050.482 337.375,2049.283 C338.368,2048.369 339,2047.071 339,2045.615 C339,2043.534 337.728,2041.753 335.92,2041 L341,2041 C341.552,2041 342,2041.063 342,2041.615 L342,2055.615 Z M339.963,2057 L327.975,2057 C327.974,2057 327.969,2056.741 327.969,2056.701 C327.969,2053.605 330.326,2050.96 333.339,2050.645 C334,2050.733 334.255,2050.622 334.623,2050.576 C337.625,2050.902 339.969,2053.623 339.969,2056.71 C339.969,2056.75 339.964,2057 339.963,2057 L339.963,2057 Z M326,2055.615 L326,2041.615 C326,2041.063 326.448,2041 327,2041 L332.08,2041 C330.272,2041.753 329,2043.534 329,2045.615 C329,2047.06 329.622,2048.351 330.602,2049.264 C328.107,2050.422 326.307,2052.82 326.012,2055.675 C326.011,2055.654 326,2055.636 326,2055.615 L326,2055.615 Z M337,2045.615 C337,2047.055 335.979,2048.26 334.623,2048.548 C334.033,2048.5 333.868,2048.508 333.368,2048.545 C332.017,2048.254 331,2047.052 331,2045.615 C331,2043.961 332.346,2042.615 334,2042.615 C335.654,2042.615 337,2043.961 337,2045.615 L337,2045.615 Z M342,2039 L326,2039 C324.895,2039 324,2039.895 324,2041 L324,2057 C324,2058.104 324.895,2059 326,2059 L342,2059 C343.105,2059 344,2058.104 344,2057 L344,2041 C344,2039.895 343.105,2039 342,2039 L342,2039 Z"
+                                        id="profile_image_round-[#1326]">
+                                    </path>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                    <span class="link-text">{{user.username}}</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{% url 'mainapp:translator' %}" class="nav-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="white" width="40px" height="40px"
+                        viewBox="0 0 640 512">
+                        <path
+                            d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z" />
+                    </svg>
+                    <span class="link-text">Translator</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{% url 'mainapp:decks' %}" class="nav-link">
+                    <svg fill="white" width="40px" height="40px" viewBox="0 0 256 256" id="Flat"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M200.00781,88V200a16.01833,16.01833,0,0,1-16,16h-144a16.01833,16.01833,0,0,1-16-16V88a16.01833,16.01833,0,0,1,16-16h144A16.01833,16.01833,0,0,1,200.00781,88Zm16-48h-152a8,8,0,0,0,0,16h152V176a8,8,0,0,0,16,0V56A16.01833,16.01833,0,0,0,216.00781,40Z" />
+                    </svg>
+                    <span class="link-text">Decks</span>
+                </a>
+            </li>
+
+
+            <li class="nav-item">
+                <a href="{% url 'mainapp:hello_visitor' %}" class="nav-link">
+                    <svg fill="white" width="40px" height="40px" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 448 512">
+                        <path
+                            d="M160 80c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V80zM0 272c0-26.5 21.5-48 48-48H80c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V272zM368 96h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H368c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48z" />
+                    </svg>
+                    <span class="link-text">Statistics</span>
+                </a>
+            </li>
+
+            <li class="nav-item center" id="themeButton">
+                <?xml version="1.0" encoding="utf-8"?>
+                <a href="{% url 'users:logout' %}" class="nav-link1">
+                    <svg fill="white" width="40px" height="40px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M17.2929 14.2929C16.9024 14.6834 16.9024 15.3166 17.2929 15.7071C17.6834 16.0976 18.3166 16.0976 18.7071 15.7071L21.6201 12.7941C21.6351 12.7791 21.6497 12.7637 21.6637 12.748C21.87 12.5648 22 12.2976 22 12C22 11.7024 21.87 11.4352 21.6637 11.252C21.6497 11.2363 21.6351 11.2209 21.6201 11.2059L18.7071 8.29289C18.3166 7.90237 17.6834 7.90237 17.2929 8.29289C16.9024 8.68342 16.9024 9.31658 17.2929 9.70711L18.5858 11H13C12.4477 11 12 11.4477 12 12C12 12.5523 12.4477 13 13 13H18.5858L17.2929 14.2929Z" />
+                        <path
+                            d="M5 2C3.34315 2 2 3.34315 2 5V19C2 20.6569 3.34315 22 5 22H14.5C15.8807 22 17 20.8807 17 19.5V16.7326C16.8519 16.647 16.7125 16.5409 16.5858 16.4142C15.9314 15.7598 15.8253 14.7649 16.2674 14H13C11.8954 14 11 13.1046 11 12C11 10.8954 11.8954 10 13 10H16.2674C15.8253 9.23514 15.9314 8.24015 16.5858 7.58579C16.7125 7.4591 16.8519 7.35296 17 7.26738V4.5C17 3.11929 15.8807 2 14.5 2H5Z" />
+                    </svg>
+                    <span class="link-text">Logout</span>
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+
+    {% block content %}
+    <main class="main-user-profile">
+        <div class="today-stats">
+            <h1>TODAY</h1>
+            <h3> studied <span class="today-studied">{{total_cards_reviewed_today}}</span> cards from <span
+                    class="today-studied">{{total_decks_reviewed_today}}</span> decks</h3>
+            <h3><span class="today-left">{{total_cards_to_review_today}}</span> cards from <span
+                    class="today-left">{{total_decks_to_review_today}}</span> decks left</h3>
+        </div>
+        <div class="today-stats">
+            <div class="center">
+                <h1>ACTIVITY STREAK</h1>
+                <svg width="50px" height="50px" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="white" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z" />
+                </svg>
+            </div>
+
+            <div class="streak">{{activity_streak}}</div>
+        </div>
+        <div class="today-stats">
+            <h1>STUDY</h1>
+            <div class="decks-container">
+                {% for deck_data in decks_data %}
+                <div class="deck-container">
+                    <a href="{% url 'mainapp:review' %}?deck_name={{ deck_data.deck.name }}"
+                        class="light-deck center">{{deck_data.deck.name}}</a>
+                    <div class="number-reviewed">{{deck_data.number_of_flashcards_reviewed_today}}</div>
+                    <div class="number-to-review">{{deck_data.number_of_flashcards_to_review}}</div>
+
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+        <div class="today-stats">
+            <h1>ACTIVTY</h1>
+            {% include "contributions_django/graph.html" %}
+        </div>
+    </main>
+
+    {% endblock content %}
+
+</body>
+
+
+</html>
