@@ -839,6 +839,18 @@ select {
   left: 18px;
 }
 
+.right-\[9px\] {
+  right: 9px;
+}
+
+.top-\[50\%\] {
+  top: 50%;
+}
+
+.top-1\/2 {
+  top: 50%;
+}
+
 .isolate {
   isolation: isolate;
 }
@@ -962,6 +974,11 @@ select {
   border-collapse: collapse;
 }
 
+.-translate-y-1\/2 {
+  --tw-translate-y: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
@@ -984,6 +1001,10 @@ select {
 
 .items-center {
   align-items: center;
+}
+
+.items-baseline {
+  align-items: baseline;
 }
 
 .justify-center {
@@ -1028,6 +1049,14 @@ select {
 
 .gap-\[32px\] {
   gap: 32px;
+}
+
+.gap-\[9px\] {
+  gap: 9px;
+}
+
+.gap-\[4px\] {
+  gap: 4px;
 }
 
 .scroll-smooth {
@@ -1164,6 +1193,18 @@ select {
   padding-top: 9px;
 }
 
+.pb-\[36px\] {
+  padding-bottom: 36px;
+}
+
+.pl-\[36px\] {
+  padding-left: 36px;
+}
+
+.pr-\[36px\] {
+  padding-right: 36px;
+}
+
 .text-center {
   text-align: center;
 }
@@ -1203,6 +1244,10 @@ select {
 
 .font-extrabold {
   font-weight: 800;
+}
+
+.font-normal {
+  font-weight: 400;
 }
 
 .leading-\[1em\] {
