@@ -1,0 +1,44 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="ravdar">
+    <meta name="description" content="Log in and registration template form for 'AnkiTranslator' website.">
+    <title>flangi</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <script defer src="{% static 'main.js' %}"></script>
+</head>
+
+<body class="center">
+<a class="logotype-login" href="{% url 'mainapp:landing_page' %}">InstantCard<svg xmlns="http://www.w3.org/2000/svg" width="40px"
+        height="40px" fill="#5299ff" viewBox="0 0 24 24" stroke-width="1.5" stroke="#5299ff" class="w-6 h-6">
+<path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+</svg>
+</a>
+    <br><br>
+    {% block content %}
+    <h3>Please log in</h3>
+    &nbsp;
+    <form id="login-form" method="post">
+        {% csrf_token %}
+        {{form.username|add_class:"form-control"|attr:"id:username-input"|attr:"placeholder:Username"}}
+        {{form.password|add_class:"form-control"|attr:"id:password-input"|attr:"placeholder:Password"}}
+        <button type="submit" class="small-blue-button">Login</button>
+        <input type="hidden" name="next" value="{% url 'mainapp:translator' %}" />
+    </form>
+    <div class="guest-account-container">
+        Don't have an account yet?
+        <button id="guest-account-button" type="button" class="border-button">Try guest account</button>
+    </div>
+    {% endblock content %}
+
+
+
+</body>
+
+</html>

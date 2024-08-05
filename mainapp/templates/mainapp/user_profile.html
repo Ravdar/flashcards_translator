@@ -17,9 +17,9 @@
 </head>
 
 
-<body class="bg-whitesmoke">
+<body class="text-[18px] font-satoshi bg-whitesmoke h-screen w-screen">
     <nav style="height: calc(100% - 20px);" class="bg-mainblue rounded-tl-[15px] rounded-tr-[15px] fixed left-[20px] bottom-0 mt[40px] w-[98px] h-full pt-[20px]">
-        <ul class="gap-[24px] flex flex-col items-center"><li class="mb-[24px]"><a href="{% url 'mainapp:user_profile' user.username %}"><svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ul class="flex flex-col items-center h-full pb-[20px] justify-between"><div class="gap-[32px] items-center flex flex-col"><li class="mb-[32px]"><a href="{% url 'mainapp:user_profile' user.username %}"><svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M17.1638 39.1594L19.0388 26.25H11.0701L25.0951 6.0225H25.9613L24.1238 20.625H33.4988L18.0301 39.1594H17.1638Z" fill="#F5F5F5"/>
             </svg></a></li>
         <li><a href="{% url 'mainapp:user_profile' user.username %}"><svg width="28" height="27" viewBox="0 0 28 27" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -38,14 +38,39 @@
             </svg></a></li>
     <li><a href="{% url 'mainapp:hello_visitor' %}" ><svg width="28" height="27" viewBox="0 0 28 27" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M9.83333 23.2222V14.8889C9.83333 13.3547 8.58968 12.1111 7.05556 12.1111H4.27778C2.74365 12.1111 1.5 13.3547 1.5 14.8889V23.2222C1.5 24.7564 2.74365 26 4.27778 26H7.05556C8.58968 26 9.83333 24.7564 9.83333 23.2222ZM9.83333 23.2222V9.33333C9.83333 7.79921 11.077 6.55556 12.6111 6.55556H15.3889C16.9231 6.55556 18.1667 7.79921 18.1667 9.33333V23.2222M9.83333 23.2222C9.83333 24.7564 11.077 26 12.6111 26H15.3889C16.9231 26 18.1667 24.7564 18.1667 23.2222M18.1667 23.2222V3.77778C18.1667 2.24365 19.4103 1 20.9444 1H23.7222C25.2564 1 26.5 2.24365 26.5 3.77778V23.2222C26.5 24.7564 25.2564 26 23.7222 26H20.9444C19.4103 26 18.1667 24.7564 18.1667 23.2222Z" stroke="#F5F5F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg></a></li>
+        </svg></a></li></div>
+        <div class="gap-[32px] items-center flex flex-col">
         <li><a href="{% url 'mainapp:hello_visitor' %}" 
             ><svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M11.1731 2.82959C11.7653 0.390135 15.2347 0.390135 15.8269 2.82959C16.2094 4.40546 18.0149 5.1533 19.3997 4.30951C21.5435 3.00332 23.9967 5.45653 22.6906 7.60025C21.8467 8.98507 22.5946 10.7906 24.1704 11.1731C26.6099 11.7653 26.6099 15.2347 24.1704 15.8269C22.5946 16.2094 21.8467 18.0149 22.6906 19.3997C23.9967 21.5435 21.5435 23.9967 19.3997 22.6906C18.0149 21.8467 16.2094 22.5946 15.8269 24.1704C15.2347 26.6099 11.7653 26.6099 11.1731 24.1704C10.7906 22.5946 8.98508 21.8467 7.60026 22.6906C5.45653 23.9967 3.00332 21.5435 4.30951 19.3997C5.1533 18.0149 4.40546 16.2094 2.82959 15.8269C0.390135 15.2347 0.390135 11.7653 2.82959 11.1731C4.40546 10.7906 5.15329 8.98508 4.30951 7.60025C3.00332 5.45653 5.45653 3.00332 7.60026 4.30951C8.98508 5.15329 10.7906 4.40546 11.1731 2.82959Z" stroke="#F5F5F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M17.6666 13.5C17.6666 15.8012 15.8012 17.6666 13.4999 17.6666C11.1987 17.6666 9.33325 15.8012 9.33325 13.5C9.33325 11.1987 11.1987 9.33331 13.4999 9.33331C15.8012 9.33331 17.6666 11.1987 17.6666 13.5Z" stroke="#F5F5F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg></a></li>        
-    <li><a href="{% url 'users:logout' %}"><svg width="27" height="25" viewBox="0 0 27 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <li class="ml-[9px]"><a href="{% url 'users:logout' %}"><svg width="27" height="25" viewBox="0 0 27 25" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M20.4444 17.6667L26 12.1111M26 12.1111L20.4444 6.55556M26 12.1111H6.55556M14.8889 17.6667V19.0556C14.8889 21.3568 13.0235 23.2222 10.7222 23.2222H5.16667C2.86549 23.2222 1 21.3568 1 19.0556V5.16667C1 2.86549 2.86549 1 5.16667 1H10.7222C13.0235 1 14.8889 2.86549 14.8889 5.16667V6.55556" stroke="#F5F5F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg></a></li></ul>
+        </svg></a></li></div></ul>
     </nav>
+
+    <div class="h-full w-full pl-[236px] pr-[118px] pt-[59px] pb-[59px] grid gap-[24px] grid-rows-2"><div class="flex gap-[24px]">
+        <div class="bg-white rounded-[15px] w-[40vh] p-[18px] flex flex-col justify-between"><div class="text-[24px]"><span class="font-bold">Hi {{user.username}},</span> here is your learning status for today.</div><div class="flex flex-col gap-[18px] text-[18px] text-gray-400"><div>You reviewed <span class="font-bold text-mainblue text-[24px]">{{total_cards_reviewed_today}}</span> cards from <span class="font-bold text-mainblue text-[24px]">{{total_decks_reviewed_today}}</span> decks.</div><div> <span class="font-bold text-secblue text-[24px]">{{total_cards_to_review_today}}</span> cards from <span class="font-bold text-secblue text-[24px]">{{total_decks_to_review_today}}</span> decks left for review.</div></div></div>
+
+
+
+    <div class="bg-white rounded-[15px]  flex-grow p-[18px]"><div class="tracking-[0.15em] flex justify-center">DECKS FOR REVIEW</div><div class="flex gap-[18px] justify-center"></div>
+    {% for deck_data in decks_data %}
+    <div class="w-[120px] h-[170px] border-mainblue border-3 rounded-[15px] deck-box-shadow relative">
+        <a href="{% url 'mainapp:review' %}?deck_name={{ deck_data.deck.name }}"
+            class="">{{deck_data.deck.name}}</a>
+        <div class="text-[14px] text-mainblue absolute bottom-[5px] left-[5px]">{{deck_data.number_of_flashcards_reviewed_today}}</div>
+        <div class="text-[14px] text-secblue absolute bottom-[5px] right-[5px]">{{deck_data.number_of_flashcards_to_review}}</div>
+    </div>
+    {% endfor %}
+</div>
+
+
+</div>
+    <div class="flex gap-[24px]"><div class="bg-white rounded-[15px] flex-grow  p-[18px]"><div class="tracking-[0.15em] flex justify-center">ACTIVITY</div>            {% include "contributions_django/graph.html" %}</div>
+    <div class=" rounded-[15px] w-[40vh] gap-[24px] grid grid-cols-2 grid-rows-2"><div class="bg-mainblue rounded-[15px]"></div>
+    <div class="bg-mainblue rounded-[15px]"></div>
+    <div class="bg-mainblue rounded-[15px]"></div>
+    <div class="bg-mainblue rounded-[15px]"></div></div></div></div>
 </body>
