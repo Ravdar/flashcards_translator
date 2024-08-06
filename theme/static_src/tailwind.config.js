@@ -44,8 +44,12 @@ module.exports = {
     theme: {
         extend: { colors: {
             whitesmoke: '#f5f5f5',
-            secblue: '#8fbeff', // Add whitesmoke color
             mainblue: '#5687E8',
+            secblue: '#8fbeff',
+            thirdblue:'#4883f5',
+            fourthblue:'#3f62a6'
+            
+
           },},fontFamily: {
             satoshi: ['Satoshi', 'sans-serif'],
           },
