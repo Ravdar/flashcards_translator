@@ -18,32 +18,32 @@
                 {{ translator_form.is_flashcard|attr:"id:is-flashcard-switch2"}}
             </div>
             <div class="flex w-full gap-[18px]">
-                {{translator_form.decks|attr:" id:decks-list-selectbox"|add_class:"flex-grow rounded-[15px] border-2 border-gray-300"|attr:"placeholder:Click to select decks you want to add card into"}}
+                {{translator_form.decks|attr:" id:decks-list-selectbox"|add_class:"flex-grow rounded-[15px] border-2 border-gray-300 focus:ring-secblue focus:border-2 focus:border-secblue"|attr:"placeholder:Click to select decks you want to add card into"}}
                 <button type="button" id="add-deck-button" class="w-[50px] h-[50px] rounded-[15px] text-white bg-mainblue text-[40px] flex items-center justify-center">+</button>
             </div>
         </div>
         <input type="hidden" name="form_type" value="translator_form">
         <div class="w-full flex flex-grow gap-[18px]">
             <div class="flex-grow flex flex-col relative">
-                <textarea id="input-textarea" name="input_text" class="border-2 border-gray-300 rounded-[15px] h-[350px] p-[18px] pt-[54px] text-[26px] placeholder-gray-400 leading-normal"
+                <textarea id="input-textarea" name="input_text" class="focus:ring-secblue focus:border-2 focus:border-secblue resize-none border-2 border-gray-300 rounded-[15px] h-[350px] p-[18px] pt-[54px] text-[26px] placeholder-gray-300 leading-normal"
                     placeholder="Write the text that you want to translate"
                     spellcheck="false">{{input_text}}</textarea>
                 <div class="absolute flex ml-[18px] mt-[9px]">
                     <img id="from-country-flag" class="border-1 border-gray-300"
                         src="https://flagsapi.com/{{language_from.alpha2_code}}/flat/64.png" alt="{{language_from}}"
                         width="25px" height="25px">
-                    {{translator_form.from_language|attr:"id:from-language-selectbox"|add_class:"border-0 text-gray-400 pr-0 flex text-center m-0 pl-0 absolute left-0 bottom-[50%] translate-y-1/2 bg-transparent"}}
+                    {{translator_form.from_language|attr:"id:from-language-selectbox"|add_class:"border-0 text-gray-400 pr-0 flex text-center m-0 pl-0 absolute left-0 bottom-[50%] translate-y-1/2 bg-transparent focus:ring-0 focus:outline-none focus:shadow-none focus:border-0 hover:cursor-pointer"}}
                 </div>
             </div>
             <div class="flex-grow flex flex-col relative">
-                <textarea id="output-textarea" class="border-2 border-gray-300 rounded-[15px] h-[350px] p-[18px] pt-[54px] text-[26px] placeholder-gray-400 leading-normal"
+                <textarea id="output-textarea" class="hover:cursor-auto focus:ring-0 focus:outline-none focus:shadow-none focus:border-gray-300 resize-none border-2 border-gray-300 rounded-[15px] h-[350px] p-[18px] pt-[54px] text-[26px] placeholder-gray-300 leading-normal"
                     placeholder="Translated text will appear here. Flashcard will be created automatically" readonly
                     spellcheck="false">{{ output_text }}</textarea>
                 <div class="absolute flex ml-[18px] mt-[9px]">
                     <img id="to-country-flag" class="border-1 border-gray-300"
                         src="https://flagsapi.com/{{language_to.alpha2_code}}/flat/64.png" alt="{{language_to}}"
                         width="25px" height="25px">
-                    {{translator_form.to_language|attr:"id:to-language-selectbox"|add_class:"border-0 text-gray-400 pr-0 flex text-center m-0 pl-0 absolute left-0 bottom-[50%] translate-y-1/2 bg-transparent"}}
+                    {{translator_form.to_language|attr:"id:to-language-selectbox"|add_class:"border-0 text-gray-400 pr-0 flex text-center m-0 pl-0 absolute left-0 bottom-[50%] translate-y-1/2 bg-transparent focus:ring-0 focus:outline-none focus:shadow-none focus:border-0 hover:cursor-pointer"}}
                 </div>
             </div>
         </div>
