@@ -50,6 +50,8 @@
         </svg></a></li></div></ul>
     </nav>
 
+    {% block content %}
+
     <div class="h-full w-full pl-[236px] pr-[118px] pt-[59px] pb-[59px] grid gap-[24px] grid-rows-2"><div class="flex gap-[24px]">
         <div class="bg-white rounded-[15px] w-[40vh] p-[18px] flex flex-col justify-between"><div class="text-[24px]"><span class="font-bold">Hi {{user.username}},</span> here is your learning status for today.</div><div class="flex flex-col gap-[18px] text-[18px] text-gray-400"><div>You reviewed <span class="font-bold text-mainblue text-[24px]">{{total_cards_reviewed_today}}</span> cards from <span class="font-bold text-mainblue text-[24px]">{{total_decks_reviewed_today}}</span> decks.</div><div> <span class="font-bold text-secblue text-[24px]">{{total_cards_to_review_today}}</span> cards from <span class="font-bold text-secblue text-[24px]">{{total_decks_to_review_today}}</span> decks left for review.</div></div></div>
 
@@ -65,10 +67,10 @@
     </div>
     {% endfor %}
 </div>
-
-
 </div>
+
     <div class="flex gap-[24px]"><div class="bg-white rounded-[15px] flex-grow  p-[18px] flex flex-col justify-between"><div class="tracking-[0.15em] flex justify-center">ACTIVITY</div>{% include "contributions_django/graph.html" %}</div>
+
     <div class=" rounded-[15px] w-[40vh] gap-[24px] grid grid-cols-2 grid-rows-2"><div class="bg-thirdblue rounded-[15px] relative"><div class=" p-[18px] tracking-[0.15em] text-white text-[14px] flex justify-center">ADD CARD</div><svg class="absolute right-[50%] translate-x-1/2" width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M18.9302 36.465L26.9102 17.13L34.5602 36.525M32.0102 30.03H21.5852" stroke="#F5F5F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M48.9448 38.07H59.0248M53.5198 38.07C53.5198 44.58 45.5848 55.335 37.6348 56.985" stroke="#F5F5F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -98,4 +100,8 @@
         <path d="M12.54 31.92H59.46C60.024 31.918 60.5827 32.0276 61.1041 32.2425C61.6255 32.4574 62.0992 32.7733 62.4979 33.1721C62.8967 33.5709 63.2126 34.0446 63.4275 34.566C63.6424 35.0873 63.752 35.6461 63.75 36.21V59.49C63.75 60.6278 63.298 61.719 62.4935 62.5235C61.689 63.328 60.5978 63.78 59.46 63.78H12.54C11.4022 63.78 10.3111 63.328 9.50654 62.5235C8.70201 61.719 8.25003 60.6278 8.25003 59.49V36.21C8.24804 35.6461 8.35766 35.0873 8.57255 34.566C8.78744 34.0446 9.10336 33.5709 9.50212 33.1721C9.90088 32.7733 10.3746 32.4574 10.896 32.2425C11.4174 32.0276 11.9761 31.918 12.54 31.92Z" stroke="#F5F5F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M59.46 31.92V25.5C59.46 25.1022 59.302 24.7206 59.0207 24.4393C58.7394 24.158 58.3579 24 57.96 24H14.04C13.6422 24 13.2607 24.158 12.9794 24.4393C12.6981 24.7206 12.54 25.1022 12.54 25.5V31.905M56.07 24V17.625C56.07 17.2272 55.912 16.8456 55.6307 16.5643C55.3494 16.283 54.9679 16.125 54.57 16.125H17.43C17.0322 16.125 16.6507 16.283 16.3694 16.5643C16.0881 16.8456 15.93 17.2272 15.93 17.625V24M52.125 16.125V9.72C52.125 9.32218 51.967 8.94065 51.6857 8.65934C51.4044 8.37804 51.0229 8.22 50.625 8.22H21.375C20.9772 8.22 20.5957 8.37804 20.3144 8.65934C20.0331 8.94065 19.875 9.32218 19.875 9.72V16.125" stroke="#F5F5F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg></div></div></div></div>
+
+        {% endblock content %}
+
 </body>
+</html>

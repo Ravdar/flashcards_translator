@@ -883,12 +883,20 @@ select {
   bottom: 55%;
 }
 
+.left-0 {
+  left: 0px;
+}
+
 .isolate {
   isolation: isolate;
 }
 
 .m-\[18px\] {
   margin: 18px;
+}
+
+.m-0 {
+  margin: 0px;
 }
 
 .mx-4 {
@@ -919,6 +927,30 @@ select {
 
 .mb-\[18px\] {
   margin-bottom: 18px;
+}
+
+.mb-\[10\%\] {
+  margin-bottom: 10%;
+}
+
+.mb-\[20\%\] {
+  margin-bottom: 20%;
+}
+
+.mb-\[100px\] {
+  margin-bottom: 100px;
+}
+
+.ml-\[18px\] {
+  margin-left: 18px;
+}
+
+.mt-\[9px\] {
+  margin-top: 9px;
+}
+
+.mt-\[18px\] {
+  margin-top: 18px;
 }
 
 .block {
@@ -965,6 +997,26 @@ select {
   height: 100vh;
 }
 
+.h-\[50px\] {
+  height: 50px;
+}
+
+.h-\[400px\] {
+  height: 400px;
+}
+
+.h-\[300px\] {
+  height: 300px;
+}
+
+.h-\[350px\] {
+  height: 350px;
+}
+
+.max-h-\[400px\] {
+  max-height: 400px;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -1005,6 +1057,23 @@ select {
   width: 100vw;
 }
 
+.w-\[full\] {
+  width: full;
+}
+
+.w-\[500px\] {
+  width: 500px;
+}
+
+.w-\[50px\] {
+  width: 50px;
+}
+
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
 .max-w-\[1140px\] {
   max-width: 1140px;
 }
@@ -1016,6 +1085,30 @@ select {
 .max-w-fit {
   max-width: -moz-fit-content;
   max-width: fit-content;
+}
+
+.max-w-\[800px\] {
+  max-width: 800px;
+}
+
+.max-w-\[1000px\] {
+  max-width: 1000px;
+}
+
+.max-w-\[215px\] {
+  max-width: 215px;
+}
+
+.max-w-\[230px\] {
+  max-width: 230px;
+}
+
+.max-w-\[250px\] {
+  max-width: 250px;
+}
+
+.max-w-\[300px\] {
+  max-width: 300px;
 }
 
 .flex-1 {
@@ -1142,6 +1235,10 @@ select {
   border-radius: 0.375rem;
 }
 
+.rounded-\[50\%\] {
+  border-radius: 50%;
+}
+
 .rounded-tl-\[15px\] {
   border-top-left-radius: 15px;
 }
@@ -1156,6 +1253,14 @@ select {
 
 .border-\[1px\] {
   border-width: 1px;
+}
+
+.border-2 {
+  border-width: 2px;
+}
+
+.border-0 {
+  border-width: 0px;
 }
 
 .border-b-\[1px\] {
@@ -1179,6 +1284,11 @@ select {
 .border-mainblue {
   --tw-border-opacity: 1;
   border-color: rgb(86 135 232 / var(--tw-border-opacity));
+}
+
+.border-gray-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
 
 .bg-gray-50 {
@@ -1216,8 +1326,16 @@ select {
   background-color: rgb(72 131 245 / var(--tw-bg-opacity));
 }
 
+.bg-transparent {
+  background-color: transparent;
+}
+
 .p-\[18px\] {
   padding: 18px;
+}
+
+.p-0 {
+  padding: 0px;
 }
 
 .px-4 {
@@ -1314,6 +1432,50 @@ select {
   padding-top: 18px;
 }
 
+.pb-\[10\%\] {
+  padding-bottom: 10%;
+}
+
+.pb-\[20\%\] {
+  padding-bottom: 20%;
+}
+
+.pt-\[300px\] {
+  padding-top: 300px;
+}
+
+.pb-\[15\%\] {
+  padding-bottom: 15%;
+}
+
+.pt-\[36px\] {
+  padding-top: 36px;
+}
+
+.pt-\[54px\] {
+  padding-top: 54px;
+}
+
+.pb-\[5\%\] {
+  padding-bottom: 5%;
+}
+
+.pr-0 {
+  padding-right: 0px;
+}
+
+.pl-0 {
+  padding-left: 0px;
+}
+
+.pl-\[24px\] {
+  padding-left: 24px;
+}
+
+.pr-\[24px\] {
+  padding-right: 24px;
+}
+
 .text-center {
   text-align: center;
 }
@@ -1351,6 +1513,14 @@ select {
   font-size: 9px;
 }
 
+.text-\[40px\] {
+  font-size: 40px;
+}
+
+.text-\[26px\] {
+  font-size: 26px;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -1369,6 +1539,10 @@ select {
 
 .leading-normal {
   line-height: 1.5;
+}
+
+.leading-relaxed {
+  line-height: 1.625;
 }
 
 .tracking-\[-0\.05em\] {
@@ -1431,6 +1605,41 @@ select {
 .text-whitesmoke {
   --tw-text-opacity: 1;
   color: rgb(245 245 245 / var(--tw-text-opacity));
+}
+
+.text-gray-100 {
+  --tw-text-opacity: 1;
+  color: rgb(243 244 246 / var(--tw-text-opacity));
+}
+
+.placeholder-gray-300::-moz-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-placeholder-opacity));
+}
+
+.placeholder-gray-300::placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-placeholder-opacity));
+}
+
+.placeholder-gray-500::-moz-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-placeholder-opacity));
+}
+
+.placeholder-gray-500::placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-placeholder-opacity));
+}
+
+.placeholder-gray-400::-moz-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-placeholder-opacity));
+}
+
+.placeholder-gray-400::placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-placeholder-opacity));
 }
 
 .filter {

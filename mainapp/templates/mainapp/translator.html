@@ -1,160 +1,58 @@
 {% extends "mainapp/user_profile.html" %}
-
 {% load static %}
 {% load widget_tweaks %}
+{% load static tailwind_tags %}
+
 
 
 {% block content %}
-<main class="translator-main center">
-    <form method="post">
+
+<main class="h-full w-full pl-[236px] pr-[118px] flex justify-center items-center pb-[5%]">
+    <form method="post" class="w-full max-w-[1000px] flex flex-col gap-[18px] items-center">
         {{ translator_form.media.css }}
         {% csrf_token %}
-        <div class="is-flashcard-container">
-            <div class="flashcard-switch-container">
+        <div class="flex h-[50px] w-full justify-between gap-[18px]">
+            <div class="flex">
                 <label for="is-flashcard-switch2">Flashcard</label>
+                <!-- Change it (customize) -->
                 {{ translator_form.is_flashcard|attr:"id:is-flashcard-switch2"}}
             </div>
-            <div class="decks-list">
-                {{translator_form.decks|attr:" id:decks-list-selectbox"}}
-                <button type="button" id="add-deck-button" class="add-deck-button">+</button>
+            <div class="flex w-full gap-[18px]">
+                {{translator_form.decks|attr:" id:decks-list-selectbox"|add_class:"flex-grow rounded-[15px] border-2 border-gray-300"|attr:"placeholder:Click to select decks you want to add card into"}}
+                <button type="button" id="add-deck-button" class="w-[50px] h-[50px] rounded-[15px] text-white bg-mainblue text-[40px] flex items-center justify-center">+</button>
             </div>
         </div>
         <input type="hidden" name="form_type" value="translator_form">
-        <div class="textareas">
-            <div class="textarea-container">
-                <textarea id="input-textarea" name="input_text" class="input-box"
-                    placeholder="Write the text that you want to translate."
+        <div class="w-full flex flex-grow gap-[18px]">
+            <div class="flex-grow flex flex-col relative">
+                <textarea id="input-textarea" name="input_text" class="border-2 border-gray-300 rounded-[15px] h-[350px] p-[18px] pt-[54px] text-[26px] placeholder-gray-400 leading-normal"
+                    placeholder="Write the text that you want to translate"
                     spellcheck="false">{{input_text}}</textarea>
-                <div class="from-languages-container">
-                    <img id="from-country-flag" class="country-flag"
+                <div class="absolute flex ml-[18px] mt-[9px]">
+                    <img id="from-country-flag" class="border-1 border-gray-300"
                         src="https://flagsapi.com/{{language_from.alpha2_code}}/flat/64.png" alt="{{language_from}}"
                         width="25px" height="25px">
-                    {{translator_form.from_language|attr:"id:from-language-selectbox"|add_class:"language-selectbox"}}
+                    {{translator_form.from_language|attr:"id:from-language-selectbox"|add_class:"border-0 text-gray-400 pr-0 flex text-center m-0 pl-0 absolute left-0 bottom-[50%] translate-y-1/2 bg-transparent"}}
                 </div>
             </div>
-            <div class="textarea-container">
-                <textarea id="output-textarea" class="output-box"
-                    placeholder="Translated text will appear here. Flashcard will be created automatically." readonly
+            <div class="flex-grow flex flex-col relative">
+                <textarea id="output-textarea" class="border-2 border-gray-300 rounded-[15px] h-[350px] p-[18px] pt-[54px] text-[26px] placeholder-gray-400 leading-normal"
+                    placeholder="Translated text will appear here. Flashcard will be created automatically" readonly
                     spellcheck="false">{{ output_text }}</textarea>
-                <div class="to-languages-container">
-                    <img id="to-country-flag" class="country-flag"
+                <div class="absolute flex ml-[18px] mt-[9px]">
+                    <img id="to-country-flag" class="border-1 border-gray-300"
                         src="https://flagsapi.com/{{language_to.alpha2_code}}/flat/64.png" alt="{{language_to}}"
                         width="25px" height="25px">
-                    {{translator_form.to_language|attr:"id:to-language-selectbox"|add_class:"language-selectbox"}}
+                    {{translator_form.to_language|attr:"id:to-language-selectbox"|add_class:"border-0 text-gray-400 pr-0 flex text-center m-0 pl-0 absolute left-0 bottom-[50%] translate-y-1/2 bg-transparent"}}
                 </div>
             </div>
         </div>
-        <button type="button" class="translate-button">Translate</button>
+        <button type="button" class=" mt-[18px] bg-mainblue rounded-[15px] h-[50px] pl-[24px] pr-[24px] max-w-[300px] text-[18px] text-white tracking-[0.15em]">TRANSLATE</button>
     </form>
 
 </main>
 
 
-
-<!-- Flashcard created popup -->
-<div class="flashcard-created-popup">Flashcard created!</div>
-
-<!-- Modal window for adding a deck -->
-<div class="add-deck-container">
-    <button><img class="close-dial" src="{% static 'images/close_dial.png' %}" alt="Close" loading="lazy" width="25"
-            height="25"></button>
-    <h2>Add new deck</h2>
-    <form method="post">
-        {% csrf_token %}
-        <label for="new_deck_form_name">Name:</label>
-        {{new_deck_form.name}}
-        <label for="new_deck_form_description">Description:</label>
-        {{new_deck_form.description}}
-        <button class="blue-button" type="submit">Add</button>
-    </form>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-{{ translator_form.media.js }}
-
-<script>
-
-
-    // Translation AJAX request
-
-    var outputTextarea = document.getElementById("output-textarea");
-    var flashcardPopup = document.querySelector(".flashcard-created-popup");
-
-    $(document).ready(function () {
-        $('.translate-button').click(function () {
-            // Retrieve input data
-            var fromLanguage = document.getElementById("from-language-selectbox").selectedOptions[0];
-            var toLanguage = document.getElementById("to-language-selectbox").selectedOptions[0];
-            var isFlashcard = document.getElementById("is-flashcard-switch2").checked;
-            var selectedDecks = document.getElementById("decks-list-selectbox").selectedOptions;
-            var selectedDeckValues = [];
-            var inputText = document.getElementById("input-textarea").value;
-            //Reset animation property
-            flashcardPopup.style.animation = '';
-            // Transform retrieved data
-            for (var i = 0; i < selectedDecks.length; i++) {
-                selectedDeckValues.push(selectedDecks[i].textContent);
-            }
-            // AJAX
-            $.ajax({
-                url: '{% url "mainapp:translator" %}',
-                data: {
-                    'action': "translate",
-                    'input_text': inputText,
-                    'is_flashcard': isFlashcard,
-                    'decks': JSON.stringify(selectedDeckValues),
-                    'from_language': fromLanguage.textContent,
-                    'to_language': toLanguage.textContent,
-                },
-                dataType: 'json',
-                success: function (data) {
-                    outputTextarea.textContent = data.output_text;
-                    if (isFlashcard == true) {
-                        flashcardPopup.style.animation = 'showPopup 2s ease-in-out'
-                    };
-                },
-                error: function (xhr, status, error) {
-                    console.log("Error occurred: " + error);
-                }
-            });
-        });
-    });
-
-    // Change country flag AJAX request
-
-    var fromLanguageSelectbox = document.getElementById("from-language-selectbox");
-    var toLanguageSelectbox = document.getElementById("to-language-selectbox");
-    var languageSelectboxes = document.querySelectorAll(".language-selectbox");
-    var fromCountryFlag = document.getElementById("from-country-flag");
-    var toCountryFlag = document.getElementById("to-country-flag");
-
-
-
-    languageSelectboxes.forEach(selectbox => {
-        selectbox.addEventListener("change", function () {
-            var fromLanguage = fromLanguageSelectbox.selectedOptions[0].textContent;
-            var toLanguage = toLanguageSelectbox.selectedOptions[0].textContent;
-            $.ajax({
-                url: '{% url "mainapp:translator" %}',
-                data: {
-                    'action': "change_flag",
-                    'from_language_string': fromLanguage,
-                    'to_language_string': toLanguage,
-                },
-                success: function (data) {
-                    fromCountryFlag.src = "https://flagsapi.com/" + data.language_from_alpha2_code + "/flat/64.png";
-                    toCountryFlag.src = "https://flagsapi.com/" + data.language_to_alpha2_code + "/flat/64.png"
-
-                },
-                error: function (xhr, status, error) {
-                    console.log("Error occurred: " + error);
-                }
-            });
-        });
-    });
-
-
-</script>
 
 
 
